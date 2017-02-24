@@ -1,0 +1,239 @@
+<!-- INVOICE LIST ITEMS -->
+<!--<div class="invoice-list-item" ng-repeat="payment in items | filter: vm.search | filter: global.search"-->
+<!--md-ink-ripple-->
+<!--ng-click="vm.selectPayment(payment)"-->
+<!--ng-class="{'starred': payment.starred, 'selected': vm.selectedPayment === payment, 'checked': vm.isChecked(payment)}">-->
+
+<!--<div layout="row" layout-align="start center">-->
+<!--<md-checkbox class="no-label"-->
+<!--ng-checked="vm.isChecked(payment)"-->
+<!--ng-click="vm.toggleCheck(payment, $event)"-->
+<!--aria-label="{{vm.isChecked(payment)? 'Uncheck':'check'}}">-->
+<!--</md-checkbox>-->
+
+
+<!--<div class="info" flex layout="row">-->
+<!--&lt;!&ndash;<div class="clientCygil" layout="row" layout-align="start center">&ndash;&gt;-->
+<!--&lt;!&ndash;<img class="listMedia" ng-if="payment.clientpic" alt="{{payment.clientname}}" ng-src="{{payment.clientpic}}"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="listMedia" ng-if="!payment.clientpic" ms-random-class="vm.colors">&ndash;&gt;-->
+<!--&lt;!&ndash;{{payment.clientname[0]}}&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div class="invoiceMainInfo" layout="column" layout-align="center start">-->
+<!--<span>{{payment.customer}}</span>-->
+<!--<div class="invoiceType">-->
+<!--{{payment.paymentNo}}-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="date" layout="column" layout-align="center center" style="padding-right: 200px;">-->
+<!--<span>{{payment.paymentDate | parseDate | date: 'dd'}}</span><span>{{payment.paymentDate | parseDate | date: 'MMMM'}}</span><span>{{payment.paymentDate | parseDate | date: 'yyyy'}}</span>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;<div class="client" layout="column" layout-align="center center">&ndash;&gt;-->
+<!--&lt;!&ndash;{{payment.amount| currency:" "}}&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div class="status" layout="column" layout-align="center center">-->
+<!--<span class="pill partial" >{{payment.paymentMethod}}</span>-->
+<!--</div>-->
+<!--&lt;!&ndash;style="background-color: {{payment.StatusColor}}"&ndash;&gt;-->
+
+<!--<div class="value" layout="column" layout-align="center center">-->
+<!--<span class="ammount"><i>{{payment.currency}}</i>{{payment.amount}}</span>-->
+<!--&lt;!&ndash; <span class="totaldue"><i>{{}}</i></span> &ndash;&gt;-->
+<!--</div>-->
+
+<!--&lt;!&ndash; <div layout="row" layout-align="space-between end">-->
+<!--<md-button class="md-icon-button" ng-click="vm.toggleStarred(product, $event)"-->
+<!--aria-label="Toggle starred">-->
+<!--<md-icon ng-if="product.starred" md-font-icon="icon-star"-->
+<!--class="amber-fg"></md-icon>-->
+<!--<md-icon ng-if="!product.starred" md-font-icon="icon-star-outline"></md-icon>-->
+<!--</md-button>-->
+<!--</div> &ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+<!-- PRODUCT LIST ITEMS-->
+
+<div class="invoice-list-item">
+  <div layout-gt-sm="row" style="background:#f6f6f6; height: 120px; padding-top: 10px;" class="font-Lato">
+    <div class="section_padding">
+      <div layout-gt-sm="row">
+        <md-autocomplete style="width:650px;" flex
+                         md-select-on-match
+                         ng-keypress="enter($event)"
+                         ng-disabled="vm.isDisabled"
+                         md-input-name="autocompleteField"
+                         md-no-cache="vm.noCache"
+                         md-selected-item="customer_supplier.profile"
+                         md-selected-item-change="userSelected(customer_supplier.profile)"
+                         md-search-text="vm.searchText"
+                         md-items="item in vm.querySearch(vm.searchText)"
+                         md-item-text="item.profilename"
+                         md-floating-label="Search"
+                         md-min-length="0">
+          <md-item-template>
+            <span md-highlight-text="vm.searchText">{{item.profilename+" "+item.othername+" :"+item.bill_addr+" :"+item.contact+" :"+item.email_addr+" :"+item.ssn_regno}}</span>
+          </md-item-template>
+        </md-autocomplete>
+        <!--<md-input-container class="md-block" flex-gt-sm style="margin:0;margin-top:20px;">-->
+        <!--<label style="font-size:20px;color:#0072a5">Search</label>-->
+        <!--<input id="search" style="width: 670px;" ng-model="searchText">-->
+        <!--</md-input-container>-->
+      </div>
+    </div>
+  </div>
+  <div layout-gt-sm="row" style="background:#ecf0f1; height: 80px; padding-top: 10px;" class="font-Lato">
+    <div class="section_padding" style="padding-left: 20px;">
+      <div layout-gt-sm="row">
+        <label style="font-size:25px;">{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</label>
+      </div>
+    </div>
+  </div>
+  <div layout="row" layout-align="center start" class="font-Lato" style="background:#ecf0f1; height: 150px; padding-top: 10px; padding-left: 20px; width:100%">
+    <div flex="33">
+      <h4 style="font-size:15px;color:#0072a5" class="collapse-card__title">
+        Billing Address
+      </h4>
+      <md-divider style="width: 200px;"></md-divider>
+      <div layout-gt-sm="row" style="padding-top: 5px;">
+        <label style="font-size:15px;color:#a9a9a9;">{{customer_supplier.profile.bill_addr}}</label>
+      </div>
+    </div>
+    <div flex="10">
+
+    </div>
+    <div flex="33">
+      <h4 style="font-size:15px;color:#0072a5" class="collapse-card__title">
+        Shipping Address
+      </h4>
+      <md-divider style="width: 200px;"></md-divider>
+      <div layout-gt-sm="row" style="padding-top: 5px;">
+        <label style="font-size:15px;color:#a9a9a9">{{customer_supplier.profile.ship_addr}}</label>
+      </div>
+    </div>
+    <div flex="10">
+
+    </div>
+    <div flex="33">
+      <h4 style="font-size:15px;color:#0072a5" class="collapse-card__title">
+        Contact Numbers
+      </h4>
+      <md-divider style="width: 200px;"></md-divider>
+      <div layout-gt-sm="row" style="padding-top: 5px;">
+        <label style="font-size:15px;color:#a9a9a9">{{customer_supplier.profile.contact}}</label>
+      </div>
+    </div>
+  </div>
+  <div layout="row" layout-align="center start" class="font-Lato"  style="background:#c7ddef; height: 100px; padding-top: 20px; padding-left: 20px; width:100%">
+    <div flex="33">
+      <div layout-gt-sm="row">
+        <label style="font-size:24px;color:#005580">{{ledgerlist.invbalance| currency}}</label>
+      </div>
+      <h4 style="font-size:15px;" class="collapse-card__title">
+        Total Billed Amount
+      </h4>
+    </div>
+    <div flex="10">
+
+    </div>
+    <div flex="33">
+      <div layout-gt-sm="row">
+        <label style="font-size:24px;color:#005580">{{ledgerlist.recbalance| currency}}</label>
+      </div>
+      <h4 style="font-size:15px;" class="collapse-card__title">
+        Total Paid Amount
+      </h4>
+    </div>
+    <div flex="10">
+
+    </div>
+    <div flex="33">
+      <div layout-gt-sm="row">
+        <label style="font-size:24px;color:#005580">{{ledgerlist.totalbal| currency}}</label>
+      </div>
+      <h4 style="font-size:15px;" class="collapse-card__title">
+        Total Due Amount
+      </h4>
+    </div>
+  </div>
+
+  <div layout="row" layout-align="center start" class="font-Lato"  style="background:#005580; height: 45px; padding-left: 50px; padding-top: 5px; width:100%">
+    <div flex>
+      <h4 style="font-size:20px;font-weight:400;color:#ffffff;" class="collapse-card__title">
+        Customer Ledger
+      </h4>
+    </div>
+  </div><!--0077b3-->
+  <div layout="row" layout-align="center start" class="font-Lato"  style="background:#006699; height: 40px; padding-left: 50px; width:100%">
+    <div flex="25">
+      <h4 style="font-size:15px;font-weight:200;color:#ffffff;" class="collapse-card__title">
+        Reference No.
+      </h4>
+
+    </div>
+
+    <div flex="25">
+      <h4 style="font-size:15px;font-weight:200;color:#ffffff;" class="collapse-card__title">
+        Type
+      </h4>
+    </div>
+
+    <div flex="25">
+      <h4 style="font-size:15px;font-weight:200;color:#ffffff;" class="collapse-card__title">
+        Date
+      </h4>
+    </div>
+
+    <div flex="25">
+      <h4 style="font-size:15px;font-weight:200;color:#ffffff;" class="collapse-card__title">
+        Amount
+      </h4>
+    </div>
+
+  </div>
+
+  <div class="font-Lato background-white" ms-scroll>
+    <div ng-repeat="item in ledgerlist| orderBy:'-createdDate'">
+      <md-content layout="row" ng-hide="($index%2)==0" layout-align="space-between center" style="padding:10px;padding-left: 50px;">
+        <div flex="25">
+          <text style="font-weight:700">{{item.referenceID}}</text>
+        </div>
+        <div flex="25">
+          <text style="font-weight:700">{{item.transactionType}}</text>
+        </div>
+        <div flex="25" style="padding-left: 6px;">
+          <text style="font-weight:700">{{item.createdDate.split(' ')[0]}}</text>
+        </div>
+        <div flex="25" style="padding-left: 10px;">
+          <text style="font-weight:700">{{item.amount| currency}}</text>
+        </div>
+      </md-content>
+      <md-content layout="row" ng-show="($index%2)==0" layout-align="space-between center" style="background:#f1f1f1;padding:10px;padding-left: 50px;">
+        <div flex="25">
+          <text style="font-weight:700">{{item.referenceID}}</text>
+        </div>
+        <div flex="25">
+          <text style="font-weight:700">{{item.transactionType}}</text>
+        </div>
+        <div flex="25" style="padding-left: 6px;">
+          <text style="font-weight:700">{{item.createdDate.split(' ')[0]}}</text>
+        </div>
+        <div flex="25" style="padding-left: 10px;">
+          <text style="font-weight:700">{{item.amount| currency}}</text>
+        </div>
+      </md-content>
+    </div>
+    <md-content>
+      <div layout="row" ng-show="isdataavailable">
+        <div layout-gt-sm="row" class="serach-more" ng-click="searchmorebuttonclick(customer_supplier.profile)">
+          <label class="p-l-200">SEARCH MORE</label>
+        </div>
+      </div>
+    </md-content>
+    <md-divider></md-divider>
+  </div>
+</div>

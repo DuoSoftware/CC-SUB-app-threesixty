@@ -1,0 +1,184 @@
+<meta name="modifiedBy" content="GihanHerath">
+<meta name="modifiedDate" content="23-12-2016">
+<meta name="version" content="6.0.0.7">
+<meta name="app" content="360">
+<meta name="view" content="customPaymentThreesixty">
+
+<md-dialog>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Payment #{{vm.selectedPayment.paymentNo}}</h2>
+        <span flex></span>
+        <div class="actions">
+          <md-menu>
+            <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+              <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+              <md-tooltip>Payment Action</md-tooltip>
+            </md-button>
+
+            <md-menu-content width="3">
+              <!--<md-menu-item>-->
+                <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
+                  <!--<md-icon md-font-icon="icon-send"></md-icon>-->
+                  <!--<span>Send</span>-->
+                <!--</md-button>-->
+              <!--</md-menu-item>-->
+              <md-menu-item>
+                <md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">
+                  <md-icon md-font-icon="icon-floppy"></md-icon>
+                  <span>Export</span>
+                </md-button>
+              </md-menu-item>
+
+            </md-menu-content>
+          </md-menu>
+          <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+            <md-icon md-font-icon="icon-close"></md-icon>
+          </md-button>
+        </div>
+      </div>
+    </md-toolbar>
+
+    <md-content ms-scroll>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+          <div id="invoice-read" class="compact page-layout blank" layout="row">
+            <div class="invoice-read-container">
+
+              <!-- INVOICE -->
+              <div class="card md-whiteframe-8dp" layout="column">
+
+                <div class="inv-outline" md-whiteframe="2dp" layout="column" ng-class="{'page-setup-cover':isReadLoaded==false}">
+                  <div class="cancelled-inv-wm" layout="row" layout-align="center center" ng-if="vm.selectedPayment.transactionType=='RECEIPT-CANCELLED'">
+                    <span layout="row" layout-align="center center"><md-icon md-font-icon="icon-information"></md-icon>CANCELLED RECEIPT</span>
+                  </div>
+                  <div class="inv-read-header">
+                    <div class="invoice-date">{{vm.selectedPayment.paymentDate | parseDate | date: 'dd/MM/yyyy'}}</div>
+
+                    <div layout="row" layout-align="space-between stretch" style="display: flex;">
+                      <div class="client" flex>
+                        <div class="invoice-number" layout="row" layout-align="start center">
+                          <span class="title" flex="30">PAYMENT NO </span>
+                          <span class="number">: {{vm.selectedPayment.paymentNo}}</span>
+                        </div>
+
+                        <div class="invoice-number" layout="row" layout-align="start center">
+                          <span class="title" flex="30">CUSTOMER </span>
+                          <span class="number">: {{vm.selectedPayment.UserName}}</span>
+                        </div>
+
+                        <div class="due-date" layout="row" layout-align="start center">
+                          <span class="title" flex="30">STATUS </span>
+                          <span style="color: #05a3ec" ng-if="vm.selectedPayment.status=='Active'">: {{vm.selectedPayment.status}}</span>
+                          <span style="color: #BD362F" ng-if="vm.selectedPayment.status=='Cancelled'">: {{vm.selectedPayment.status}}</span>
+                        </div>
+
+                        <!--<md-button class="md-icon-button" aria-label="More" ng-hide="vm.selectedPayment.status=='Cancelled'">-->
+                        <!--<ng-md-icon icon="icon-delete" class="tooltip-detail" size="20px"></ng-md-icon>-->
+                        <!--&lt;!&ndash;<md-tooltip md-direction="right">Cancel Payment</md-tooltip>&ndash;&gt;-->
+                        <!--</md-button>-->
+                        <!--<md-button class="md-icon-button" aria-label="More" >-->
+                        <!--<ng-md-icon icon="icon-print" class="tooltip-detail" size="20px"></ng-md-icon>-->
+                        <!--</md-button>-->
+
+                        <div class="info">
+                          <div class="title">{{vm.selectedPayment.UserName.toUpperCase()}}</div>
+                          <div class="address">{{vm.selectedPayment.UserAddress}}</div>
+                          <div class="phone">{{vm.selectedPayment.UserContact}}</div>
+                          <div class="email">{{vm.selectedPayment.UserEmail}}</div>
+                          <!--<div class="website">{{vm.selectedPayment.UserWebSite}}</div>-->
+                        </div>
+                      </div>
+                      <div class="issuer" ng-class="{ 'md-accent-bg': vm.selectedPayment.companyLogo == ''}" layout="row" layout-align="start center" flex>
+                        <table>
+                          <tr>
+                            <td>
+                              <div class="set-logo-wrap" ng-if="vm.selectedPayment.companyLogo != ''">
+                                <div class="set-img">
+                                  <img ng-src="{{vm.selectedPayment.companyLogo}}" alt="" />
+                                </div>
+                              </div>
+                              <div class="logo" layout="row" layout-align="center center" ng-if="vm.selectedPayment.companyLogo == ''" >
+                                <span>{{vm.selectedPayment.companyName| limitTo:1}}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="info">
+                                <div class="">{{vm.selectedPayment.companyName}}</div>
+                                <div class="address">{{vm.selectedPayment.companyAddress}}</div>
+                                <div class="phone">{{vm.selectedPayment.companyPhone}}</div>
+                                <div class="email">{{vm.selectedPayment.companyEmail}}</div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="inv-read-content">
+
+                    <table class="simple invoice-table-footer">
+                      <tbody>
+                      <tr class="subtotal">
+                        <td>CURRENCY</td>
+                        <td>{{vm.selectedPayment.currency}}</td>
+                      </tr>
+                      <tr class="additionalcharge">
+                        <td>CURRENCY RATE</td>
+                        <td>{{vm.selectedPayment.rate}}</td>
+                      </tr>
+                      <tr class="discount">
+                        <td>PAYMENT METHOD</td>
+                        <td>{{vm.selectedPayment.paymentMethod}}</td>
+                      </tr>
+                      <!--<tr class="tax">-->
+                      <!--<td>BANK CHARGES</td>-->
+                      <!--<td>{{vm.selectedPayment.bankCharges | isoCurrency:vm.selectedPayment.currency}}</td>-->
+                      <!--</tr>-->
+                      <tr class="total">
+                        <td>TOTAL</td>
+                        <td>{{vm.selectedPayment.amount | isoCurrency:vm.selectedPayment.currency:decimalPoint}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <div class="bottom-note" ng-if="vm.selectedPayment.note">
+                      <div>Note :</div>
+                      <div>{{vm.selectedPayment.note}}</div>
+                    </div>
+                  </div>
+
+                  <div flex></div>
+
+                  <div class="inv-read-footer">
+                    <div class="note">{{vm.FooterGreeting}}</div>
+                    <div layout="row" layout-align="start start">
+                      <!--<div class="logo md-accent-bg" layout="row" layout-align="center center">-->
+                      <!--<div>{{companyName| limitTo:1}}</div>-->
+                      <!--</div>-->
+                      <div class="small-note">
+                        {{vm.FooterDisclaimer}}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- / INVOICE -->
+
+              <!-- Use the following element to add breaks to your pages -->
+              <!-- This will make sure that the section after this element will be printed on a new page -->
+              <div class="page-break"></div>
+
+            </div>
+          </div>
+
+        </div>
+      </md-dialog-content>
+    </md-content>
+
+    <!--<md-dialog-actions layout="row">-->
+    <!--</md-dialog-actions>-->
+  </form>
+</md-dialog>
