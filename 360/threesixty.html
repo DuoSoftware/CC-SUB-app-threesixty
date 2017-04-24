@@ -16,7 +16,7 @@
     <!-- CENTER -->
     <div ng-switch-when="default" class="center" layout="column" flex>
         <!-- CONTENT HEADER -->
-        <div class="header" layout="row" layout-align="start center" ng-if="vm.activeInvoicePaneIndex === 0">
+        <div class="header" layout="row" layout-align="start start" ng-if="vm.activeInvoicePaneIndex === 0">
 
             <div class="search-wrapper md-whiteframe-4dp" layout="row" layout-align="start center" flex>
                 <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md
@@ -48,81 +48,14 @@
 
             <!-- CONTENT TOOLBAR -->
             <div class="toolbar list-header" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 0">
-              <div layout="row" flex layout-align="start center" style="padding-left: 0px;">
-                <div class="info" flex layout="row" style="height: 40px">
-
-                  <div class="productName" layout="column" layout-align="center start" flex>
-                    <div layout="row">
-                      <span layout="column" layout-align="center center">Customer</span>
-                      <div layout="column" layout="center center">
-                        <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'Name')">
-                          <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                        <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'Name')">
-                          <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="productName" layout="column" layout-align="center start" flex ng-if="!showInpageReadpane">
-                    <div layout="row">
-                      <span layout="column" layout-align="center center">Type</span>
-                      <div layout="column" layout="center center">
-                        <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'Name')">
-                          <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                        <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'Name')">
-                          <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="productName" layout="column" layout-align="center start" flex ng-if="!showInpageReadpane">
-                    <div layout="row">
-                      <span layout="column" layout-align="center center">Contact</span>
-                      <div layout="column" layout="center center">
-                        <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'Name')">
-                          <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                        <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'Name')">
-                          <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                      </div>
-                    </div>
-                  </div>
-                  <div flex="5"></div>
-                  <div class="productName" layout="column" layout-align="center center" ng-class="{'flex-30':showInpageReadpane == true,'flex-10': showInpageReadpane == false}">
-                    <div layout="row" layout-align="center center" style="position:relative;right: -20px">
-                      <span layout="column" layout-align="center center">Status</span>
-                      <div layout="column" layout="center center">
-                        <md-button ng-hide="showState" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('state',true,'Status')">
-                          <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                        <md-button ng-show="showState" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('state',null,'Status')">
-                          <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
-                          <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
-                        </md-button>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+                <div ng-include="'app/main/360/views/list/list-header.html'" layout="row" flex layout-align="start center"></div>
             </div>
             <!-- / CONTENT TOOLBAR -->
 
             <!-- CONTENT WRAPPER -->
             <div class="content-wrapper" layout="row" flex>
 
-              <md-tabs md-selected="vm.activeInvoicePaneIndex" class="invoice-tabs" md-dynamic-height="{{vm.dynamicHeight}}" flex>
+              <md-tabs md-selected="vm.activeInvoicePaneIndex" class="content-tabs" md-dynamic-height="{{vm.dynamicHeight}}" flex>
                 <!-- INVOICE LIST PANE -->
                 <md-tab>
                   <md-tab-label>ThreeSixty List Pane</md-tab-label>
@@ -130,7 +63,7 @@
                     <div class="preloader" layout="row" layout-sm="column" layout-align="space-around" ng-hide="vm.isListLoaded">
                       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
                     </div>
-                    <div class="content threesixty-list-pane"
+                    <div class="content main-list-pane"
                          ng-include="'app/main/360/views/list/list-view.html'" ms-scroll>
                     </div>
                   </md-tab-body>
@@ -155,7 +88,7 @@
           </div>
           <!-- / CONTENT CARD -->
           <!-- CONTENT CARD -->
-          <div flex class="inpage-readpane" md-whiteframe="4dp" ng-if="showInpageReadpane">
+          <div flex="80" class="inpage-readpane" md-whiteframe="4dp" ng-if="showInpageReadpane">
             <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar">
               <h3 class="group-sub-head" layout="row" layout-align="start center">{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</h3>
               <div layout="row">
@@ -186,7 +119,81 @@
 
                 <!--Billing Info row-->
                 <div layout="column" class="billing-info">
-
+                    <div class="text-right" id="customerEdit">
+                        <md-button ng-click="editProfileInfo()" class="md-icon-button"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>
+                    </div>
+                  <div layout="row" ng-if="editProfileInfoEnabled" flex>
+                    <form id="editProfileForm" name="vm.editProfileForm" ng-submit="submitProfile()" novalidate>
+                      <md-card flex class="input-block-gen">
+                        <md-card-title>
+                          <div layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-cog"></md-icon> <h3>Profile Details</h3>
+                          </div>
+                          <div class="text-right">
+                            <md-button ng-click="cancelEditProfileInfo()" class="md-icon-button"><md-icon md-font-icon="icon-close"></md-icon> </md-button>
+                          </div>
+                        </md-card-title>
+                        <md-card-content>
+                          <div layout="row" flex>
+                            <md-input-container flex="30">
+                              <label>First Name</label>
+                              <input type="text" min="1" ng-maxlength="30" name="profilename" ng-model="customer_supplier.profile.profilename">
+                              <div ng-messages="vm.editProfileForm.profilename.$error">
+                                <div ng-message="maxlength">First Name must be between 1-30 characters</div>
+                              </div>
+                            </md-input-container>
+                            <div flex="5"></div>
+                            <md-input-container flex="30">
+                              <label>Last Name</label>
+                              <input type="text" ng-required="true" min="1" ng-maxlength="30" name="othername" ng-model="customer_supplier.profile.othername">
+                              <div ng-messages="vm.editProfileForm.othername.$error">
+                                <div ng-message="maxlength">Last Name must be between 1-30 characters</div>
+                              </div>
+                            </md-input-container>
+                          </div>
+                          <div layout="row" flex>
+                            <md-input-container flex="30">
+                              <label>Email</label>
+                              <input type="text" min="1" ng-maxlength="30" name="email_addr" ng-disabled="true" ng-model="customer_supplier.profile.email_addr">
+                              <div ng-messages="vm.editProfileForm.email_addr.$error">
+                                <div ng-message="maxlength">Email must be between 1-30 characters</div>
+                              </div>
+                            </md-input-container>
+                            <div flex="5"></div>
+                            <md-input-container flex="30">
+                              <label>Contact Number</label>
+                              <input type="text" ng-required="true" min="1" ng-maxlength="30" name="contactNumber" ng-model="customer_supplier.profile.contact">
+                              <div ng-messages="vm.editProfileForm.contactNumber.$error">
+                                <div ng-message="maxlength">Contact Number must be between 1-30 characters</div>
+                              </div>
+                            </md-input-container>
+                          </div>
+                          <div layout="row" flex>
+                            <md-input-container flex="30">
+                              <label>Billing Address</label>
+                              <input type="text" ng-required="true" min="1" ng-maxlength="200" id="autocomplete" onFocus="geolocate()" onchange="geolocate()" name="bill_addr" ng-model="customer_supplier.profile.bill_addr">
+                              <div ng-messages="vm.editProfileForm.bill_addr.$error">
+                                <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                              </div>
+                            </md-input-container>
+                            <div flex="5"></div>
+                            <md-input-container flex="30">
+                              <label>Shipping Address</label>
+                              <input type="text" ng-required="true" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate2()" onchange="geolocate2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
+                              <div ng-messages="vm.editProfileForm.ship_addr.$error">
+                                <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                              </div>
+                            </md-input-container>
+                          </div>
+                          <div>
+                            <div layout="row">
+                              <md-button ng-click="resetProfileInfo()">Reset</md-button>
+                              <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" class="md-raised md-warn">Save</md-button>
+                            </div>
+                          </div>
+                        </md-card-content>
+                    </form>
+                  </div>
                   <!--Contact Info portion-->
                   <div layout="row" flex>
 
@@ -706,3 +713,253 @@
     <!-- / CENTER -->
 
 </div>
+
+<!--<script>-->
+  <!--var placeSearch, autocomplete,autocomplete2;-->
+
+  <!--function initAutocomplete() {-->
+    <!--// Create the autocomplete object, restricting the search to geographical-->
+    <!--// location types.-->
+    <!--autocomplete = new google.maps.places.Autocomplete(-->
+      <!--/** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),-->
+      <!--{types: ['geocode']});-->
+    <!--debugger;-->
+    <!--// When the user selects an address from the dropdown, populate the address-->
+    <!--// fields in the form.-->
+    <!--autocomplete.addListener('place_changed', fillInAddress);-->
+
+    <!--autocomplete2 = new google.maps.places.Autocomplete(-->
+      <!--/** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),-->
+      <!--{types: ['geocode']});-->
+
+    <!--// When the user selects an address from the dropdown, populate the address-->
+    <!--// fields in the form.-->
+    <!--autocomplete2.addListener('place_changed', fillInAddress);-->
+
+  <!--}-->
+
+  <!--function fillInAddress() {-->
+    <!--// Get the place details from the autocomplete object.-->
+    <!--var place = autocomplete.getPlace();-->
+    <!--var place = autocomplete2.getPlace();-->
+    <!--//debugger;-->
+  <!--}-->
+
+  <!--// Bias the autocomplete object to the user's geographical location,-->
+  <!--// as supplied by the browser's 'navigator.geolocation' object.-->
+  <!--function geolocate() {-->
+    <!--if (navigator.geolocation) {-->
+      <!--document.getElementById('autocomplete').focus();-->
+      <!--debugger;-->
+      <!--navigator.geolocation.getCurrentPosition(function(position) {-->
+        <!--var geolocation = {-->
+          <!--lat: position.coords.latitude,-->
+          <!--lng: position.coords.longitude-->
+        <!--};-->
+        <!--var circle = new google.maps.Circle({-->
+          <!--center: geolocation,-->
+          <!--radius: position.coords.accuracy-->
+        <!--});-->
+        <!--autocomplete.setBounds(circle.getBounds());-->
+      <!--});-->
+    <!--}-->
+  <!--}-->
+
+  <!--// Bias the autocomplete object to the user's geographical location,-->
+  <!--// as supplied by the browser's 'navigator.geolocation' object.-->
+  <!--function geolocate2() {-->
+    <!--if (navigator.geolocation) {-->
+      <!--document.getElementById('autocomplete2').focus();-->
+      <!--navigator.geolocation.getCurrentPosition(function(position) {-->
+        <!--var geolocation2 = {-->
+          <!--lat: position.coords.latitude,-->
+          <!--lng: position.coords.longitude-->
+        <!--};-->
+        <!--var circle2 = new google.maps.Circle({-->
+          <!--center: geolocation2,-->
+          <!--radius: position.coords.accuracy-->
+        <!--});-->
+        <!--autocomplete2.setBounds(circle2.getBounds());-->
+      <!--});-->
+    <!--}-->
+  <!--}-->
+
+<!--</script>-->
+<!--<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>-->
+
+<script>
+  var placeSearch, autocomplete,autocomplete2;
+  var componentForm = {
+    locality: 'long_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+  };
+  var componentForm2 = {
+    locality: 'long_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+  };
+
+  function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+
+    autocomplete2 = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
+      {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete2.addListener('place_changed', fillInAddress2);
+
+  }
+
+  function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    //debugger;
+    for (var component in componentForm) {
+      document.getElementById(component).value = '';
+      //document.getElementById(component).disabled = false;
+    }
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      if (componentForm[addressType]) {
+        var val = place.address_components[i][componentForm[addressType]];
+        document.getElementById(addressType).value = val;
+        document.getElementById(addressType).focus();
+      }
+      else if(addressType=='administrative_area_level_2')
+      {
+        var val = place.address_components[i]['long_name'];
+        document.getElementById('locality').value = val;
+        document.getElementById('locality').focus();
+      }
+    }
+  }
+
+  function clearaddress(){
+    if(document.getElementById('autocomplete').value==''){
+      for (var component in componentForm) {
+        document.getElementById(component).value = '';
+        //document.getElementById(component).disabled = false;
+      }
+    }
+  }
+
+  // Bias the autocomplete object to the user's geographical location,
+  // as supplied by the browser's 'navigator.geolocation' object.
+  function geolocate() {
+    initAutocomplete();
+    if (navigator.geolocation) {
+      document.getElementById('autocomplete').focus();
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+  }
+
+  function fillInAddress2() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete2.getPlace();
+    //debugger;
+    for (var component in componentForm2) {
+      document.getElementById(component+"2").value = '';
+      //document.getElementById(component).disabled = false;
+    }
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      if (componentForm2[addressType]) {
+        var val = place.address_components[i][componentForm2[addressType]];
+        document.getElementById(addressType+"2").value = val;
+        document.getElementById(addressType+"2").focus();
+      }
+      else if(addressType=='administrative_area_level_2')
+      {
+        var val = place.address_components[i]['long_name'];
+        document.getElementById('locality2').value = val;
+        document.getElementById('locality2').focus();
+      }
+    }
+  }
+
+  function clearaddress2(){
+    if(document.getElementById('autocomplete2').value==''){
+      for (var component in componentForm2) {
+        document.getElementById(component+"2").value = '';
+        //document.getElementById(component).disabled = false;
+      }
+    }
+  }
+
+  // Bias the autocomplete object to the user's geographical location,
+  // as supplied by the browser's 'navigator.geolocation' object.
+  function geolocate2() {
+    initAutocomplete();
+    if (navigator.geolocation) {
+      document.getElementById('autocomplete2').focus();
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation2 = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle2 = new google.maps.Circle({
+          center: geolocation2,
+          radius: position.coords.accuracy
+        });
+        autocomplete2.setBounds(circle2.getBounds());
+      });
+    }
+  }
+
+
+  function fillInAddress3() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete3.getPlace();
+    //debugger;
+    for (var component in componentForm3) {
+      document.getElementById(component+"3").value = '';
+      //document.getElementById(component).disabled = false;
+    }
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      if (componentForm3[addressType]) {
+        var val = place.address_components[i][componentForm3[addressType]];
+        document.getElementById(addressType+"3").value = val;
+        document.getElementById(addressType+"3").focus();
+      }
+      else if(addressType=='administrative_area_level_2')
+      {
+        var val = place.address_components[i]['long_name'];
+        document.getElementById('locality3').value = val;
+        document.getElementById('locality3').focus();
+      }
+    }
+  }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>
