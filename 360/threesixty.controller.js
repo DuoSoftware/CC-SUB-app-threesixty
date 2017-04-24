@@ -94,6 +94,8 @@
          *
          * @param product
          */
+        vm.selectedProfileOriginal="";
+
         function selectThreeSixty(threesixty)
         {
             vm.selectedProfile = threesixty;
@@ -113,6 +115,11 @@
               $scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
               $scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.nic_ssn;
             }
+
+            vm.selectedProfileOriginal=angular.copy(threesixty);
+
+            vm.profileDetailSubmitted = false;
+            $scope.editProfileInfoEnabled=false;
 
             skipAuditTrails=0;
             $scope.auditTrailList=[];
@@ -1258,6 +1265,56 @@
           }, function() {
             $scope.isTimelineDialogLoaded = true;
           });
+      }
+
+      $scope.editProfileInfoEnabled=false;
+      $scope.editProfileInfo = function () {
+        $scope.editProfileInfoEnabled=!$scope.editProfileInfoEnabled;
+      }
+
+      $scope.resetProfileInfo = function () {
+        $scope.customer_supplier.profile=angular.copy(vm.selectedProfileOriginal);
+      }
+
+      $scope.cancelEditProfileInfo = function () {
+        $scope.editProfileInfo();
+        $scope.resetProfileInfo();
+      }
+
+      $scope.submitProfile = function () {
+
+        if (vm.editProfileForm.$valid == true) {
+          debugger;
+          vm.profileDetailSubmitted = true;
+
+          $scope.customer_supplier.profile.first_name = $scope.customer_supplier.profile.profilename;
+          $scope.customer_supplier.profile.last_name = $scope.customer_supplier.profile.othername;
+          $scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
+          $scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete').value;
+          $scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete2').value;
+
+          $charge.profile().update($scope.customer_supplier.profile).success(function(data){
+            console.log(data);
+
+            if(data.response=="succeeded")
+            {
+              notifications.toast("Successfully Updated the Profile","success");
+              $scope.editProfileInfo();
+              vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
+              vm.profileDetailSubmitted = false;
+            }
+            else
+            {
+              notifications.toast("Updating Profile Failed","error");
+              vm.profileDetailSubmitted = false;
+            }
+
+          }).error(function(data){
+            console.log(data);
+            notifications.toast("Updating Profile Failed","error");
+            vm.profileDetailSubmitted = false;
+          })
+        }
       }
 
       $scope.showInpageReadpane = false;
