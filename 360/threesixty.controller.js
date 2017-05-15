@@ -37,7 +37,7 @@
         //vm.invoices = Invoice.data;
         //console.log(vm.invoices);
         //invoice data getter !
-        //vm.selectedInvoice = vm.invoices[0];
+        //$scope.selectedDoc = vm.invoices[0];
         vm.selectedMailShowDetails = false;
 
         // Methods
@@ -98,6 +98,7 @@
 
         function selectThreeSixty(threesixty)
         {
+        	vm.isLoaded = false;
             vm.selectedProfile = threesixty;
 
             $scope.customer_supplier.profile=threesixty;
@@ -930,7 +931,7 @@
           templateUrl : 'app/main/360/views/customInvoiceThreesixty.html',
           parent: angular.element(document.body),
           locals             : {
-            selectedInvoice: invoice,
+            selectedDoc: invoice,
             isTimelineDialogLoaded : $scope.isTimelineDialogLoaded
           },
           targetEvent: ev,
@@ -1019,33 +1020,33 @@
           //var prefixInvoice=invoicePrefix!=""?invoicePrefix.RecordFieldData:"INV";
 
           var exchangeRate=parseFloat(data[0].rate);
-          $scope.selectedInvoice={};
-          $scope.selectedInvoice = data[0];
-          //$scope.selectedInvoice.prefix=prefixLength!=0? parseInt(prefixLength.RecordFieldData):0;
-          var invoiceNum=$filter('numberFixedLen')($scope.selectedInvoice.invoiceNo,$scope.lenPrefixInvoice);
-          $scope.selectedInvoice.invoiceNo=$scope.prefixInvoice+invoiceNum;
+          $scope.selectedDoc={};
+          $scope.selectedDoc = data[0];
+          //$scope.selectedDoc.prefix=prefixLength!=0? parseInt(prefixLength.RecordFieldData):0;
+          var invoiceNum=$filter('numberFixedLen')($scope.selectedDoc.invoiceNo,$scope.lenPrefixInvoice);
+          $scope.selectedDoc.invoiceNo=$scope.prefixInvoice+invoiceNum;
 
-          $scope.selectedInvoice.bill_addr = data[0].bill_addr;
-          $scope.selectedInvoice.person_name = data[0].profile_type=="Individual"?data[0].first_name + " " + data[0].last_name:data[0].business_name;
-          $scope.selectedInvoice.email_addr = data[0].email_addr;
-          $scope.selectedInvoice.phone=data[0].phone;
-          $scope.selectedInvoice.subTotal=angular.copy(data[0].subTotal*exchangeRate);
-          $scope.selectedInvoice.discAmt=data[0].discAmt*exchangeRate;
-          //$scope.selectedInvoice.invoiceNo=prefixInvoice;
+          $scope.selectedDoc.bill_addr = data[0].bill_addr;
+          $scope.selectedDoc.person_name = data[0].profile_type=="Individual"?data[0].first_name + " " + data[0].last_name:data[0].business_name;
+          $scope.selectedDoc.email_addr = data[0].email_addr;
+          $scope.selectedDoc.phone=data[0].phone;
+          $scope.selectedDoc.subTotal=angular.copy(data[0].subTotal*exchangeRate);
+          $scope.selectedDoc.discAmt=data[0].discAmt*exchangeRate;
+          //$scope.selectedDoc.invoiceNo=prefixInvoice;
 
-          $scope.selectedInvoice.additionalcharge=data[0].additionalcharge*exchangeRate;
-          $scope.selectedInvoice.invoiceAmount=data[0].invoiceAmount*exchangeRate;
-          $scope.selectedInvoice.tax=data[0].tax*exchangeRate;
-          $scope.selectedInvoice.dueDate=moment(data[0].dueDate.toString()).format('LL');
-          $scope.selectedInvoice.logo=$rootScope.companyLogo;
-          $scope.selectedInvoice.currency=data[0].currency;
-          $scope.selectedInvoice.rate=exchangeRate;
-          $scope.selectedInvoice.invoiceDetails=invoiceDetails;
-          $scope.selectedInvoice.companyName=$scope.companyName;
-          $scope.selectedInvoice.companyAddress=$scope.companyAddress;
-          $scope.selectedInvoice.companyPhone=$scope.companyPhone;
-          $scope.selectedInvoice.companyEmail=$scope.companyEmail;
-          $scope.selectedInvoice.companyLogo=$scope.companyLogo;
+          $scope.selectedDoc.additionalcharge=data[0].additionalcharge*exchangeRate;
+          $scope.selectedDoc.invoiceAmount=data[0].invoiceAmount*exchangeRate;
+          $scope.selectedDoc.tax=data[0].tax*exchangeRate;
+          $scope.selectedDoc.dueDate=moment(data[0].dueDate.toString()).format('LL');
+          $scope.selectedDoc.logo=$rootScope.companyLogo;
+          $scope.selectedDoc.currency=data[0].currency;
+          $scope.selectedDoc.rate=exchangeRate;
+          $scope.selectedDoc.invoiceDetails=invoiceDetails;
+          $scope.selectedDoc.companyName=$scope.companyName;
+          $scope.selectedDoc.companyAddress=$scope.companyAddress;
+          $scope.selectedDoc.companyPhone=$scope.companyPhone;
+          $scope.selectedDoc.companyEmail=$scope.companyEmail;
+          $scope.selectedDoc.companyLogo=$scope.companyLogo;
 
           invoiceDetails.forEach(function(inv){
             inv.product_name= inv.product_name;
@@ -1054,12 +1055,12 @@
             inv.totalPrice=inv.totalPrice*exchangeRate;
             totDiscount=totDiscount+inv.discount*exchangeRate;
             inv.promotion=totDiscount});
-          $scope.selectedInvoice.discount=totDiscount;
-          vm.selectedInvoice=$scope.selectedInvoice;
-          vm.selectedInvoice.transactionType = invoice.transactionType;
+          $scope.selectedDoc.discount=totDiscount;
+          $scope.selectedDoc=$scope.selectedDoc;
+          $scope.selectedDoc.transactionType = invoice.transactionType;
 
 
-          $scope.showAdvancedInvoice(ev,vm.selectedInvoice);
+          $scope.showAdvancedInvoice(ev,$scope.selectedDoc);
           invoice.isDialogLoading = false;
 
         }).error(function(data)
@@ -1106,42 +1107,42 @@
                 {
                   data.bankCharges=Math.round((parseFloat(data.bankCharges)*insertedrate)*100)/100;
                 }
-                vm.selectedPayment=data;
+                $scope.selectedDoc=data;
               }
               else
               {
-                vm.selectedPayment=data;
+                $scope.selectedDoc=data;
               }
 
-              vm.selectedPayment.companyName=$scope.companyName;
-              vm.selectedPayment.companyAddress=$scope.companyAddress;
-              vm.selectedPayment.companyPhone=$scope.companyPhone;
-              vm.selectedPayment.companyEmail=$scope.companyEmail;
-              vm.selectedPayment.companyLogo=$scope.companyLogo;
+              $scope.selectedDoc.companyName=$scope.companyName;
+              $scope.selectedDoc.companyAddress=$scope.companyAddress;
+              $scope.selectedDoc.companyPhone=$scope.companyPhone;
+              $scope.selectedDoc.companyEmail=$scope.companyEmail;
+              $scope.selectedDoc.companyLogo=$scope.companyLogo;
 
               if(data.profile_type=='Individual')
               {
-                vm.selectedPayment.UserName=data.first_name+" "+data.last_name;
-                vm.selectedPayment.UserAddress=data.bill_addr;
-                vm.selectedPayment.UserContact=data.phone;
-                vm.selectedPayment.UserEmail=data.email_addr;
+                $scope.selectedDoc.UserName=data.first_name+" "+data.last_name;
+                $scope.selectedDoc.UserAddress=data.bill_addr;
+                $scope.selectedDoc.UserContact=data.phone;
+                $scope.selectedDoc.UserEmail=data.email_addr;
               }
               else if(data.profile_type=='Business')
               {
-                vm.selectedPayment.UserName=data.business_contact_name; //business_name,business_contact_name
-                vm.selectedPayment.UserAddress=data.bill_addr;
-                vm.selectedPayment.UserContact=data.business_contact_no;
-                vm.selectedPayment.UserEmail=data.email_addr;
+                $scope.selectedDoc.UserName=data.business_contact_name; //business_name,business_contact_name
+                $scope.selectedDoc.UserAddress=data.bill_addr;
+                $scope.selectedDoc.UserContact=data.business_contact_no;
+                $scope.selectedDoc.UserEmail=data.email_addr;
               }
 
-              vm.selectedPayment.transactionType = payment.transactionType;
-              $scope.showAdvancedPayment(ev,vm.selectedPayment);
+              $scope.selectedDoc.transactionType = payment.transactionType;
+              $scope.showAdvancedPayment(ev,$scope.selectedDoc);
 
           payment.isDialogLoading = false;
 
               //$scope.items.push(data[i]);  payment service Version - 6.1.0.5
 
-            //vm.payments=vm.selectedPayment;
+            //vm.payments=$scope.selectedDoc;
 
         }).error(function(data)
         {
@@ -1153,20 +1154,20 @@
 
       $scope.openAdjustmentLst = function (ev, adjustment) {
 
-        vm.selectedAdjustment=[];
+        $scope.selectedDoc=[];
         //adjustment.referenceID="91";
         $charge.adjustment().getByAdjustmentId(adjustment.referenceID).success(function(data) {
 
-          vm.selectedAdjustment=data[0];
+          $scope.selectedDoc=data[0];
 
-          vm.selectedAdjustment.companyName=$scope.companyName;
-          vm.selectedAdjustment.companyAddress=$scope.companyAddress;
-          vm.selectedAdjustment.companyPhone=$scope.companyPhone;
-          vm.selectedAdjustment.companyEmail=$scope.companyEmail;
-          vm.selectedAdjustment.companyLogo=$scope.companyLogo;
+          $scope.selectedDoc.companyName=$scope.companyName;
+          $scope.selectedDoc.companyAddress=$scope.companyAddress;
+          $scope.selectedDoc.companyPhone=$scope.companyPhone;
+          $scope.selectedDoc.companyEmail=$scope.companyEmail;
+          $scope.selectedDoc.companyLogo=$scope.companyLogo;
 
-          if(vm.selectedAdjustment.amount!=undefined && vm.selectedAdjustment.rate!=undefined){
-            vm.selectedAdjustment.amount = parseFloat(vm.selectedAdjustment.amount * vm.selectedAdjustment.rate);
+          if($scope.selectedDoc.amount!=undefined && $scope.selectedDoc.rate!=undefined){
+            $scope.selectedDoc.amount = parseFloat($scope.selectedDoc.amount * $scope.selectedDoc.rate);
           }
 
           $scope.SelectedInvoiceForAdjustment=[];
@@ -1201,13 +1202,13 @@
 
 
               }
-              $scope.showAdvancedAdjustment(ev,vm.selectedAdjustment,$scope.SelectedInvoiceForAdjustment);
+              $scope.showAdvancedAdjustment(ev,$scope.selectedDoc,$scope.SelectedInvoiceForAdjustment);
               adjustment.isDialogLoading = false;
 
               // $scope.isLoading = false;
             }).error(function(data) {
               console.log(data);
-              $scope.showAdvancedAdjustment(ev,vm.selectedAdjustment,$scope.SelectedInvoiceForAdjustment);
+              $scope.showAdvancedAdjustment(ev,$scope.selectedDoc,$scope.SelectedInvoiceForAdjustment);
             })
 
 
@@ -1233,7 +1234,7 @@
           }
           else
           {
-            $scope.showAdvancedAdjustment(ev,vm.selectedAdjustment,$scope.SelectedInvoiceForAdjustment);
+            $scope.showAdvancedAdjustment(ev,$scope.selectedDoc,$scope.SelectedInvoiceForAdjustment);
           }
 
         }).error(function(data)
@@ -1250,11 +1251,11 @@
         $mdDialog.show({
           controller         : 'AdvanceViewAdjustmentController',
           controllerAs       : 'vm',
-          templateUrl: 'app/main/360/views/customAdjustmentThreesixty.html',
+          templateUrl: 'app/main/360/views/customInvoiceThreesixty.html',
           parent: angular.element(document.body),
           locals             : {
-            selectedAdjustment: adjustment,
-            selectedInvoice:  invoice,
+            // selectedAdjustment: adjustment,
+            selectedDoc:  adjustment,
             isTimelineDialogLoaded : $scope.isTimelineDialogLoaded
           },
           targetEvent: ev,
@@ -1339,6 +1340,35 @@
           $scope.showMoreUserInfo=false;
         }
       };
+
+      // Kasun_Wijeratne_15_May
+		// $charge.storage().allTemplates().success(function (data) {
+		// 	console.log(data);
+		// 	// debugger;
+		// 	if($scope.loadingEmailTemplates)
+		// 	{
+		// 		for (var i = 0; i < data.result.length; i++) {
+		// 			vm.emailTemplateList.push({
+		// 				url:data.result[i],
+		// 				name:data.result[i].split('/')[data.result[i].split('/').length-1].split('.')[0],
+		// 				isSelected:false
+		// 			});
+		// 		}
+		// 		$scope.loadingEmailTemplates = false;
+	  //
+		// 		$scope.getDefaultEmailTemplate();
+		// 	}
+		// }).error(function (data) {
+		// 	console.log(data);
+		// 	vm.emailTemplateList=[];
+		// 	$scope.loadingEmailTemplates = false;
+		// });
+		$charge.settingsapp().getDuobaseFieldsByTableNameAndFieldName("CTS_EmailTemplates", "TemplateUrl").success(function (data) {
+			$scope.currentTemplateView=data[0][0].RecordFieldData.split('/')[data[0][0].RecordFieldData.split('/').length-1].split('.')[0];
+		}).error(function (data) {
+			$scope.currentTemplateView = null;
+		});
+      // Kasun_Wijeratne_15_May
 
     }
 })();

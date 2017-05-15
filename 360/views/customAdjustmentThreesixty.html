@@ -5,200 +5,200 @@
 <meta name="view" content="customAdjustmentThreesixty">
 
 <md-dialog>
-  <form ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Adjustment #{{vm.selectedAdjustment.guadjustmentid}}</h2>
-        <span flex></span>
-
-        <div class="actions">
-          <md-menu>
-            <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon md-font-icon="icon-dots-vertical"></md-icon>
-              <md-tooltip>Adjustment Action</md-tooltip>
-            </md-button>
-
-            <md-menu-content width="3">
-              <!--<md-menu-item>-->
-                <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
-                  <!--<md-icon md-font-icon="icon-send"></md-icon>-->
-                  <!--<span>Send</span>-->
-                <!--</md-button>-->
-              <!--</md-menu-item>-->
-              <md-menu-item>
-                <md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">
-                  <md-icon md-font-icon="icon-floppy"></md-icon>
-                  <span>Export</span>
-                </md-button>
-              </md-menu-item>
-
-            </md-menu-content>
-          </md-menu>
-          <md-button class="md-icon-button" ng-click="vm.closeDialog()">
-            <md-icon md-font-icon="icon-close"></md-icon>
-          </md-button>
-        </div>
-      </div>
-    </md-toolbar>
-
-    <md-content ms-scroll>
-      <md-dialog-content>
-        <div class="md-dialog-content">
-          <div id="invoice-read" class="compact page-layout blank" layout="row">
-            <div class="invoice-read-container" layout="column" layout-align="center center">
-
-              <!-- INVOICE -->
-              <div class="card md-whiteframe-8dp" layout="column">
-
-                <div class="inv-outline" md-whiteframe="2dp" layout="column">
-                  <div class="inv-read-header" style="float: left;width: 100%;">
-                    <div class="invoice-date">{{vm.selectedAdjustment.createddate | parseDate | date: 'dd/mm/yyyy'}}</div>
-
-                    <div layout="row" layout-align="space-between stretch">
-                      <div class="client" flex>
-
-                        <div class="invoice-number" layout="row" layout-align="start center" felx>
-                          <span class="title" flex="40">ADJUSTMENT ID </span>
-                          <span class="number">: {{vm.selectedAdjustment.guadjustmentid}}</span>
-                          <!--<span class="number">{{vm.selectedInvoice.invoiceNo}} - {{vm.selectedInvoice.code}}</span>-->
-                        </div>
-
-                        <div class="invoice-number" layout="row" layout-align="start center" felx>
-                          <span class="title" flex="40">ADJUSTMENT TYPE </span>
-                          <span class="number" ng-if="vm.selectedAdjustment.adjustmenttype==1">: CREDIT</span>
-                          <span class="number" ng-if="vm.selectedAdjustment.adjustmenttype==2">: DEBIT</span>
-                        </div>
-
-                        <div class="invoice-number" layout="row" layout-align="start center" flex>
-                          <span class="title" flex="40">AMOUNT</span>
-                          <span class="date">: {{vm.selectedAdjustment.currency}} {{vm.selectedAdjustment.amount| currency:"":decimalPoint}}</span>
-                        </div>
-
-                        <div class="info">
-                          <div class="title">{{vm.selectedAdjustment.customerName}}</div>
-                          <div class="title">{{vm.selectedAdjustment.bill_addr}}</div>
-                          <!--<div class="title">{{vm.selectedAdjustment.first_name}}</div>-->
-                          <div class="title">{{vm.selectedAdjustment.phone}}</div>
-                          <!--<div class="website">www.yamu.lk</div>-->
-                        </div>
-                      </div>
-
-                      <div class="issuer" style="float: left;padding: 10px 0;" ng-class="{ 'md-accent-bg': vm.selectedAdjustment.companyLogo == ''}" layout="row" layout-align="start center">
-                        <table>
-                          <tr>
-                            <td>
-                              <div class="set-logo-wrap" ng-if="vm.selectedAdjustment.companyLogo != ''">
-                                <div class="set-img">
-                                  <img style="width: 150px;height: auto;position: absolute;top: 0;bottom: 0;right: 0;left: 0;margin: auto;" ng-src="{{vm.selectedAdjustment.companyLogo}}" alt="" />
-                                </div>
-                              </div>
-                              <div class="logo" layout="row" layout-align="center center" ng-if="vm.selectedAdjustment.companyLogo == ''" style="font-family: Roboto;border-right: solid 1px #fff;color: #fff;">
-                                <span style="font-size: 72px">{{vm.selectedAdjustment.companyName| limitTo:1}}</span>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="info" style="font-family: Roboto;max-width: 330px;">
-                                <div class="">{{vm.selectedAdjustment.companyName}}</div>
-                                <div class="address">{{vm.selectedAdjustment.companyAddress}}</div>
-                                <div class="phone">{{vm.selectedAdjustment.companyPhone}}</div>
-                                <div class="email">{{vm.selectedAdjustment.companyEmail}}</div>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="inv-read-content" style="float: left;width: 100%;">
-                    <div style="margin-top: 64px">
-                      <table class="simple invoice-table" ng-show="vm.selectedAdjustment.invoiceid != 0">
-                        <thead>
-                        <th class="font-14">INVOICE ID</th>
-                        <th class="font-14">INVOICE DATE</th>
-                        <th class="font-14">INVOICE TYPE</th>
-                        <th class="font-14">CURRENCY</th>
-                        <th class="font-14">INVOICE AMOUNT</th>
-                        <th class="font-14">PAID AMOUNT</th>
-                        <th class="text-right font-14">STATUS</th>
-                        </thead>
-                        <tbody>
-                        <tr class="font-14">
-                          <td class="font-14">
-                            {{vm.selectedAdjustment.invoiceid}}
-                          </td>
-                          <td class="font-14">
-                            {{SelectedInvoice.invoiceDate | limitTo:10}}
-                          </td>
-                          <td class="font-14">
-                            {{SelectedInvoice.invoiceType}}
-                          </td>
-                          <td class="font-14">
-                            {{SelectedInvoice.currency}}
-                          </td>
-                          <td class="font-14">
-                            {{SelectedInvoice.currencyAmount| isoCurrency:SelectedInvoice.currency:decimalPoint}}
-                          </td>
-                          <td class="font-14">
-                            {{SelectedInvoice.paidAmount| isoCurrency:SelectedInvoice.currency:decimalPoint}}
-                          </td>
-                          <td class="text-right font-14">
-                            {{SelectedInvoice.invoiceStatus}}
-                          </td>
-                        </tr>
-                        </tbody>
-                      </table>
-
-                      <table class="simple invoice-table-footer">
-                      <tbody>
-                      <tr class="total">
-                        <td class="font-14">ADJUSTING AMOUNT</td>
-                        <td class="font-14">
-                          <span flex> {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency:decimalPoint}}</span>
-                          <!--<span flex ng-show="vm.selectedAdjustment.adjustmenttype === 'Debit'"> {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency}}</span>-->
-                      </tr>
-
-                      <!--<tr class="subtotal">-->
-                      <!--<td class="font-14">ADJUSTING AMOUNT</td>-->
-                      <!--<td class="font-14">-->
-                      <!--<span flex ng-show="vm.selectedAdjustment.adjustmenttype != 'Debit'">- {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency :decimalPoint}}</span>-->
-                      <!--<span flex ng-show="vm.selectedAdjustment.adjustmenttype === 'Debit'">+ {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency :decimalPoint}}</span>-->
-                      <!--</td>-->
-                      </tr>
-                      </tbody>
-                    </table>
-                    </div>
-                  </div>
-
-                  <div flex></div>
-
-                  <div class="inv-read-footer">
-                    <div class="note">{{vm.FooterGreeting}}</div>
-                    <div layout="row" layout-align="start start">
-                      <!--<div class="logo md-accent-bg" layout="row" layout-align="center center">-->
-                      <!--<div>{{content.companyName | limitTo:1}}</div>-->
-                      <!--</div>-->
-                      <div class="small-note">
-                        {{vm.FooterDisclaimer}}
-                      </div>
-                    </div>
-                  </div>
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <div layout="row" layout-align="start center">
+                    <i class="material-icons">share</i> <h3>Adjustment #{{vm.selectedAdjustment.guadjustmentid}}</h3>
                 </div>
-              </div>
-              <!-- / INVOICE -->
+                <md-menu>
+                    <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                        <md-tooltip>Adjustment Action</md-tooltip>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <!--<md-menu-item>-->
+                        <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
+                        <!--<md-icon md-font-icon="icon-send"></md-icon>-->
+                        <!--<span>Send</span>-->
+                        <!--</md-button>-->
+                        <!--</md-menu-item>-->
+                        <md-menu-item>
+                            <md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">
+                                <md-icon md-font-icon="icon-floppy"></md-icon>
+                                <span>Export</span>
+                            </md-button>
+                        </md-menu-item>
 
-              <!-- Use the following element to add breaks to your pages -->
-              <!-- This will make sure that the section after this element will be printed on a new page -->
-              <div class="page-break"></div>
-
+                    </md-menu-content>
+                </md-menu>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
             </div>
-          </div>
+        </md-toolbar>
 
-        </div>
-      </md-dialog-content>
-    </md-content>
+        <md-content ms-scroll>
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <div id="invoice-read" class="compact page-layout blank" layout="row">
+                        <div class="invoice-read-container" layout="column" layout-align="center center">
 
-    <!--<md-dialog-actions layout="row">-->
-    <!--</md-dialog-actions>-->
-  </form>
+                            <!-- INVOICE -->
+                            <div class="card md-whiteframe-8dp" layout="column">
+
+                                <div class="inv-outline" md-whiteframe="2dp" layout="column">
+                                    <div class="inv-read-header" style="float: left;width: 100%;">
+                                        <div class="invoice-date">{{vm.selectedAdjustment.createddate | parseDate | date: 'dd/mm/yyyy'}}</div>
+
+                                        <div layout="row" layout-align="space-between stretch">
+                                            <div class="client" flex>
+
+                                                <div class="invoice-number" layout="row" layout-align="start center" felx>
+                                                    <span class="title" flex="40">ADJUSTMENT ID </span>
+                                                    <span class="number">: {{vm.selectedAdjustment.guadjustmentid}}</span>
+                                                    <!--<span class="number">{{vm.selectedInvoice.invoiceNo}} - {{vm.selectedInvoice.code}}</span>-->
+                                                </div>
+
+                                                <div class="invoice-number" layout="row" layout-align="start center" felx>
+                                                    <span class="title" flex="40">ADJUSTMENT TYPE </span>
+                                                    <span class="number" ng-if="vm.selectedAdjustment.adjustmenttype==1">: CREDIT</span>
+                                                    <span class="number" ng-if="vm.selectedAdjustment.adjustmenttype==2">: DEBIT</span>
+                                                </div>
+
+                                                <div class="invoice-number" layout="row" layout-align="start center" flex>
+                                                    <span class="title" flex="40">AMOUNT</span>
+                                                    <span class="date">: {{vm.selectedAdjustment.currency}} {{vm.selectedAdjustment.amount| currency:"":decimalPoint}}</span>
+                                                </div>
+
+                                                <div class="info">
+                                                    <div class="title">{{vm.selectedAdjustment.customerName}}</div>
+                                                    <div class="title">{{vm.selectedAdjustment.bill_addr}}</div>
+                                                    <!--<div class="title">{{vm.selectedAdjustment.first_name}}</div>-->
+                                                    <div class="title">{{vm.selectedAdjustment.phone}}</div>
+                                                    <!--<div class="website">www.yamu.lk</div>-->
+                                                </div>
+                                            </div>
+
+                                            <div class="issuer" style="float: left;padding: 10px 0;" ng-class="{ 'md-accent-bg': vm.selectedAdjustment.companyLogo == ''}" layout="row" layout-align="start center">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="set-logo-wrap" ng-if="vm.selectedAdjustment.companyLogo != ''">
+                                                                <div class="set-img">
+                                                                    <img style="width: 150px;height: auto;position: absolute;top: 0;bottom: 0;right: 0;left: 0;margin: auto;" ng-src="{{vm.selectedAdjustment.companyLogo}}" alt="" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="logo" layout="row" layout-align="center center" ng-if="vm.selectedAdjustment.companyLogo == ''" style="font-family: Roboto;border-right: solid 1px #fff;color: #fff;">
+                                                                <span style="font-size: 72px">{{vm.selectedAdjustment.companyName| limitTo:1}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="info" style="font-family: Roboto;max-width: 330px;">
+                                                                <div class="">{{vm.selectedAdjustment.companyName}}</div>
+                                                                <div class="address">{{vm.selectedAdjustment.companyAddress}}</div>
+                                                                <div class="phone">{{vm.selectedAdjustment.companyPhone}}</div>
+                                                                <div class="email">{{vm.selectedAdjustment.companyEmail}}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="inv-read-content" style="float: left;width: 100%;">
+                                        <div style="margin-top: 64px">
+                                            <table class="simple invoice-table" ng-show="vm.selectedAdjustment.invoiceid != 0">
+                                                <thead>
+                                                <th class="font-14">INVOICE ID</th>
+                                                <th class="font-14">INVOICE DATE</th>
+                                                <th class="font-14">INVOICE TYPE</th>
+                                                <th class="font-14">CURRENCY</th>
+                                                <th class="font-14">INVOICE AMOUNT</th>
+                                                <th class="font-14">PAID AMOUNT</th>
+                                                <th class="text-right font-14">STATUS</th>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="font-14">
+                                                    <td class="font-14">
+                                                        {{vm.selectedAdjustment.invoiceid}}
+                                                    </td>
+                                                    <td class="font-14">
+                                                        {{SelectedInvoice.invoiceDate | limitTo:10}}
+                                                    </td>
+                                                    <td class="font-14">
+                                                        {{SelectedInvoice.invoiceType}}
+                                                    </td>
+                                                    <td class="font-14">
+                                                        {{SelectedInvoice.currency}}
+                                                    </td>
+                                                    <td class="font-14">
+                                                        {{SelectedInvoice.currencyAmount| isoCurrency:SelectedInvoice.currency:decimalPoint}}
+                                                    </td>
+                                                    <td class="font-14">
+                                                        {{SelectedInvoice.paidAmount| isoCurrency:SelectedInvoice.currency:decimalPoint}}
+                                                    </td>
+                                                    <td class="text-right font-14">
+                                                        {{SelectedInvoice.invoiceStatus}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <table class="simple invoice-table-footer">
+                                                <tbody>
+                                                <tr class="total">
+                                                    <td class="font-14">ADJUSTING AMOUNT</td>
+                                                    <td class="font-14">
+                                                        <span flex> {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency:decimalPoint}}</span>
+                                                        <!--<span flex ng-show="vm.selectedAdjustment.adjustmenttype === 'Debit'"> {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency}}</span>-->
+                                                </tr>
+
+                                                <!--<tr class="subtotal">-->
+                                                <!--<td class="font-14">ADJUSTING AMOUNT</td>-->
+                                                <!--<td class="font-14">-->
+                                                <!--<span flex ng-show="vm.selectedAdjustment.adjustmenttype != 'Debit'">- {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency :decimalPoint}}</span>-->
+                                                <!--<span flex ng-show="vm.selectedAdjustment.adjustmenttype === 'Debit'">+ {{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency :decimalPoint}}</span>-->
+                                                <!--</td>-->
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div flex></div>
+
+                                    <div class="inv-read-footer">
+                                        <div class="note">{{vm.FooterGreeting}}</div>
+                                        <div layout="row" layout-align="start start">
+                                            <!--<div class="logo md-accent-bg" layout="row" layout-align="center center">-->
+                                            <!--<div>{{content.companyName | limitTo:1}}</div>-->
+                                            <!--</div>-->
+                                            <div class="small-note">
+                                                {{vm.FooterDisclaimer}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- / INVOICE -->
+
+                            <!-- Use the following element to add breaks to your pages -->
+                            <!-- This will make sure that the section after this element will be printed on a new page -->
+                            <div class="page-break"></div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </md-dialog-content>
+        </md-content>
+
+        <!--<md-dialog-actions layout="row">-->
+        <!--</md-dialog-actions>-->
+    </form>
 </md-dialog>
