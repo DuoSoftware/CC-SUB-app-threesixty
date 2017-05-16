@@ -8,35 +8,39 @@
      ng-click="vm.selectThreeSixty(profile)"
      ng-class="{'selected': vm.selectedProfile === profile && showInpageReadpane}">
 
-  <div layout="row" layout-align="center center" flex>
+    <div layout="row" layout-align="center center" flex>
 
-    <div flex layout="row">
-      <div class="dual-info" layout="column" layout-align="center start">
-        <span ng-if="profile.profile_type=='Individual'">{{profile.first_name}} {{profile.last_name}}</span>
-        <span ng-if="profile.profile_type=='Business'">{{profile.business_name}}</span>
-        <div class="dual-info-sub">
-          {{profile.email_addr}}
+        <div flex layout="row">
+            <div class="dual-info" layout="column" layout-align="center start">
+                <span ng-if="profile.profile_type=='Individual'">{{profile.first_name}} {{profile.last_name}}</span>
+                <span ng-if="profile.profile_type=='Business'">{{profile.business_name}}</span>
+                <div class="dual-info-sub">
+                    {{profile.email_addr}}
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!--<div flex ng-if="!showInpageReadpane">-->
+        <!--{{profile.category}}-->
+        <!--</div>-->
+
+        <div flex ng-if="!showInpageReadpane">
+            <span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>
+            <span ng-if="profile.profile_type=='Business'">{{profile.business_contact_no}}</span>
+        </div>
+
+        <div flex ng-if="!showInpageReadpane">
+            <span>{{profile.createddate|date}}</span>
+        </div>
+
+        <div flex="5" ng-if="!showInpageReadpane"></div>
+
+        <div class="status" layout="row" layout-align="center center" ng-class="{'flex-30':showInpageReadpane == true,'flex-10': showInpageReadpane == false}">
+            <span class="pill positive" layout="row" layout-align="center center" ng-if="profile.status==true">Active</span>
+            <span class="pill negative" layout="row" layout-align="center center" ng-if="profile.status==false">Inactive</span>
+        </div>
     </div>
-
-    <!--<div flex ng-if="!showInpageReadpane">-->
-      <!--{{profile.category}}-->
-    <!--</div>-->
-
-    <div flex ng-if="!showInpageReadpane">
-      <span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>
-      <span ng-if="profile.profile_type=='Business'">{{profile.business_contact_no}}</span>
-    </div>
-
-    <div flex="5" ng-if="!showInpageReadpane"></div>
-
-    <div class="status" layout="row" layout-align="center center" ng-class="{'flex-30':showInpageReadpane == true,'flex-10': showInpageReadpane == false}">
-      <span class="pill positive" layout="row" layout-align="center center" ng-if="profile.status==true">Active</span>
-      <span class="pill negative" layout="row" layout-align="center center" ng-if="profile.status==false">Inactive</span>
-    </div>
-  </div>
 </div>
 <div class="invoice-list-item" ng-hide="hideSearchMore || searchMoreInit" layout="row" layout-align="center center">
-  <md-button ng-click="loadByKeywordProfile(vm.search,vm.search.length)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
+    <md-button ng-click="loadByKeywordProfile(vm.search,vm.search.length)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
 </div>

@@ -2,7 +2,7 @@
 // App : 360
 // Owner  : Gihan Herath
 // Last changed date : 2017/05/16
-// Version : 6.1.0.4
+// Version : 6.1.0.5
 // Modified By : Kasun
 /////////////////////////////////
 

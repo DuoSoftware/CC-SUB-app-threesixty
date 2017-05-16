@@ -352,6 +352,7 @@
               {
                 data[i].status=true;
               }
+              data[i].createddate = new Date(data[i].createddate);
               vm.items.push(data[i]);
 
             }
@@ -1378,6 +1379,7 @@
 					$scope.showName = status;
 					$scope.showContact = false;
 					$scope.showType = false;
+					$scope.showDate = false;
 					$scope.showState = false;
 				}
 				if(property=='Contact')
@@ -1385,6 +1387,15 @@
 					$scope.showName = false;
 					$scope.showContact = status;
 					$scope.showType = false;
+					$scope.showDate = false;
+					$scope.showState = false;
+				}
+				if(property=='Date')
+				{
+					$scope.showName = false;
+					$scope.showContact = false;
+					$scope.showType = false;
+					$scope.showDate = status;
 					$scope.showState = false;
 				}
 				if(property=='Status')
@@ -1392,6 +1403,7 @@
 					$scope.showName = false;
 					$scope.showContact = false;
 					$scope.showType = false;
+					$scope.showDate = false;
 					$scope.showState = status;
 				}
 			}
