@@ -15,16 +15,18 @@
         .controller('AdvanceViewInvoiceController', AdvanceViewInvoiceController);
 
     /** @ngInject */
-    function AdvanceViewInvoiceController($mdDialog, selectedInvoice, $scope, $charge,isTimelineDialogLoaded, currentTemplateView)
+    function AdvanceViewInvoiceController($mdDialog, $scope, $charge,isTimelineDialogLoaded,selectedInvoice, currentTemplateView,docType, selectedDoc)
     {
         var vm = this;
 
         $scope.selectedInvoice=selectedInvoice;
         $scope.currentTemplateView=currentTemplateView;
         $scope.isTimelineDialogLoaded = isTimelineDialogLoaded;
+        $scope.docType = docType;
+        $scope.selectedDoc = selectedDoc;
         $scope.printDiv = function(divName) {
 
-          if($scope.selectedDoc.companyLogo == undefined || $scope.selectedDoc.companyLogo == ''){
+          if($scope.selectedInvoice.companyLogo == undefined || $scope.selectedInvoice.companyLogo == ''){
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=1800,height=700');
             popupWin.document.open();

@@ -15,13 +15,16 @@
     .controller('AdvanceViewPaymentController', AdvanceViewPaymentController);
 
   /** @ngInject */
-  function AdvanceViewPaymentController($mdDialog, selectedPayment, $scope, $charge,isTimelineDialogLoaded)
+  function AdvanceViewPaymentController($mdDialog, selectedPayment, $scope, $charge,isTimelineDialogLoaded,currentTemplateView,docType, selectedDoc)
   {
     var vm = this;
 
     vm.selectedPayment=selectedPayment;
-    $scope.isTimelineDialogLoaded = isTimelineDialogLoaded;
-    $scope.printDiv = function(divName) {
+	  $scope.currentTemplateView=currentTemplateView;
+	  $scope.isTimelineDialogLoaded = isTimelineDialogLoaded;
+	  $scope.docType = docType;
+	  $scope.selectedDoc = selectedDoc;
+	  $scope.printDiv = function(divName) {
 
       if(vm.selectedPayment.companyLogo == undefined || vm.selectedPayment.companyLogo == ''){
         var printContents = document.getElementById(divName).innerHTML;

@@ -15,10 +15,12 @@
         .controller('AdvanceViewAdjustmentController', AdvanceViewAdjustmentController);
 
     /** @ngInject */
-    function AdvanceViewAdjustmentController($mdDialog, $scope, selectedAdjustment, selectedInvoice, $charge,isTimelineDialogLoaded)
+    function AdvanceViewAdjustmentController($mdDialog, $scope, selectedAdjustment, selectedInvoice, $charge,isTimelineDialogLoaded,currentTemplateView,docType)
     {
         var vm = this;
-        $scope.isTimelineDialogLoaded = isTimelineDialogLoaded;
+		$scope.currentTemplateView=currentTemplateView;
+		$scope.isTimelineDialogLoaded = isTimelineDialogLoaded;
+		$scope.docType = docType;
 
       vm.selectedAdjustment = selectedAdjustment;
       $scope.SelectedInvoice = selectedInvoice;
