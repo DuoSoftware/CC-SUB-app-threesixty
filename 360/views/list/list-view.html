@@ -12,17 +12,17 @@
 
     <div flex layout="row">
       <div class="dual-info" layout="column" layout-align="center start">
-        <span ng-if="profile.profile_type=='Individual'">{{profile.first_name}}</span>
+        <span ng-if="profile.profile_type=='Individual'">{{profile.first_name}} {{profile.last_name}}</span>
         <span ng-if="profile.profile_type=='Business'">{{profile.business_name}}</span>
         <div class="dual-info-sub">
-          {{profile.profile_type}}
+          {{profile.email_addr}}
         </div>
       </div>
     </div>
 
-    <div flex ng-if="!showInpageReadpane">
-      {{profile.category}}
-    </div>
+    <!--<div flex ng-if="!showInpageReadpane">-->
+      <!--{{profile.category}}-->
+    <!--</div>-->
 
     <div flex ng-if="!showInpageReadpane">
       <span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>

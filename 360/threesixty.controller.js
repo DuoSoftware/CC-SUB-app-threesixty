@@ -1368,6 +1368,34 @@
 		}).error(function (data) {
 			$scope.currentTemplateView = null;
 		});
+		$scope.sortBy = function(propertyName,status,property) {
+			vm.profiles=$filter('orderBy')(vm.profiles, propertyName, $scope.reverse);
+			$scope.reverse =!$scope.reverse;
+
+			if(status!=null) {
+				if(property=='Name')
+				{
+					$scope.showName = status;
+					$scope.showContact = false;
+					$scope.showType = false;
+					$scope.showState = false;
+				}
+				if(property=='Contact')
+				{
+					$scope.showName = false;
+					$scope.showContact = status;
+					$scope.showType = false;
+					$scope.showState = false;
+				}
+				if(property=='Status')
+				{
+					$scope.showName = false;
+					$scope.showContact = false;
+					$scope.showType = false;
+					$scope.showState = status;
+				}
+			}
+		};
       // Kasun_Wijeratne_15_May
 
     }
