@@ -556,8 +556,9 @@
                     <!-- / Profile edit-->
                 </md-content>
                 <div layout="row" layout-align="end center" class="bottom-fixed-bar" md-whiteframe="8dp" ng-if="editProfileInfoEnabled">
+                    <md-progress-circular class="gen-save-indicator" ng-if="vm.profileDetailSubmitted"></md-progress-circular>
                     <md-button ng-click="resetProfileInfo()">Reset</md-button>
-                    <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" class="md-raised md-warn">Save</md-button>
+                    <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" form="editProfileForm" class="md-raised md-accent">Save</md-button>
                 </div>
             </div>
             <!-- / CONTENT CARD -->
