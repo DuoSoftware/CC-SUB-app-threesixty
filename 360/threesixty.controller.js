@@ -90,6 +90,28 @@
 			vm.dynamicHeight = current;
 		});
 
+    function gst(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      //debugger;
+      return null;
+    }
+
+    function getDomainName() {
+      var _st = gst("domain");
+      return (_st != null) ? _st : "gihan"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+    }
+
+    function getDomainExtension() {
+      var _st = gst("extention_mode");
+      return (_st != null) ? _st : "test"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+    }
+
 		/**
 		 * Select product
 		 *
@@ -104,21 +126,40 @@
 
 			$scope.customer_supplier.profile=threesixty;
 
-			if($scope.customer_supplier.profile.profile_type=='Business')
-			{
-				$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.business_name;
-				$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.business_contact_name;
-				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.business_contact_no;
-				$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.business_reg_no;
-			}
-			else if($scope.customer_supplier.profile.profile_type=='Individual') {
-				$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
-				$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
-				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
-				$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.nic_ssn;
-			}
+			//if($scope.customer_supplier.profile.profile_type=='Business')
+			//{
+			//	$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.business_name;
+			//	$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.business_contact_name;
+			//	$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.business_contact_no;
+			//	$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.business_reg_no;
+			//}
+			//else if($scope.customer_supplier.profile.profile_type=='Individual') {
+			//	$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
+			//	$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
+			//	$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+			//	$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.nic_ssn;
+			//}
 
-			vm.selectedProfileOriginal=angular.copy(threesixty);
+      $scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
+      $scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
+      $scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+
+      vm.selectedProfileOriginal=angular.copy(threesixty);
+
+      $charge.profile().getByID(threesixty.profileId).success(function(data) {
+        console.log(data);
+        $scope.customer_supplier.profile=data[0];
+
+        $scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
+        $scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
+        $scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+
+        vm.selectedProfileOriginal=angular.copy(threesixty);
+
+        // $scope.isLoading = false;
+      }).error(function(data) {
+        console.log(data);
+      })
 
 			vm.profileDetailSubmitted = false;
 			$scope.editProfileInfoEnabled=false;
@@ -352,52 +393,114 @@
 
 		$scope.more = function(){
 			//
-			$charge.profile().all(skipUserProfile,takeUserProfile,'desc').success(function(data)
-			{
-				console.log(data);
-				if(vm.loading)
-				{
-					skipUserProfile += takeUserProfile;
-					//
+			//$charge.profile().all(skipUserProfile,takeUserProfile,'desc').success(function(data)
+			//{
+			//	console.log(data);
+			//	if(vm.loading)
+			//	{
+			//		skipUserProfile += takeUserProfile;
+			//		//
+            //
+			//		for (var i = 0; i < data.length; i++) {
+			//			//
+			//			if(data[i].status==0)
+			//			{
+			//				data[i].status=false;
+			//			}
+			//			else
+			//			{
+			//				data[i].status=true;
+			//			}
+			//			data[i].createddate = new Date(data[i].createddate);
+			//			vm.items.push(data[i]);
+            //
+			//		}
+            //
+			//		vm.profiles = vm.items;
+			//		$scope.searchMoreInit = false;
+			//		vm.isListLoaded = true;
+			//		//selectProfile(data[0]);
+			//		vm.loading = false;
+			//		vm.isLoading = false;
+			//		vm.isdataavailable=true;
+			//		if(data.length<takeUserProfile){
+			//			vm.isdataavailable=false;
+			//			$scope.searchMoreInit = false;
+			//			$scope.hideSearchMore=true;
+			//		}
+			//	}
+            //
+			//}).error(function(data)
+			//{
+			//	console.log(data);
+			//	vm.isSpinnerShown=false;
+			//	vm.isdataavailable=false;
+			//	vm.isLoading = false;
+			//	vm.isListLoaded = true;
+			//	$scope.hideSearchMore=true;
+			//})
 
-					for (var i = 0; i < data.length; i++) {
-						//
-						if(data[i].status==0)
-						{
-							data[i].status=false;
-						}
-						else
-						{
-							data[i].status=true;
-						}
-						data[i].createddate = new Date(data[i].createddate);
-						vm.items.push(data[i]);
+      var dbNamePart1="";
+      var dbNamePart2="";
+      var dbName="";
+      var filter="";
+      dbNamePart1=getDomainName().split('.')[0];
+      dbNamePart2=getDomainExtension();
+      dbName=dbNamePart1+"_"+dbNamePart2;
+      //filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
+      var data={
+        "search": "*",
+        "filter": "(domain eq '"+dbName+"')",
+        "orderby" : "createddate desc",
+        "top":take,
+        "skip":skip
+      }
 
-					}
+      $charge.azuresearch().getAllProfilesPost(data).success(function(data)
+      {
+        console.log(data);
+        if(vm.loading)
+        {
+          skipUserProfile += takeUserProfile;
+          //
 
-					vm.profiles = vm.items;
-					$scope.searchMoreInit = false;
-					vm.isListLoaded = true;
-					//selectProfile(data[0]);
-					vm.loading = false;
-					vm.isLoading = false;
-					vm.isdataavailable=true;
-					if(data.length<takeUserProfile){
-						vm.isdataavailable=false;
-						$scope.searchMoreInit = false;
-						$scope.hideSearchMore=true;
-					}
-				}
+          for (var i = 0; i < data.value.length; i++) {
+            //
+            if(data.value[i].status==0)
+            {
+              data.value[i].status=false;
+            }
+            else
+            {
+              data.value[i].status=true;
+            }
+            data.value[i].createddate = new Date(data.value[i].createddate);
+            vm.items.push(data.value[i]);
 
-			}).error(function(data)
-			{
-				console.log(data);
-				vm.isSpinnerShown=false;
-				vm.isdataavailable=false;
-				vm.isLoading = false;
-				vm.isListLoaded = true;
-				$scope.hideSearchMore=true;
-			})
+          }
+
+          vm.profiles = vm.items;
+          $scope.searchMoreInit = false;
+          vm.isListLoaded = true;
+          //selectProfile(data[0]);
+          vm.loading = false;
+          vm.isLoading = false;
+          vm.isdataavailable=true;
+          if(data.value.length<takeUserProfile){
+            vm.isdataavailable=false;
+            $scope.searchMoreInit = false;
+            $scope.hideSearchMore=true;
+          }
+        }
+      }).error(function(data)
+      {
+        console.log(data);
+        vm.isSpinnerShown=false;
+        vm.isdataavailable=false;
+        vm.isLoading = false;
+        vm.isListLoaded = true;
+        $scope.hideSearchMore=true;
+      })
 
 		};
 		// we call the function twice to populate the list
@@ -439,17 +542,32 @@
 					skipProfileSearch = 0;
 					takeProfileSearch = 100;
 					tempList = [];
-					$charge.profile().filterByKey(keyword, skipProfileSearch, takeProfileSearch).success(function (data) {
-						for (var i = 0; i < data.length; i++) {
-							if(data[i].status==0)
+
+          var dbName="";
+          dbName=getDomainName().split('.')[0]+"_"+getDomainExtension();
+          //filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
+          var data={
+            "search": keyword+"*",
+            "searchFields": "first_name,last_name,email_addr,phone",
+            "filter": "(domain eq '"+dbName+"')",
+            "orderby" : "createddate desc",
+            "top":takeProfileSearch,
+            "skip":skipProfileSearch
+          }
+
+
+					$charge.azuresearch().getAllProfilesPost(data).success(function (data) {
+						for (var i = 0; i < data.value.length; i++) {
+							if(data.value[i].status==0)
 							{
-								data[i].status=false;
+								data.value[i].status=false;
 							}
 							else
 							{
-								data[i].status=true;
+								data.value[i].status=true;
 							}
-							tempList.push(data[i]);
+              data.value[i].createddate = new Date(data.value[i].createddate);
+							tempList.push(data.value[i]);
 						}
 						vm.profiles = tempList;
 						//skipProfileSearch += takeProfileSearch;
@@ -1313,7 +1431,7 @@
 		}
 
 		$scope.editProfileInfoEnabled=false;
-		$scope.editProfileInfo = function () {
+		$scope.editProfileInfo = function (profile) {
 			$scope.editProfileInfoEnabled=!$scope.editProfileInfoEnabled;
 		}
 

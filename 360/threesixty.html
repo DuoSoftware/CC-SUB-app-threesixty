@@ -32,7 +32,7 @@
 
                     <div class="search" flex layout="row" layout-align="start center">
                         <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
-                        <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordPlan(vm.search,3)" placeholder="Search for Plans">
+                        <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordProfile(vm.search,3)" placeholder="Search for Profiles">
                     </div>
                 </div>
                 <div flex></div>
@@ -175,7 +175,7 @@
                                                                     <span>{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</span>
                                                                 </div>
                                                             </div>
-                                                            <md-button ng-click="editProfileInfo()" class="md-icon-button edit-icon"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>
+                                                            <md-button ng-click="editProfileInfo(customer_supplier.profile)" class="md-icon-button edit-icon"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>
                                                         </div>
                                                         <md-divider class="mv-10"></md-divider>
                                                         <div layout="row" flex ng-if="showMoreUserInfo">
