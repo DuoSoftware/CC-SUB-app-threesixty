@@ -1,209 +1,640 @@
-<meta name="modifiedBy" content="GihanHerath">
-<meta name="modifiedDate" content="06-12-2016">
-<meta name="version" content="6.0.0.6">
-<meta name="app" content="360">
-<meta name="view" content="customInvoiceThreesixty">
+<!--<md-dialog class="prompt-dialog">-->
+    <!--<form ng-cloak>-->
+        <!--<md-toolbar>-->
+            <!--<div class="md-toolbar-tools" layout="row" layout-align="space-between center">-->
+                <!--<div layout="row" layout-align="start center">-->
+                    <!--<i class="material-icons">share</i> <h3>Invoice #{{selectedInvoice.invoiceNo}}</h3>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<md-menu>-->
+                        <!--<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
+                            <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
+                            <!--<md-tooltip>Adjustment Action</md-tooltip>-->
+                        <!--</md-button>-->
+                        <!--<md-menu-content width="3">-->
+                            <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-send"></md-icon>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span>Send</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">-->
+                                    <!--<md-icon md-font-icon="icon-floppy"></md-icon>-->
+                                    <!--<span>Export</span>-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
 
-<md-dialog>
-  <form ng-cloak>
+                        <!--</md-menu-content>-->
+                    <!--</md-menu>-->
+                    <!--<md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">-->
+                        <!--<md-icon md-font-icon="icon-close"></md-icon>-->
+                    <!--</md-button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</md-toolbar>-->
+        <!--&lt;!&ndash;<md-toolbar>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="md-toolbar-tools">&ndash;&gt;-->
+                <!--&lt;!&ndash;<h2>Invoice #{{selectedInvoice.invoiceNo}}</h2>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span flex></span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="actions">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<md-menu>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-dots-vertical"></md-icon>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-tooltip>Invoice Action</md-tooltip>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;<md-menu-content width="3">&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-send"></md-icon>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<span>Send</span>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-icon md-font-icon="icon-floppy"></md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<span>Export</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<md-button class="md-icon-button" ng-click="vm.closeDialog()">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-icon md-font-icon="icon-close"></md-icon>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-toolbar>&ndash;&gt;-->
+        <!--<md-content ms-scroll>-->
+            <!--<md-dialog-content>-->
+                <!--<div class="md-dialog-content">-->
+                    <!--<div id="invoice-read" class="compact page-layout blank" layout="row">-->
+                        <!--<div class="invoice-read-container" layout="column" layout-align="center center">-->
+
+                            <!--&lt;!&ndash; INVOICE &ndash;&gt;-->
+                            <!--<div class="card md-whiteframe-8dp" layout="column">-->
+
+                                <!--<div class="inv-outline" layout="column" md-whiteframe="2dp">-->
+                                    <!--<div class="cancelled-inv-wm" layout="row" layout-align="center center" ng-if="selectedInvoice.transactionType=='INVOICE-CANCELLED'">-->
+                                        <!--<span layout="row" layout-align="center center"><md-icon md-font-icon="icon-information"></md-icon>CANCELLED INVOICE</span>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="inv-read-header">-->
+                                        <!--<div class="invoice-date">{{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</div>-->
+
+                                        <!--<div layout="row" layout-align="center stretch" style="display: flex;margin-bottom: 30px">-->
+                                            <!--<div class="client" flex>-->
+                                                <!--<div class="invoice-type" layout="row" layout-align="start center">-->
+                                                    <!--<span class="title">INVOICE NO : </span>-->
+                                                    <!--<span class="number">{{selectedInvoice.invoiceNo}}</span>-->
+                                                    <!--&lt;!&ndash;<span class="number">{{vm.selectedInvoice.invoiceNo}} - {{vm.selectedInvoice.code}}</span>&ndash;&gt;-->
+                                                <!--</div>-->
+
+                                                <!--<div class="invoice-type" layout="row" layout-align="start center">-->
+                                                    <!--<span class="title">INVOICE TYPE : </span>-->
+                                                    <!--<span class="number">{{selectedInvoice.invoiceType}}</span>-->
+                                                <!--</div>-->
+
+
+                                                <!--<div class="due-date" layout="row" layout-align="start center">-->
+                                                    <!--<span class="title">DUE DATE : </span>-->
+                                                    <!--<span class="date">{{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</span>-->
+                                                <!--</div>-->
+
+                                                <!--<div class="info">-->
+                                                    <!--<div class="title">{{selectedInvoice.person_name}}</div>-->
+                                                    <!--<div class="address">{{selectedInvoice.bill_addr}}</div>-->
+                                                    <!--<div class="phone">{{selectedInvoice.phone}}</div>-->
+                                                    <!--<div class="email">{{selectedInvoice.email_addr}}</div>-->
+                                                    <!--&lt;!&ndash;<div class="website">www.yamu.lk</div>&ndash;&gt;-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="issuer md-accent-bg" layout="row" layout-align="start center" flex>-->
+                                                <!--<table style="margin: 3.5% 0;">-->
+                                                    <!--<tr>-->
+                                                        <!--<td>-->
+                                                            <!--<div class="logo" layout="row" layout-align="center center">-->
+                                                                <!--<span>{{selectedInvoice.companyName| limitTo:1}}</span>-->
+                                                            <!--</div>-->
+                                                        <!--</td>-->
+                                                        <!--<td>-->
+                                                            <!--<div class="info">-->
+                                                                <!--<div class="title">{{selectedInvoice.companyName}}</div>-->
+                                                                <!--<div class="address">{{selectedInvoice.companyAddress}}</div>-->
+                                                                <!--<div class="phone">{{selectedInvoice.companyPhone}}</div>-->
+                                                                <!--<div class="email">{{selectedInvoice.companyEmail}}</div>-->
+                                                            <!--</div>-->
+                                                        <!--</td>-->
+                                                    <!--</tr>-->
+                                                <!--</table>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="inv-read-content">-->
+                                        <!--<table class="simple invoice-table">-->
+                                            <!--<thead>-->
+                                            <!--<th>ITEM</th>-->
+                                            <!--<th class="text-right" style="text-align: right">UNIT PRICE</th>-->
+                                            <!--<th class="text-right" style="text-align: right">QUANTITY</th>-->
+                                            <!--<th class="text-right" style="text-align: right">PROMOTION</th>-->
+                                            <!--<th class="text-right" style="text-align: right">TOTAL</th>-->
+                                            <!--</thead>-->
+                                            <!--<tbody>-->
+                                            <!--<tr ng-repeat="detail in selectedInvoice.invoiceDetails">-->
+                                                <!--<td>-->
+                                                    <!--<div class="title">-->
+                                                        <!--{{detail.product_name}}-->
+                                                    <!--</div>-->
+                                                <!--</td>-->
+                                                <!--<td class="text-right">-->
+                                                    <!--{{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
+                                                <!--</td>-->
+                                                <!--<td class="text-right">-->
+                                                    <!--{{detail.gty}}-->
+                                                <!--</td>-->
+                                                <!--<td class="text-right">-->
+                                                    <!--{{detail.promotion | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
+                                                <!--</td>-->
+                                                <!--<td class="text-right">-->
+                                                    <!--{{detail.totalPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+
+                                        <!--<table class="simple invoice-table-footer">-->
+                                            <!--<tbody>-->
+                                            <!--<tr class="subtotal">-->
+                                                <!--<td></td>-->
+                                                <!--<td>SUBTOTAL</td>-->
+                                                <!--<td>{{selectedInvoice.subTotal | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr class="additionalcharge">-->
+                                                <!--<td></td>-->
+                                                <!--<td>MISCELLANEOUS CHARGES</td>-->
+                                                <!--<td>{{selectedInvoice.additionalcharge | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr class="discount">-->
+                                                <!--<td></td>-->
+                                                <!--<td>DISCOUNT</td>-->
+                                                <!--<td>-->
+                                                    <!--{{selectedInvoice.discAmt | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr class="tax">-->
+                                                <!--<td></td>-->
+                                                <!--<td>TAX</td>-->
+                                                <!--<td>{{selectedInvoice.tax | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr class="tax">-->
+                                                <!--<td></td>-->
+                                                <!--<td>PROMOTION</td>-->
+                                                <!--<td>{{selectedInvoice.discount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr class="total">-->
+                                                <!--<td></td>-->
+                                                <!--<td>TOTAL</td>-->
+                                                <!--<td>{{selectedInvoice.invoiceAmount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                    <!--</div>-->
+
+                                    <!--<div flex></div>-->
+
+                                    <!--<div class="inv-read-footer">-->
+                                        <!--<div class="note">{{vm.FooterGreeting}}</div>-->
+                                        <!--<div layout="row" layout-align="start start">-->
+                                            <!--&lt;!&ndash;<div class="logo md-accent-bg" layout="row" layout-align="center center">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div>D</div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<div class="small-note">-->
+                                                <!--{{vm.FooterDisclaimer}}-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; / INVOICE &ndash;&gt;-->
+
+                            <!--&lt;!&ndash; Use the following element to add breaks to your pages &ndash;&gt;-->
+                            <!--&lt;!&ndash; This will make sure that the section after this element will be printed on a new page &ndash;&gt;-->
+                            <!--<div class="page-break"></div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</md-dialog-content>-->
+        <!--</md-content>-->
+
+        <!--&lt;!&ndash;<md-dialog-actions layout="row">&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-dialog-actions>&ndash;&gt;-->
+    <!--</form>-->
+<!--</md-dialog>-->
+
+<md-dialog class="prompt-dialog">
     <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Invoice #{{selectedInvoice.invoiceNo}}</h2>
-        <span flex></span>
-        <div class="actions">
-          <md-menu>
-            <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-              <md-icon md-font-icon="icon-dots-vertical"></md-icon>
-              <md-tooltip>Invoice Action</md-tooltip>
-            </md-button>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <i class="material-icons">share</i> <h3>Invoice #{{selectedInvoice.invoiceNo}}</h3>
+            </div>
+            <div>
+                <md-menu>
+                    <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                        <md-tooltip>Adjustment Action</md-tooltip>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <!--<md-menu-item>-->
+                        <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
+                        <!--<md-icon md-font-icon="icon-send"></md-icon>-->
+                        <!--<span>Send</span>-->
+                        <!--</md-button>-->
+                        <!--</md-menu-item>-->
+                        <md-menu-item>
+                            <md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">
+                                <md-icon md-font-icon="icon-floppy"></md-icon>
+                                <span>Export</span>
+                            </md-button>
+                        </md-menu-item>
 
-            <md-menu-content width="3">
-              <!--<md-menu-item>-->
-                <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
-                  <!--<md-icon md-font-icon="icon-send"></md-icon>-->
-                  <!--<span>Send</span>-->
-                <!--</md-button>-->
-              <!--</md-menu-item>-->
-              <md-menu-item>
-                <md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">
-                  <md-icon md-font-icon="icon-floppy"></md-icon>
-                  <span>Export</span>
+                    </md-menu-content>
+                </md-menu>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close"></md-icon>
                 </md-button>
-              </md-menu-item>
-
-            </md-menu-content>
-          </md-menu>
-          <md-button class="md-icon-button" ng-click="vm.closeDialog()">
-            <md-icon md-font-icon="icon-close"></md-icon>
-          </md-button>
+            </div>
         </div>
-      </div>
     </md-toolbar>
 
-    <md-content ms-scroll>
-      <md-dialog-content>
-        <div class="md-dialog-content">
-          <div id="invoice-read" class="compact page-layout blank" layout="row">
-            <div class="invoice-read-container" layout="column" layout-align="center center">
-
-              <!-- INVOICE -->
-              <div class="card md-whiteframe-8dp" layout="column">
-
-                <div class="inv-outline" layout="column" md-whiteframe="2dp">
-                  <div class="cancelled-inv-wm" layout="row" layout-align="center center" ng-if="selectedInvoice.transactionType=='INVOICE-CANCELLED'">
-                    <span layout="row" layout-align="center center"><md-icon md-font-icon="icon-information"></md-icon>CANCELLED INVOICE</span>
-                  </div>
-
-                  <div class="inv-read-header">
-                    <div class="invoice-date">{{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</div>
-
-                    <div layout="row" layout-align="center stretch" style="display: flex;margin-bottom: 30px">
-                      <div class="client" flex>
-                        <div class="invoice-type" layout="row" layout-align="start center">
-                          <span class="title">INVOICE NO : </span>
-                          <span class="number">{{selectedInvoice.invoiceNo}}</span>
-                          <!--<span class="number">{{vm.selectedInvoice.invoiceNo}} - {{vm.selectedInvoice.code}}</span>-->
-                        </div>
-
-                        <div class="invoice-type" layout="row" layout-align="start center">
-                          <span class="title">INVOICE TYPE : </span>
-                          <span class="number">{{selectedInvoice.invoiceType}}</span>
-                        </div>
-
-
-                        <div class="due-date" layout="row" layout-align="start center">
-                          <span class="title">DUE DATE : </span>
-                          <span class="date">{{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</span>
-                        </div>
-
-                        <div class="info">
-                          <div class="title">{{selectedInvoice.person_name}}</div>
-                          <div class="address">{{selectedInvoice.bill_addr}}</div>
-                          <div class="phone">{{selectedInvoice.phone}}</div>
-                          <div class="email">{{selectedInvoice.email_addr}}</div>
-                          <!--<div class="website">www.yamu.lk</div>-->
-                        </div>
-                      </div>
-                      <div class="issuer md-accent-bg" layout="row" layout-align="start center" flex>
-                        <table style="margin: 3.5% 0;">
-                          <tr>
-                            <td>
-                              <div class="logo" layout="row" layout-align="center center">
-                                <span>{{selectedInvoice.companyName| limitTo:1}}</span>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="info">
-                                <div class="title">{{selectedInvoice.companyName}}</div>
-                                <div class="address">{{selectedInvoice.companyAddress}}</div>
-                                <div class="phone">{{selectedInvoice.companyPhone}}</div>
-                                <div class="email">{{selectedInvoice.companyEmail}}</div>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="inv-read-content">
-                    <table class="simple invoice-table">
-                      <thead>
-                      <th>ITEM</th>
-                      <th class="text-right" style="text-align: right">UNIT PRICE</th>
-                      <th class="text-right" style="text-align: right">QUANTITY</th>
-                      <th class="text-right" style="text-align: right">PROMOTION</th>
-                      <th class="text-right" style="text-align: right">TOTAL</th>
-                      </thead>
-                      <tbody>
-                      <tr ng-repeat="detail in selectedInvoice.invoiceDetails">
-                        <td>
-                          <div class="title">
-                            {{detail.product_name}}
-                          </div>
-                        </td>
-                        <td class="text-right">
-                          {{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
-                        </td>
-                        <td class="text-right">
-                          {{detail.gty}}
-                        </td>
-                        <td class="text-right">
-                          {{detail.promotion | isoCurrency:selectedInvoice.currency:decimalPoint}}
-                        </td>
-                        <td class="text-right">
-                          {{detail.totalPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-
-                    <table class="simple invoice-table-footer">
-                      <tbody>
-                      <tr class="subtotal">
-                        <td></td>
-                        <td>SUBTOTAL</td>
-                        <td>{{selectedInvoice.subTotal | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>
-                      </tr>
-                      <tr class="additionalcharge">
-                        <td></td>
-                        <td>MISCELLANEOUS CHARGES</td>
-                        <td>{{selectedInvoice.additionalcharge | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>
-                      </tr>
-                      <tr class="discount">
-                        <td></td>
-                        <td>DISCOUNT</td>
-                        <td>
-                          {{selectedInvoice.discAmt | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>
-                      </tr>
-                      <tr class="tax">
-                        <td></td>
-                        <td>TAX</td>
-                        <td>{{selectedInvoice.tax | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>
-                      </tr>
-                      <tr class="tax">
-                        <td></td>
-                        <td>PROMOTION</td>
-                        <td>{{selectedInvoice.discount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>
-                      </tr>
-                      <tr class="total">
-                        <td></td>
-                        <td>TOTAL</td>
-                        <td>{{selectedInvoice.invoiceAmount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div flex></div>
-
-                  <div class="inv-read-footer">
-                  <div class="note">{{vm.FooterGreeting}}</div>
-                  <div layout="row" layout-align="start start">
-                    <!--<div class="logo md-accent-bg" layout="row" layout-align="center center">-->
-                      <!--<div>D</div>-->
-                    <!--</div>-->
-                    <div class="small-note">
-                      {{vm.FooterDisclaimer}}
-                    </div>
-                  </div>
-                </div>
-                </div>
-              </div>
-              <!-- / INVOICE -->
-
-              <!-- Use the following element to add breaks to your pages -->
-              <!-- This will make sure that the section after this element will be printed on a new page -->
-              <div class="page-break"></div>
-
+    <md-content ms-scroll class="h-600 p-30">
+        <!--Canceled label-->
+        <div>
+            <div class="cancelled-inv-wm" layout="row" layout-align="center center" ng-if="selectedInvoice.transactionType=='INVOICE-CANCELLED'">
+                <span layout="row" layout-align="center center"><md-icon md-font-icon="icon-information"></md-icon>CANCELLED INVOICE</span>
             </div>
-          </div>
-
         </div>
-      </md-dialog-content>
-    </md-content>
+        <!--Canceled label-->
+        <div class="email-template" id="print-content" style="border: solid 1px #ddd;box-shadow:none!important;float:none;width: 700px;max-width: 700px;min-height: 842px;position:relative">
+            <div ng-if="currentTemplateView == 'emailTemplate1'">
+                <div class="template-header bg-blue-g" style="height: 100px;background: #05a3ec;background:linear-gradient(45deg, #05a3ec,#006696);color: #fff;padding: 10px;">
+                    <div class="left-content" style="width: 30%;float: left;" ng-if="docType == 'invoice'">
+                        <div style="font-size: 30px;margin: 20px 0;">INVOICE</div>
+                    </div>
+                    <div class="left-content" style="width: 30%;float: left;" ng-if="docType == 'payment'">
+                        <div style="font-size: 30px;margin: 20px 0;">RECEIPT</div>
+                    </div>
+                    <div class="right-content" style="width: 70%;float: right;">
+                        <div class="inner-left" style="width: 35%;float: left;">
+                        </div>
+                        <div class="inner-right" style="width: 65%;float: right">
+                            <div><h3 style="margin: 0;">{{selectedDoc.companyName}}</h3></div>
+                            <div>{{selectedDoc.companyAddress}}</div>
+                            <div>{{selectedDoc.companyPhone}}</div>
+                            <div>{{selectedDoc.companyEmail}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-header" style="padding: 10px;padding-top: 30px;overflow: hidden;">
+                    <div class="left-content" style="width: 55%;float: left;">
+                        <div style="color: #aaa;margin-bottom: 5px">Billed to</div>
+                        <div style="margin-bottom: 5px"><b>{{selectedDoc.UserName}}</b></div>
+                        <div style="margin-bottom: 5px"><b>{{selectedDoc.UserAddress}}</b></div>
+                        <div style="margin-bottom: 5px"><b>{{selectedDoc.UserContact}}</b></div>
+                        <div><b>{{selectedDoc.UserEmail}}</b></div>
+                    </div>
+                    <div class="right-content" style="width: 45%;float: right;">
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div style="color: #aaa;margin-bottom: 2px">Invoice no</div>
+                            <div><b>{{selectedInvoice.invoiceNo}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'payment'">
+                            <div style="color: #aaa;margin-bottom: 2px">Receipt no</div>
+                            <div><b>{{vm.selectedPayment.paymentNo}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div style="color: #aaa;margin-bottom: 2px">Created date</div>
+                            <div><b>{{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'payment'">
+                            <div style="color: #aaa;margin-bottom: 2px">Payment date</div>
+                            <div><b>{{vm.selectedPayment.paymentDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div style="color: #aaa;margin-bottom: 2px">Due date</div>
+                            <div><b>{{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="currentTemplateView == 'emailTemplate2'">
+                <div class="template-header bg-image" style="height: 110px;background: url('../../../../assets/images/backgrounds/email_template_1.jpg') -30px;background-repeat:no-repeat;background-size:cover;color: #fff;padding: 10px;">
+                    <div class="left-content" style="width: 55%;float: left;">
+                        <div style="font-size: 30px;margin: 20px 0;" ng-if="docType == 'invoice'"><b>INVOICE</b></div>
+                        <div style="font-size: 30px;margin: 20px 0;" ng-if="docType == 'payment'"><b>RECEIPT</b></div>
+                    </div>
+                    <div class="right-content" style="width: 45%;float: right;">
+                        <div class="inner-right" style="float: left;color: #000;">
+                            <div><h3 style="margin: 0;">{{selectedDoc.companyName}}</h3></div>
+                            <div>{{selectedDoc.companyAddress}}</div>
+                            <div>{{selectedDoc.companyPhone}}</div>
+                            <div>{{selectedDoc.companyEmail}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="overflow: hidden;border-bottom: solid 1px #eee;color: #aaa">
+                    <div style="margin: 5px 0;width: 100%;text-align: center">{{template.companyAddress}}</div>
+                </div>
+                <div class="sub-header" style="padding: 10px;padding-top: 30px;overflow: hidden;">
+                    <div class="left-content" style="width: 55%;float: left;">
+                        <div style="color: #aaa;margin-bottom: 5px">Billed to</div>
+                        <div style="margin-bottom: 5px"><b>{{selectedDoc.UserName}}</b></div>
+                        <div style="margin-bottom: 5px"><b>{{selectedDoc.UserAddress}}</b></div>
+                        <div style="margin-bottom: 5px"><b>{{selectedDoc.UserContact}}</b></div>
+                        <div><b>{{selectedDoc.UserAddress}}</b></div>
+                    </div>
+                    <div class="right-content" style="width: 45%;float: right;">
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div style="color: #aaa;margin-bottom: 2px">Invoice no</div>
+                            <div><b>{{selectedInvoice.invoiceNo}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'payment'">
+                            <div style="color: #aaa;margin-bottom: 2px">Receipt no</div>
+                            <div><b>{{vm.selectedPayment.paymentNo}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div style="color: #aaa;margin-bottom: 2px">Created date</div>
+                            <div><b>{{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'payment'">
+                            <div style="color: #aaa;margin-bottom: 2px">Payment date</div>
+                            <div><b>{{vm.selectedPayment.paymentDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div style="color: #aaa;margin-bottom: 2px">Due date</div>
+                            <div><b>{{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="currentTemplateView == 'emailTemplate3'">
+                <div class="template-header" style="height: 150px;padding: 10px;text-align: center;position: relative;">
+                    <img src="{{selectedDoc.croppedLogo}}" alt="" style="height: 100px;position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto;">
+                </div>
+                <div style="text-align: center">
+                    <div style="margin: 5px 0;color: #aaaaaa;">{{selectedDoc.companyName}}</div>
+                    <div style="margin-left: 25%;margin-right:25%;height: 1px;border-top: solid 1px #eee"></div>
+                    <div style="margin: 5px 0;color: #aaaaaa;">{{selectedDoc.companyPhone}}</div>
+                    <div style="margin: 5px 0;color: #aaaaaa;">{{selectedDoc.companyEmail}}</div>
+                </div>
+                <div style="overflow: hidden;background: #f7f7f7;color: #aaa;">
+                    <div style="margin: 5px 0;text-align: center">{{selectedDoc.companyAddress}}</div>
+                </div>
+                <div class="bg-blue" style="height: 40px;text-align: center;background: #05a3ec;color: #fff;margin-bottom: 10px">
+                    <div style="font-size: 20px;padding: 5px 0;" ng-if="docType == 'invoice'">INVOICE</div>
+                    <div style="font-size: 20px;padding: 5px 0;" ng-if="docType == 'payment'">RECEIPT</div>
+                </div>
+                <div class="sub-header" style="padding: 10px;overflow: hidden;">
+                    <div class="left-content" style="width: 67%;float: left;">
+                        <div style="margin-bottom: 5px">{{selectedDoc.UserName}}</div>
+                        <div style="margin-bottom: 5px">{{selectedDoc.UserAddress}}</div>
+                        <div style="margin-bottom: 5px">{{selectedDoc.UserContact}}</div>
+                        <div>{{selectedDoc.UserEmail}}</div>
+                    </div>
+                    <div class="right-content" style="width: 33%;float: right;">
+                        <div class="inner-left" style="margin-bottom: 10px">
+                            <div ng-if="docType == 'invoice'"><span style="color: #aaa;">Invoice no: </span> <b> {{selectedInvoice.invoiceNo}}</b></div>
+                            <div ng-if="docType == 'payment'"><span style="color: #aaa;">Receipt no: </span> <b> {{vm.selectedPayment.paymentNo}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px">
+                            <div ng-if="docType == 'invoice'"><span style="color: #aaa;">Created date: </span> <b> {{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                            <div ng-if="docType == 'payment'"><span style="color: #aaa;">Payment date: </span> <b> {{vm.selectedPayment.paymentDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                        <div class="inner-left" style="margin-bottom: 10px" ng-if="docType == 'invoice'">
+                            <div><span style="color: #aaa;">Due date: </span> <b> {{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="currentTemplateView == 'emailTemplate4'">
+                <div class="bg-blue" style="height: 40px;text-align: center;background-color: #05a3ec;color: #fff;margin-bottom: 30px">
+                    <div style="font-size: 20px;padding: 5px 0;" ng-if="docType == 'invoice'">INVOICE</div>
+                    <div style="font-size: 20px;padding: 5px 0;" ng-if="docType == 'payment'">RECEIPT</div>
+                </div>
+                <div class="sub-header" style="padding: 10px;overflow: hidden;">
+                    <div class="left-content" style="width: 50%;float: left;">
+                        <div style="margin-bottom: 20px">
+                            <div ng-if="docType == 'invoice'"><span style="color: #aaa;">Invoice no: </span> <b> {{selectedInvoice.invoiceNo}}</b></div>
+                            <div ng-if="docType == 'payment'"><span style="color: #aaa;">Receipt no: </span> <b> {{vm.selectedPayment.paymentNo}}</b></div>
+                            <div ng-if="docType == 'invoice'"><span style="color: #aaa;">Created date: </span> <b> {{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                            <div ng-if="docType == 'payment'"><span style="color: #aaa;">Payment date: </span> <b> {{vm.selectedPayment.paymentDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                            <div style="margin-bottom: 5px" ng-if="docType == 'invoice'"><span style="color: #aaa;">Due date: </span> <b> {{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</b></div>
+                        </div>
+                        <div>{{selectedDoc.UserName}}</div>
+                        <div>{{selectedDoc.UserAddress}}</div>
+                        <div>{{selectedDoc.UserContact}}</div>
+                        <div>{{selectedDoc.UserEmail}}</div>
+                    </div>
+                    <div class="right-content" style="width: 50%;float: right;">
+                        <div class="logo" style="position:relative;float: left;width:100px;height: 150px;border-right:solid 1px #eee;">
+                            <img src="{{selectedDoc.companyLogo}}" alt="" style="position:absolute;padding-right:10px;height: 90px;left: 0;right: 0;top: 0;bottom: 0;margin: auto;">
+                        </div>
+                        <div style="float: left;margin-left: 10px;max-width: 177px;">
+                            <div><h3>{{selectedDoc.companyName}}</h3></div>
+                            <div>{{selectedDoc.companyAddress}}</div>
+                            <div style="clear: both;color: #aaa;padding-top: 10px;margin-top: 10px;font-size: 12px;">
+                                <div style="margin-bottom: 5px">{{selectedDoc.companyPhone}}</div>
+                                <div>{{selectedDoc.companyEmail}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list" style="margin: 10px;" ng-if="docType == 'invoice'">
+                <div class="list-header" style="padding: 10px;height: 40px;background: #eee;">
+                    <div style="color: #aaa;width: 20%;float: left;">
+                        Item
+                    </div>
+                    <div style="color: #aaa;width: 20%;float: left;text-align: right">
+                        Unit price
+                    </div>
+                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <div style="color: #aaa;width: 18%;float: left">
+                        Quantity
+                    </div>
+                    <div style="color: #aaa;width: 20%;float: left">
+                        Promotion
+                    </div>
+                    <div style="color: #aaa;width: 20%;float: left;text-align: right">
+                        Total
+                    </div>
+                </div>
+                <div class="list-item" style="border-bottom: solid 1px #eee;padding: 10px;overflow: hidden;" ng-repeat="detail in selectedInvoice.invoiceDetails">
+                    <div style="float: left;color: #aaa;width: 20%">{{detail.product_name}}<span ng-if="detail.product_name == '' || detail.product_name == null">-</span> </div>
+                    <div style="float: left;color: #aaa;width: 20%;text-align: right">
+                        {{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
+                    </div>
+                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <div style="float: left;color: #aaa;width: 18%">
+                        {{detail.gty}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 20%">
+                        {{detail.promotion | isoCurrency:selectedInvoice.currency:decimalPoint}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 20%;text-align: right">
+                        {{detail.totalPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
+                    </div>
+                </div>
+                <div style="overflow: hidden;margin-bottom: 10px;margin-top: 10px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="float: left;color: #aaa;width: 50%">SUBTOTAL</div>
+                        <div style="float: left;color: #aaa;width: 50%;text-align: right">{{selectedInvoice.subTotal | isoCurrency:selectedInvoice.currency:decimalPoint}}</div>
+                    </div>
+                </div>
+                <div style="overflow: hidden;margin-bottom: 10px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="float: left;color: #aaa;width: 50%">MISCELLANEOUS CHARGES</div>
+                        <div style="float: left;color: #aaa;width: 50%;text-align: right">{{selectedInvoice.additionalcharge | isoCurrency:selectedInvoice.currency:decimalPoint}}</div>
+                    </div>
+                </div>
+                <div style="overflow: hidden;margin-bottom: 10px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="float: left;color: #aaa;width: 50%">DISCOUNT</div>
+                        <div style="float: left;color: #aaa;width: 50%;text-align: right">({{selectedInvoice.discAmt | isoCurrency:selectedInvoice.currency:decimalPoint}})</div>
+                    </div>
+                </div>
+                <div style="overflow: hidden;margin-bottom: 10px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="float: left;color: #aaa;width: 50%">TAX</div>
+                        <div style="float: left;color: #aaa;width: 50%;text-align: right">{{selectedInvoice.tax | isoCurrency:selectedInvoice.currency:decimalPoint}}</div>
+                    </div>
+                </div>
+                <div style="overflow: hidden;margin-bottom: 10px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="float: left;color: #aaa;width: 50%">PROMOTION</div>
+                        <div style="float: left;color: #aaa;width: 50%;text-align: right">({{selectedInvoice.discount | isoCurrency:selectedInvoice.currency:decimalPoint}})</div>
+                    </div>
+                </div>
+                <div class="list-footer" style="overflow: hidden;height: 40px;margin-top: 30px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="color: #aaaaaa;font-size: 16px;width: 50%;float: left;"><b>TOTAL</b></div>
+                        <div style="color: #aaaaaa;text-align: right;width: 50%;float: left;"><b>{{selectedInvoice.invoiceAmount | isoCurrency:selectedInvoice.currency:decimalPoint}}</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="list" style="margin: 10px;" ng-if="docType == 'adjustment'">
+                <div class="list-header" style="padding: 10px;height: 40px;background: #eee;">
+                    <div style="color: #aaa;width: 20%;float: left;">
+                        ID
+                    </div>
+                    <div style="color: #aaa;width: 20%;float: left">
+                        Date
+                    </div>
+                    <div style="color: #aaa;width: 18%;float: left">
+                        Type
+                    </div>
+                    <div style="color: #aaa;width: 20%;float: left;text-align: right">
+                        Invoice amount
+                    </div>
+                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <div style="color: #aaa;width: 20%;float: left;text-align: right">
+                        Paid amount
+                    </div>
+                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <div style="color: #aaa;width: 20%;float: left;text-align: right">
+                        Status
+                    </div>
+                </div>
+                <div class="list-item" style="border-bottom: solid 1px #eee;padding: 10px;overflow: hidden;">
+                    <div style="float: left;color: #aaa;width: 20%">
+                        {{vm.selectedAdjustment.invoiceid}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 20%;text-align: right">
+                        {{SelectedInvoice.invoiceDate | limitTo:10}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 18%">
+                        {{SelectedInvoice.invoiceType}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 20%">
+                        {{SelectedInvoice.currency}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 20%">
+                        {{SelectedInvoice.currencyAmount| isoCurrency:SelectedInvoice.currency:decimalPoint}}
+                    </div>
+                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <div style="float: left;color: #aaa;width: 20%">
+                        {{SelectedInvoice.paidAmount| isoCurrency:SelectedInvoice.currency:decimalPoint}}
+                    </div>
+                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <div style="float: left;color: #aaa;width: 20%;text-align: right">
+                        {{SelectedInvoice.invoiceStatus}}
+                    </div>
+                </div>
 
-    <!--<md-dialog-actions layout="row">-->
-    <!--</md-dialog-actions>-->
-  </form>
+                <div class="list-footer" style="overflow: hidden;height: 40px;margin-top: 30px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="color: #aaaaaa;font-size: 16px;width: 50%;float: left;"><b>ADJUSTMENT AMOUNT</b></div>
+                        <div style="color: #aaaaaa;text-align: right;width: 50%;float: left;">
+                            <b>{{vm.selectedAdjustment.amount| isoCurrency:vm.selectedAdjustment.currency:decimalPoint}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list" style="margin: 10px;" ng-if="docType == 'payment'">
+                <div class="list-header" style="padding: 10px;height: 40px;background: #eee;">
+                    <div style="color: #aaa;width: 25%;float: left;">
+                        CURRENCY
+                    </div>
+                    <div style="color: #aaa;width: 25%;float: left">
+                        CURRENCY RATE
+                    </div>
+                    <div style="color: #aaa;width: 25%;float: left">
+                        PAYMENT METHOD
+                    </div>
+                    <div style="color: #aaa;width: 25%;float: left;text-align: right">
+                        TOTAL
+                    </div>
+                </div>
+                <div class="list-item" style="border-bottom: solid 1px #eee;padding: 10px;overflow: hidden;">
+                    <div style="float: left;color: #aaa;width: 25%">
+                        {{vm.selectedPayment.currency}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 25%">
+                        {{vm.selectedPayment.rate}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 25%">
+                        {{vm.selectedPayment.paymentMethod}}
+                    </div>
+                    <div style="float: left;color: #aaa;width: 25%;text-align: right">
+                        {{vm.selectedPayment.amount | isoCurrency:vm.selectedPayment.currency:decimalPoint}}
+                    </div>
+                </div>
+
+                <div class="list-footer" style="overflow: hidden;height: 40px;margin-top: 30px;padding-right: 10px">
+                    <div style="width: 50%;height: 10px;float: left;"></div>
+                    <div style="width: 50%;float: left;">
+                        <div style="color: #aaaaaa;font-size: 16px;width: 50%;float: left;"><b>TOTAL</b></div>
+                        <div style="color: #aaaaaa;text-align: right;width: 50%;float: left;">
+                            <b>{{vm.selectedPayment.amount | isoCurrency:vm.selectedPayment.currency:decimalPoint}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-footer" style="width: 100%;margin-top: 30px;padding: 10px;position:absolute;bottom: 0;">
+                <div style="margin: 5px 0;font-size: 12px"><b>{{selectedDoc.greeting}}</b></div>
+                <div style="font-size: 12px;color: #aaa;padding-top: 5px;border-top: solid 1px #eee">
+                    {{selectedDoc.disclaimer}}
+                </div>
+            </div>
+        </div>
+    </md-content>
 </md-dialog>
