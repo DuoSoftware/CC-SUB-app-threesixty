@@ -452,8 +452,8 @@
         "search": "*",
         "filter": "(domain eq '"+dbName+"')",
         "orderby" : "createddate desc",
-        "top":take,
-        "skip":skip
+        "top":takeUserProfile,
+        "skip":skipUserProfile
       }
 
       $charge.azuresearch().getAllProfilesPost(data).success(function(data)
@@ -1454,7 +1454,9 @@
 				$scope.customer_supplier.profile.last_name = $scope.customer_supplier.profile.othername;
 				$scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
 				$scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete').value;
+				$scope.customer_supplier.profile.bill_country=document.getElementById('country').value;
 				$scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete2').value;
+				$scope.customer_supplier.profile.ship_country=document.getElementById('country2').value;
 
 				$charge.profile().update($scope.customer_supplier.profile).success(function(data){
 					console.log(data);
@@ -1465,6 +1467,7 @@
 						$scope.editProfileInfo();
 						vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
 						vm.profileDetailSubmitted = false;
+            $rootScope.refreshpage();
 					}
 					else
 					{
