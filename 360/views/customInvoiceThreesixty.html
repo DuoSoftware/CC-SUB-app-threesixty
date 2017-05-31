@@ -476,7 +476,7 @@
                 </div>
                 <div class="list-item" style="border-bottom: solid 1px #eee;padding: 10px;overflow: hidden;" ng-repeat="detail in selectedInvoice.invoiceDetails">
                     <div style="float: left;color: #aaa;width: 20%">
-                      <div>{{detail.code}}<span ng-if="detail.code == '' || detail.code == null">-</span></div>
+                      <div>{{detail.name}} ({{detail.code}})<span ng-if="detail.code == '' || detail.code == null">-</span></div>
                       <div style="font-size: 10px">{{detail.description}}</div>
                     </div>
                     <!--<div style="float: left;color: #aaa;width: 20%">-->
