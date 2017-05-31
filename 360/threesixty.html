@@ -517,12 +517,29 @@
                                     </md-input-container>
                                     <div flex="5"></div>
                                     <md-input-container flex="30">
-                                        <label>Shipping Address</label>
-                                        <input type="text" ng-required="true" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate2()" onchange="geolocate2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
-                                        <div ng-messages="vm.editProfileForm.ship_addr.$error">
-                                            <div ng-message="maxlength">Address must be between 1-200 characters</div>
-                                        </div>
+                                      <label>Bill Country</label>
+                                      <input type="text" ng-required="true" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="customer_supplier.profile.bill_country">
+                                      <div ng-messages="vm.editProfileForm.bill_country.$error">
+                                        <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                                      </div>
                                     </md-input-container>
+                                </div>
+                                <div layout="row">
+                                  <md-input-container flex="30">
+                                    <label>Shipping Address</label>
+                                    <input type="text" ng-required="true" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate2()" onchange="geolocate2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
+                                    <div ng-messages="vm.editProfileForm.ship_addr.$error">
+                                      <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                                    </div>
+                                  </md-input-container>
+                                  <div flex="5"></div>
+                                  <md-input-container flex="30">
+                                    <label>Shipping Country</label>
+                                    <input type="text" ng-required="true" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="customer_supplier.profile.ship_country">
+                                    <div ng-messages="vm.editProfileForm.ship_country.$error">
+                                      <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                                    </div>
+                                  </md-input-container>
                                 </div>
                             </md-card-content>
                         </md-card>
@@ -930,14 +947,10 @@
 <script>
 	var placeSearch, autocomplete,autocomplete2;
 	var componentForm = {
-		locality: 'long_name',
-		country: 'long_name',
-		postal_code: 'short_name'
+		country: 'long_name'
 	};
 	var componentForm2 = {
-		locality: 'long_name',
-		country: 'long_name',
-		postal_code: 'short_name'
+		country: 'long_name'
 	};
 
 	function initAutocomplete() {
@@ -966,7 +979,7 @@
 		var place = autocomplete.getPlace();
 		//debugger;
 		for (var component in componentForm) {
-			document.getElementById(component).value = '';
+//			document.getElementById(component).value = '';
 			//document.getElementById(component).disabled = false;
 		}
 
@@ -979,12 +992,12 @@
 				document.getElementById(addressType).value = val;
 				document.getElementById(addressType).focus();
 			}
-			else if(addressType=='administrative_area_level_2')
-			{
-				var val = place.address_components[i]['long_name'];
-				document.getElementById('locality').value = val;
-				document.getElementById('locality').focus();
-			}
+//			else if(addressType=='administrative_area_level_2')
+//			{
+//				var val = place.address_components[i]['long_name'];
+//				document.getElementById('locality').value = val;
+//				document.getElementById('locality').focus();
+//			}
 		}
 	}
 
@@ -1022,7 +1035,7 @@
 		var place = autocomplete2.getPlace();
 		//debugger;
 		for (var component in componentForm2) {
-			document.getElementById(component+"2").value = '';
+//			document.getElementById(component+"2").value = '';
 			//document.getElementById(component).disabled = false;
 		}
 
@@ -1035,12 +1048,12 @@
 				document.getElementById(addressType+"2").value = val;
 				document.getElementById(addressType+"2").focus();
 			}
-			else if(addressType=='administrative_area_level_2')
-			{
-				var val = place.address_components[i]['long_name'];
-				document.getElementById('locality2').value = val;
-				document.getElementById('locality2').focus();
-			}
+//			else if(addressType=='administrative_area_level_2')
+//			{
+//				var val = place.address_components[i]['long_name'];
+//				document.getElementById('locality2').value = val;
+//				document.getElementById('locality2').focus();
+//			}
 		}
 	}
 

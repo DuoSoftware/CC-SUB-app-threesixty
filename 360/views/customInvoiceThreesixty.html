@@ -455,8 +455,11 @@
             <div class="list" style="margin: 10px;" ng-if="docType == 'invoice'">
                 <div class="list-header" style="padding: 10px;height: 40px;background: #eee;">
                     <div style="color: #aaa;width: 20%;float: left;">
-                        Item
+                        Plan
                     </div>
+                    <!--<div style="color: #aaa;width: 20%;float: left;">-->
+                      <!--Description-->
+                    <!--</div>-->
                     <div style="color: #aaa;width: 20%;float: left;text-align: right">
                         Unit price
                     </div>
@@ -472,11 +475,17 @@
                     </div>
                 </div>
                 <div class="list-item" style="border-bottom: solid 1px #eee;padding: 10px;overflow: hidden;" ng-repeat="detail in selectedInvoice.invoiceDetails">
-                    <div style="float: left;color: #aaa;width: 20%">{{detail.product_name}}<span ng-if="detail.product_name == '' || detail.product_name == null">-</span> </div>
-                    <div style="float: left;color: #aaa;width: 20%;text-align: right">
-                        {{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
+                    <div style="float: left;color: #aaa;width: 20%">
+                      <div>{{detail.code}}<span ng-if="detail.code == '' || detail.code == null">-</span></div>
+                      <div style="font-size: 10px">{{detail.description}}</div>
                     </div>
-                    <div style="width: 2%;float: left;height: 10px;"></div>
+                    <!--<div style="float: left;color: #aaa;width: 20%">-->
+                        <!--{{detail.description}}-->
+                    <!--</div>-->
+                    <div style="float: left;color: #aaa;width: 20%;text-align: right">
+                      {{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
+                    </div>
+                    <div style="width: 2%;float: left;height: 11px;"></div>
                     <div style="float: left;color: #aaa;width: 18%">
                         {{detail.gty}}
                     </div>
