@@ -147,7 +147,7 @@
       vm.selectedProfileOriginal=angular.copy(threesixty);
 
       $charge.profile().getByID(threesixty.profileId).success(function(data) {
-        console.log(data);
+        //console.log(data);
         $scope.customer_supplier.profile=data[0];
 
         $scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
@@ -158,7 +158,7 @@
 
         // $scope.isLoading = false;
       }).error(function(data) {
-        console.log(data);
+        //console.log(data);
       })
 
 			vm.profileDetailSubmitted = false;
@@ -328,10 +328,10 @@
 
 		$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes","BaseCurrency").success(function(data) {
 			$scope.BaseCurrency=data[0].RecordFieldData;
-			console.log($scope.BaseCurrency);
+			//console.log($scope.BaseCurrency);
 
 		}).error(function(data) {
-			console.log(data);
+			//console.log(data);
 			$scope.BaseCurrency="USD";
 		});
 		$charge.settingsapp().getDuobaseValuesByTableName("CTS_CompanyAttributes").success(function(data) {
@@ -351,7 +351,7 @@
 			$scope.selectedDoc.croppedLogo=(data[4].RecordFieldData=="")?"":data[4].RecordFieldData=="Array"?"":data[4].RecordFieldData;
 // Ledger full-view info
 		}).error(function(data) {
-			console.log(data);
+			//console.log(data);
 		});
 
 		$charge.settingsapp().getDuobaseValuesByTableName("CTS_FooterAttributes").success(function(data) {
@@ -368,7 +368,7 @@
 			//
 			//
 		}).error(function(data) {
-			console.log(data);
+			//console.log(data);
 		});
 
 		vm.items = [];
@@ -458,7 +458,7 @@
 
       $charge.azuresearch().getAllProfilesPost(data).success(function(data)
       {
-        console.log(data);
+        //console.log(data);
         if(vm.loading)
         {
           skipUserProfile += takeUserProfile;
@@ -494,7 +494,7 @@
         }
       }).error(function(data)
       {
-        console.log(data);
+        //console.log(data);
         vm.isSpinnerShown=false;
         vm.isdataavailable=false;
         vm.isLoading = false;
@@ -514,7 +514,7 @@
 		$scope.searchKeyPress = function (event,keyword,length){
 			if(event.keyCode === 13)
 			{
-				console.log("Function Reached!");
+				//console.log("Function Reached!");
 				$scope.loadByKeywordProfile(keyword,length);
 			}
 		}
@@ -537,7 +537,7 @@
 				//  searchLength=1;
 				//}
 				if (keyword.length == searchLength) {
-					console.log(keyword);
+					//console.log(keyword);
 					//
 					skipProfileSearch = 0;
 					takeProfileSearch = 100;
@@ -660,7 +660,7 @@
 		function loadAll() {
 
 			$charge.profile().all(skipprofiles,takeprofiles,'asc').success(function(data){
-				console.log(data);
+				//console.log(data);
 				skipprofiles+=takeprofiles;
 				for (var i = 0; i < data.length; i++) {
 					var obj=data[i];
@@ -723,20 +723,20 @@
 
 			$charge.ledger().getTotalAmounts(cusId,'in').success(function(data)
 			{
-				console.log(1);
-				console.log(data);
+				//console.log(1);
+				//console.log(data);
 				recbalance=parseFloat(data[0]['sum(amount)']);
 
 				$charge.ledger().getTotalAmounts(cusId,'out').success(function(data)
 				{
-					console.log(2);
-					console.log(data);
+					//console.log(2);
+					//console.log(data);
 					invbalance=parseFloat(data[0]['sum(amount)']);
 
 					$charge.ledger().getTotalAdjustment(cusId).success(function(data)
 					{
-						console.log(3);
-						console.log(data);
+						//console.log(3);
+						//console.log(data);
 						adjustmentbalance=parseFloat(data.sum);
 
 						totbalance=invbalance+recbalance+adjustmentbalance;
@@ -748,7 +748,7 @@
 
 					}).error(function(data)
 					{
-						console.log(data);
+						//console.log(data);
 						vm.isLoaded = true;
 					})
 
@@ -761,19 +761,19 @@
 
 				}).error(function(data)
 				{
-					console.log(data);
+					//console.log(data);
 					vm.isLoaded = true;
 				})
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				vm.isLoaded = true;
 			})
 
 			$charge.order().getByAccountID(cusId,0,5000).success(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 
 				for(var i = 0; i < data.OrderDetails.length; i++){
 					var orderid=data.OrderDetails[i].guOrderId;
@@ -796,7 +796,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 			})
 		}
 
@@ -808,7 +808,7 @@
 			//console.log(cusId);
 			$charge.ledger().getByAccountID(cusId,skip,take,'desc').success(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 
 				skip += take;
 
@@ -860,7 +860,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				if(data==204)
 				{
 					$scope.ledgerlist.invbalance=invbalance;
@@ -888,7 +888,7 @@
 			$scope.orderScheduledList=[];
 			$charge.order().getScheduledOrders(cusId,skipScheduledOrders,takeScheduledOrders).success(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				for (var i = 0; i < data.length; i++) {
 					var objOrderSchedule=data[i];
 					objOrderSchedule.id=i+1;
@@ -919,7 +919,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				if(data==204)
 				{
 					$scope.noOrderScheduleLabel=true;
@@ -942,7 +942,7 @@
 			vm.isAuditTrailLoaded = true;
 			$charge.audit().getByAccountId(cusId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				skipAuditTrails+=takeAuditTrails;
 				//$scope.auditTrailList=data;
 				for (var i = 0; i < data.length; i++) {
@@ -961,7 +961,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				if(data==204)
 				{
 					$scope.noAuditTrailLabel=true;
@@ -985,7 +985,7 @@
 				//$scope.orderScheduledList.push(objOrderSchedule);
 			}).error(function(dataErrorInvoice)
 			{
-				console.log(dataErrorInvoice);
+				//console.log(dataErrorInvoice);
 
 				$scope.orderScheduledList[index].proceedinvoices=0;
 				//$scope.orderScheduledList.push(objOrderSchedule);
@@ -996,7 +996,7 @@
 		{
 
 			$charge.job().disconnectJob(orderId).success(function(data){
-				console.log(data);
+				//console.log(data);
 				if(data.IsSuccess==true)
 				{
 					detail.scheduleActive=false;
@@ -1007,7 +1007,7 @@
 					notifications.toast("Product Order Disconnection failed!","error");
 				}
 			}).error(function(data){
-				console.log(data);
+				//console.log(data);
 				notifications.toast("Product Order Disconnection failed!","error");
 			})
 		}
@@ -1016,7 +1016,7 @@
 		{
 
 			$charge.job().resumeJob(orderId).success(function(data){
-				console.log(data);
+				//console.log(data);
 				if(data.IsSuccess==true)
 				{
 					detail.scheduleActive=true;
@@ -1027,7 +1027,7 @@
 					notifications.toast("Product Order Resume failed!","error");
 				}
 			}).error(function(data){
-				console.log(data);
+				//console.log(data);
 				notifications.toast("Product Order Resume failed!","error");
 			})
 		}
@@ -1036,7 +1036,7 @@
 		{
 			//
 			$charge.job().checkJobStatus(orderId).success(function(data){
-				console.log(data);
+				//console.log(data);
 				if(data.status=="Active")
 				{
 					detail.scheduleActive=true;
@@ -1048,7 +1048,7 @@
 				detail.logic=data.logic;
 				detail.logic=detail.logic.split('T')[0];
 			}).error(function(data){
-				console.log(data);
+				//console.log(data);
 				detail.scheduleActive=true;
 			})
 		}
@@ -1214,7 +1214,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				$scope.spinnerInvoice=false;
 
 			});
@@ -1307,7 +1307,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				$scope.selectedPayment=false;
 
 			});
@@ -1368,7 +1368,7 @@
 
 						// $scope.isLoading = false;
 					}).error(function(data) {
-						console.log(data);
+						//console.log(data);
 						$scope.showAdvancedAdjustment(ev,$scope.selectedInvoice,$scope.SelectedInvoiceForAdjustment);
 					})
 
@@ -1400,7 +1400,7 @@
 
 			}).error(function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				$scope.spinnerInvoice=false;
 
 			});
@@ -1447,7 +1447,7 @@
 		$scope.submitProfile = function () {
 
 			if (vm.editProfileForm.$valid == true) {
-				debugger;
+				//debugger;
 				vm.profileDetailSubmitted = true;
 
 				$scope.customer_supplier.profile.first_name = $scope.customer_supplier.profile.profilename;
@@ -1459,7 +1459,7 @@
 				$scope.customer_supplier.profile.ship_country=document.getElementById('country2').value;
 
 				$charge.profile().update($scope.customer_supplier.profile).success(function(data){
-					console.log(data);
+					//console.log(data);
 
 					if(data.response=="succeeded")
 					{
@@ -1476,7 +1476,7 @@
 					}
 
 				}).error(function(data){
-					console.log(data);
+					//console.log(data);
 					notifications.toast("Updating Profile Failed","error");
 					vm.profileDetailSubmitted = false;
 				})
