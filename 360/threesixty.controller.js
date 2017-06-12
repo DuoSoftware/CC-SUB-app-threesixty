@@ -104,7 +104,7 @@
 
     function getDomainName() {
       var _st = gst("domain");
-      return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+      return (_st != null) ? _st : "gihan"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
     }
 
     function getDomainExtension() {
@@ -702,7 +702,7 @@
 			});
 
 		}
-		loadAll();
+		//loadAll();
 
 		var skip=0;
 		var take=20;
@@ -1450,13 +1450,16 @@
 				//debugger;
 				vm.profileDetailSubmitted = true;
 
-				$scope.customer_supplier.profile.first_name = $scope.customer_supplier.profile.profilename;
-				$scope.customer_supplier.profile.last_name = $scope.customer_supplier.profile.othername;
+				$scope.customer_supplier.profile.firstName = $scope.customer_supplier.profile.profilename;
+				$scope.customer_supplier.profile.lastName = $scope.customer_supplier.profile.othername;
 				$scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
+				$scope.customer_supplier.profile.email = $scope.customer_supplier.profile.email_addr;
+				$scope.customer_supplier.profile.billAddress=document.getElementById('autocomplete').value;
 				$scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete').value;
-				$scope.customer_supplier.profile.bill_country=document.getElementById('country').value;
+				$scope.customer_supplier.profile.country=document.getElementById('country').value;
+				$scope.customer_supplier.profile.shipAddress=document.getElementById('autocomplete2').value;
 				$scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete2').value;
-				$scope.customer_supplier.profile.ship_country=document.getElementById('country2').value;
+				$scope.customer_supplier.profile.shipCountry=document.getElementById('country2').value;
 
 				$charge.profile().update($scope.customer_supplier.profile).success(function(data){
 					//console.log(data);
