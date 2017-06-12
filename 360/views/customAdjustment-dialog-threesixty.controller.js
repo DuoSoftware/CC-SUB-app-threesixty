@@ -46,7 +46,7 @@
                 popupWin.document.close();
             }else{
                 var printContents = document.getElementById(divName).innerHTML;
-                console.log(printContents);
+                //console.log(printContents);
                 var popupWin = window.open('', '_blank', 'width=1800,height=700');
                 popupWin.document.open();
                 popupWin.document.write('<html><head>' +
@@ -63,7 +63,7 @@
           //
           //
         }).error(function(data) {
-          console.log(data);
+          //console.log(data);
         });
 
         $charge.commondata().getDuobaseValuesByTableName("CTS_FooterAttributes").success(function(data) {

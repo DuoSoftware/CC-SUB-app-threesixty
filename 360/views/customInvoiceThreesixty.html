@@ -242,7 +242,7 @@
             </div>
             <div>
                 <md-menu>
-                    <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
                         <md-icon md-font-icon="icon-dots-vertical"></md-icon>
                         <md-tooltip>Adjustment Action</md-tooltip>
                     </md-button>
@@ -254,7 +254,7 @@
                         <!--</md-button>-->
                         <!--</md-menu-item>-->
                         <md-menu-item>
-                            <md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">
+                            <md-button ng-click="printDiv('invoice-read')">
                                 <md-icon md-font-icon="icon-floppy"></md-icon>
                                 <span>Export</span>
                             </md-button>
@@ -262,7 +262,7 @@
 
                     </md-menu-content>
                 </md-menu>
-                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()">
                     <md-icon md-font-icon="icon-close"></md-icon>
                 </md-button>
             </div>

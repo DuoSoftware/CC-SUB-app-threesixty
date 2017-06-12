@@ -63,7 +63,7 @@
           //
           //
         }).error(function(data) {
-          console.log(data);
+          //console.log(data);
         });
 
         $charge.commondata().getDuobaseValuesByTableName("CTS_FooterAttributes").success(function(data) {
