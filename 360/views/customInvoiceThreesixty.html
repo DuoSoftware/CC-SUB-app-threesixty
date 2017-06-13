@@ -1,244 +1,244 @@
 <!--<md-dialog class="prompt-dialog">-->
-    <!--<form ng-cloak>-->
-        <!--<md-toolbar>-->
-            <!--<div class="md-toolbar-tools" layout="row" layout-align="space-between center">-->
-                <!--<div layout="row" layout-align="start center">-->
-                    <!--<i class="material-icons">share</i> <h3>Invoice #{{selectedInvoice.invoiceNo}}</h3>-->
-                <!--</div>-->
-                <!--<div>-->
-                    <!--<md-menu>-->
-                        <!--<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
-                            <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
-                            <!--<md-tooltip>Adjustment Action</md-tooltip>-->
-                        <!--</md-button>-->
-                        <!--<md-menu-content width="3">-->
-                            <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-send"></md-icon>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span>Send</span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-                            <!--<md-menu-item>-->
-                                <!--<md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">-->
-                                    <!--<md-icon md-font-icon="icon-floppy"></md-icon>-->
-                                    <!--<span>Export</span>-->
-                                <!--</md-button>-->
-                            <!--</md-menu-item>-->
+<!--<form ng-cloak>-->
+<!--<md-toolbar>-->
+<!--<div class="md-toolbar-tools" layout="row" layout-align="space-between center">-->
+<!--<div layout="row" layout-align="start center">-->
+<!--<i class="material-icons">share</i> <h3>Invoice #{{selectedInvoice.invoiceNo}}</h3>-->
+<!--</div>-->
+<!--<div>-->
+<!--<md-menu>-->
+<!--<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
+<!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
+<!--<md-tooltip>Adjustment Action</md-tooltip>-->
+<!--</md-button>-->
+<!--<md-menu-content width="3">-->
+<!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+<!--&lt;!&ndash;<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">&ndash;&gt;-->
+<!--&lt;!&ndash;<md-icon md-font-icon="icon-send"></md-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;<span>Send</span>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+<!--<md-menu-item>-->
+<!--<md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">-->
+<!--<md-icon md-font-icon="icon-floppy"></md-icon>-->
+<!--<span>Export</span>-->
+<!--</md-button>-->
+<!--</md-menu-item>-->
 
-                        <!--</md-menu-content>-->
-                    <!--</md-menu>-->
-                    <!--<md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">-->
-                        <!--<md-icon md-font-icon="icon-close"></md-icon>-->
-                    <!--</md-button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</md-toolbar>-->
-        <!--&lt;!&ndash;<md-toolbar>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="md-toolbar-tools">&ndash;&gt;-->
-                <!--&lt;!&ndash;<h2>Invoice #{{selectedInvoice.invoiceNo}}</h2>&ndash;&gt;-->
-                <!--&lt;!&ndash;<span flex></span>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="actions">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<md-menu>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-dots-vertical"></md-icon>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-tooltip>Invoice Action</md-tooltip>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+<!--</md-menu-content>-->
+<!--</md-menu>-->
+<!--<md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">-->
+<!--<md-icon md-font-icon="icon-close"></md-icon>-->
+<!--</md-button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</md-toolbar>-->
+<!--&lt;!&ndash;<md-toolbar>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="md-toolbar-tools">&ndash;&gt;-->
+<!--&lt;!&ndash;<h2>Invoice #{{selectedInvoice.invoiceNo}}</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;<span flex></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="actions">&ndash;&gt;-->
+<!--&lt;!&ndash;<md-menu>&ndash;&gt;-->
+<!--&lt;!&ndash;<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">&ndash;&gt;-->
+<!--&lt;!&ndash;<md-icon md-font-icon="icon-dots-vertical"></md-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;<md-tooltip>Invoice Action</md-tooltip>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-button>&ndash;&gt;-->
 
-                        <!--&lt;!&ndash;<md-menu-content width="3">&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-send"></md-icon>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<span>Send</span>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<md-icon md-font-icon="icon-floppy"></md-icon>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<span>Export</span>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+<!--&lt;!&ndash;<md-menu-content width="3">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-send"></md-icon>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<span>Send</span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+<!--&lt;!&ndash;<md-button aria-label="Save to PDF" ng-click="printDiv('invoice-read')">&ndash;&gt;-->
+<!--&lt;!&ndash;<md-icon md-font-icon="icon-floppy"></md-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;<span>Export</span>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
 
-                        <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<md-button class="md-icon-button" ng-click="vm.closeDialog()">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<md-icon md-font-icon="icon-close"></md-icon>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</md-toolbar>&ndash;&gt;-->
-        <!--<md-content ms-scroll>-->
-            <!--<md-dialog-content>-->
-                <!--<div class="md-dialog-content">-->
-                    <!--<div id="invoice-read" class="compact page-layout blank" layout="row">-->
-                        <!--<div class="invoice-read-container" layout="column" layout-align="center center">-->
+<!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
+<!--&lt;!&ndash;<md-button class="md-icon-button" ng-click="vm.closeDialog()">&ndash;&gt;-->
+<!--&lt;!&ndash;<md-icon md-font-icon="icon-close"></md-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</md-toolbar>&ndash;&gt;-->
+<!--<md-content ms-scroll>-->
+<!--<md-dialog-content>-->
+<!--<div class="md-dialog-content">-->
+<!--<div id="invoice-read" class="compact page-layout blank" layout="row">-->
+<!--<div class="invoice-read-container" layout="column" layout-align="center center">-->
 
-                            <!--&lt;!&ndash; INVOICE &ndash;&gt;-->
-                            <!--<div class="card md-whiteframe-8dp" layout="column">-->
+<!--&lt;!&ndash; INVOICE &ndash;&gt;-->
+<!--<div class="card md-whiteframe-8dp" layout="column">-->
 
-                                <!--<div class="inv-outline" layout="column" md-whiteframe="2dp">-->
-                                    <!--<div class="cancelled-inv-wm" layout="row" layout-align="center center" ng-if="selectedInvoice.transactionType=='INVOICE-CANCELLED'">-->
-                                        <!--<span layout="row" layout-align="center center"><md-icon md-font-icon="icon-information"></md-icon>CANCELLED INVOICE</span>-->
-                                    <!--</div>-->
+<!--<div class="inv-outline" layout="column" md-whiteframe="2dp">-->
+<!--<div class="cancelled-inv-wm" layout="row" layout-align="center center" ng-if="selectedInvoice.transactionType=='INVOICE-CANCELLED'">-->
+<!--<span layout="row" layout-align="center center"><md-icon md-font-icon="icon-information"></md-icon>CANCELLED INVOICE</span>-->
+<!--</div>-->
 
-                                    <!--<div class="inv-read-header">-->
-                                        <!--<div class="invoice-date">{{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</div>-->
+<!--<div class="inv-read-header">-->
+<!--<div class="invoice-date">{{selectedInvoice.invoiceDate | parseDate | date: 'dd/MM/yyyy'}}</div>-->
 
-                                        <!--<div layout="row" layout-align="center stretch" style="display: flex;margin-bottom: 30px">-->
-                                            <!--<div class="client" flex>-->
-                                                <!--<div class="invoice-type" layout="row" layout-align="start center">-->
-                                                    <!--<span class="title">INVOICE NO : </span>-->
-                                                    <!--<span class="number">{{selectedInvoice.invoiceNo}}</span>-->
-                                                    <!--&lt;!&ndash;<span class="number">{{vm.selectedInvoice.invoiceNo}} - {{vm.selectedInvoice.code}}</span>&ndash;&gt;-->
-                                                <!--</div>-->
+<!--<div layout="row" layout-align="center stretch" style="display: flex;margin-bottom: 30px">-->
+<!--<div class="client" flex>-->
+<!--<div class="invoice-type" layout="row" layout-align="start center">-->
+<!--<span class="title">INVOICE NO : </span>-->
+<!--<span class="number">{{selectedInvoice.invoiceNo}}</span>-->
+<!--&lt;!&ndash;<span class="number">{{vm.selectedInvoice.invoiceNo}} - {{vm.selectedInvoice.code}}</span>&ndash;&gt;-->
+<!--</div>-->
 
-                                                <!--<div class="invoice-type" layout="row" layout-align="start center">-->
-                                                    <!--<span class="title">INVOICE TYPE : </span>-->
-                                                    <!--<span class="number">{{selectedInvoice.invoiceType}}</span>-->
-                                                <!--</div>-->
+<!--<div class="invoice-type" layout="row" layout-align="start center">-->
+<!--<span class="title">INVOICE TYPE : </span>-->
+<!--<span class="number">{{selectedInvoice.invoiceType}}</span>-->
+<!--</div>-->
 
 
-                                                <!--<div class="due-date" layout="row" layout-align="start center">-->
-                                                    <!--<span class="title">DUE DATE : </span>-->
-                                                    <!--<span class="date">{{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</span>-->
-                                                <!--</div>-->
+<!--<div class="due-date" layout="row" layout-align="start center">-->
+<!--<span class="title">DUE DATE : </span>-->
+<!--<span class="date">{{selectedInvoice.dueDate | parseDate | date: 'dd/MM/yyyy'}}</span>-->
+<!--</div>-->
 
-                                                <!--<div class="info">-->
-                                                    <!--<div class="title">{{selectedInvoice.person_name}}</div>-->
-                                                    <!--<div class="address">{{selectedInvoice.bill_addr}}</div>-->
-                                                    <!--<div class="phone">{{selectedInvoice.phone}}</div>-->
-                                                    <!--<div class="email">{{selectedInvoice.email_addr}}</div>-->
-                                                    <!--&lt;!&ndash;<div class="website">www.yamu.lk</div>&ndash;&gt;-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="issuer md-accent-bg" layout="row" layout-align="start center" flex>-->
-                                                <!--<table style="margin: 3.5% 0;">-->
-                                                    <!--<tr>-->
-                                                        <!--<td>-->
-                                                            <!--<div class="logo" layout="row" layout-align="center center">-->
-                                                                <!--<span>{{selectedInvoice.companyName| limitTo:1}}</span>-->
-                                                            <!--</div>-->
-                                                        <!--</td>-->
-                                                        <!--<td>-->
-                                                            <!--<div class="info">-->
-                                                                <!--<div class="title">{{selectedInvoice.companyName}}</div>-->
-                                                                <!--<div class="address">{{selectedInvoice.companyAddress}}</div>-->
-                                                                <!--<div class="phone">{{selectedInvoice.companyPhone}}</div>-->
-                                                                <!--<div class="email">{{selectedInvoice.companyEmail}}</div>-->
-                                                            <!--</div>-->
-                                                        <!--</td>-->
-                                                    <!--</tr>-->
-                                                <!--</table>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
+<!--<div class="info">-->
+<!--<div class="title">{{selectedInvoice.person_name}}</div>-->
+<!--<div class="address">{{selectedInvoice.bill_addr}}</div>-->
+<!--<div class="phone">{{selectedInvoice.phone}}</div>-->
+<!--<div class="email">{{selectedInvoice.email_addr}}</div>-->
+<!--&lt;!&ndash;<div class="website">www.yamu.lk</div>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="issuer md-accent-bg" layout="row" layout-align="start center" flex>-->
+<!--<table style="margin: 3.5% 0;">-->
+<!--<tr>-->
+<!--<td>-->
+<!--<div class="logo" layout="row" layout-align="center center">-->
+<!--<span>{{selectedInvoice.companyName| limitTo:1}}</span>-->
+<!--</div>-->
+<!--</td>-->
+<!--<td>-->
+<!--<div class="info">-->
+<!--<div class="title">{{selectedInvoice.companyName}}</div>-->
+<!--<div class="address">{{selectedInvoice.companyAddress}}</div>-->
+<!--<div class="phone">{{selectedInvoice.companyPhone}}</div>-->
+<!--<div class="email">{{selectedInvoice.companyEmail}}</div>-->
+<!--</div>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
-                                    <!--<div class="inv-read-content">-->
-                                        <!--<table class="simple invoice-table">-->
-                                            <!--<thead>-->
-                                            <!--<th>ITEM</th>-->
-                                            <!--<th class="text-right" style="text-align: right">UNIT PRICE</th>-->
-                                            <!--<th class="text-right" style="text-align: right">QUANTITY</th>-->
-                                            <!--<th class="text-right" style="text-align: right">PROMOTION</th>-->
-                                            <!--<th class="text-right" style="text-align: right">TOTAL</th>-->
-                                            <!--</thead>-->
-                                            <!--<tbody>-->
-                                            <!--<tr ng-repeat="detail in selectedInvoice.invoiceDetails">-->
-                                                <!--<td>-->
-                                                    <!--<div class="title">-->
-                                                        <!--{{detail.product_name}}-->
-                                                    <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="text-right">-->
-                                                    <!--{{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
-                                                <!--</td>-->
-                                                <!--<td class="text-right">-->
-                                                    <!--{{detail.gty}}-->
-                                                <!--</td>-->
-                                                <!--<td class="text-right">-->
-                                                    <!--{{detail.promotion | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
-                                                <!--</td>-->
-                                                <!--<td class="text-right">-->
-                                                    <!--{{detail.totalPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
-                                                <!--</td>-->
-                                            <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
+<!--<div class="inv-read-content">-->
+<!--<table class="simple invoice-table">-->
+<!--<thead>-->
+<!--<th>ITEM</th>-->
+<!--<th class="text-right" style="text-align: right">UNIT PRICE</th>-->
+<!--<th class="text-right" style="text-align: right">QUANTITY</th>-->
+<!--<th class="text-right" style="text-align: right">PROMOTION</th>-->
+<!--<th class="text-right" style="text-align: right">TOTAL</th>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="detail in selectedInvoice.invoiceDetails">-->
+<!--<td>-->
+<!--<div class="title">-->
+<!--{{detail.product_name}}-->
+<!--</div>-->
+<!--</td>-->
+<!--<td class="text-right">-->
+<!--{{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
+<!--</td>-->
+<!--<td class="text-right">-->
+<!--{{detail.gty}}-->
+<!--</td>-->
+<!--<td class="text-right">-->
+<!--{{detail.promotion | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
+<!--</td>-->
+<!--<td class="text-right">-->
+<!--{{detail.totalPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
 
-                                        <!--<table class="simple invoice-table-footer">-->
-                                            <!--<tbody>-->
-                                            <!--<tr class="subtotal">-->
-                                                <!--<td></td>-->
-                                                <!--<td>SUBTOTAL</td>-->
-                                                <!--<td>{{selectedInvoice.subTotal | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr class="additionalcharge">-->
-                                                <!--<td></td>-->
-                                                <!--<td>MISCELLANEOUS CHARGES</td>-->
-                                                <!--<td>{{selectedInvoice.additionalcharge | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr class="discount">-->
-                                                <!--<td></td>-->
-                                                <!--<td>DISCOUNT</td>-->
-                                                <!--<td>-->
-                                                    <!--{{selectedInvoice.discAmt | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr class="tax">-->
-                                                <!--<td></td>-->
-                                                <!--<td>TAX</td>-->
-                                                <!--<td>{{selectedInvoice.tax | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr class="tax">-->
-                                                <!--<td></td>-->
-                                                <!--<td>PROMOTION</td>-->
-                                                <!--<td>{{selectedInvoice.discount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
-                                            <!--</tr>-->
-                                            <!--<tr class="total">-->
-                                                <!--<td></td>-->
-                                                <!--<td>TOTAL</td>-->
-                                                <!--<td>{{selectedInvoice.invoiceAmount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
-                                            <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
-                                    <!--</div>-->
+<!--<table class="simple invoice-table-footer">-->
+<!--<tbody>-->
+<!--<tr class="subtotal">-->
+<!--<td></td>-->
+<!--<td>SUBTOTAL</td>-->
+<!--<td>{{selectedInvoice.subTotal | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+<!--</tr>-->
+<!--<tr class="additionalcharge">-->
+<!--<td></td>-->
+<!--<td>MISCELLANEOUS CHARGES</td>-->
+<!--<td>{{selectedInvoice.additionalcharge | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+<!--</tr>-->
+<!--<tr class="discount">-->
+<!--<td></td>-->
+<!--<td>DISCOUNT</td>-->
+<!--<td>-->
+<!--{{selectedInvoice.discAmt | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+<!--</tr>-->
+<!--<tr class="tax">-->
+<!--<td></td>-->
+<!--<td>TAX</td>-->
+<!--<td>{{selectedInvoice.tax | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+<!--</tr>-->
+<!--<tr class="tax">-->
+<!--<td></td>-->
+<!--<td>PROMOTION</td>-->
+<!--<td>{{selectedInvoice.discount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+<!--</tr>-->
+<!--<tr class="total">-->
+<!--<td></td>-->
+<!--<td>TOTAL</td>-->
+<!--<td>{{selectedInvoice.invoiceAmount | isoCurrency:selectedInvoice.currency:decimalPoint}}</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
 
-                                    <!--<div flex></div>-->
+<!--<div flex></div>-->
 
-                                    <!--<div class="inv-read-footer">-->
-                                        <!--<div class="note">{{vm.FooterGreeting}}</div>-->
-                                        <!--<div layout="row" layout-align="start start">-->
-                                            <!--&lt;!&ndash;<div class="logo md-accent-bg" layout="row" layout-align="center center">&ndash;&gt;-->
-                                            <!--&lt;!&ndash;<div>D</div>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                            <!--<div class="small-note">-->
-                                                <!--{{vm.FooterDisclaimer}}-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash; / INVOICE &ndash;&gt;-->
+<!--<div class="inv-read-footer">-->
+<!--<div class="note">{{vm.FooterGreeting}}</div>-->
+<!--<div layout="row" layout-align="start start">-->
+<!--&lt;!&ndash;<div class="logo md-accent-bg" layout="row" layout-align="center center">&ndash;&gt;-->
+<!--&lt;!&ndash;<div>D</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<div class="small-note">-->
+<!--{{vm.FooterDisclaimer}}-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash; / INVOICE &ndash;&gt;-->
 
-                            <!--&lt;!&ndash; Use the following element to add breaks to your pages &ndash;&gt;-->
-                            <!--&lt;!&ndash; This will make sure that the section after this element will be printed on a new page &ndash;&gt;-->
-                            <!--<div class="page-break"></div>-->
+<!--&lt;!&ndash; Use the following element to add breaks to your pages &ndash;&gt;-->
+<!--&lt;!&ndash; This will make sure that the section after this element will be printed on a new page &ndash;&gt;-->
+<!--<div class="page-break"></div>-->
 
-                        <!--</div>-->
-                    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
-                <!--</div>-->
-            <!--</md-dialog-content>-->
-        <!--</md-content>-->
+<!--</div>-->
+<!--</md-dialog-content>-->
+<!--</md-content>-->
 
-        <!--&lt;!&ndash;<md-dialog-actions layout="row">&ndash;&gt;-->
-        <!--&lt;!&ndash;</md-dialog-actions>&ndash;&gt;-->
-    <!--</form>-->
+<!--&lt;!&ndash;<md-dialog-actions layout="row">&ndash;&gt;-->
+<!--&lt;!&ndash;</md-dialog-actions>&ndash;&gt;-->
+<!--</form>-->
 <!--</md-dialog>-->
 
 <md-dialog class="prompt-dialog">
     <md-toolbar>
         <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
             <div layout="row" layout-align="start center">
-                <i class="material-icons">share</i> <h3>Invoice #{{selectedInvoice.invoiceNo}}</h3>
+                <md-icon md-font-icon="icon-document"></md-icon> <h3 ng-if="docType == 'invoice'">Invoice #{{selectedInvoice.invoiceNo}}</h3><h3 ng-if="docType == 'payment'">Receipt</h3>
             </div>
             <div>
                 <md-menu>
@@ -247,14 +247,14 @@
                         <md-tooltip>Adjustment Action</md-tooltip>
                     </md-button>
                     <md-menu-content width="3">
-                        <!--<md-menu-item>-->
-                        <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
-                        <!--<md-icon md-font-icon="icon-send"></md-icon>-->
-                        <!--<span>Send</span>-->
-                        <!--</md-button>-->
-                        <!--</md-menu-item>-->
+                        <md-menu-item ng-if="docType == 'invoice'">
+                            <md-button aria-label="Send Mail" ng-click="emailInvoice($event,'print-content')">
+                                <md-icon md-font-icon="icon-send"></md-icon>
+                                <span>Send</span>
+                            </md-button>
+                        </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="printDiv('invoice-read')">
+                            <md-button ng-click="printDiv('print-content')">
                                 <md-icon md-font-icon="icon-floppy"></md-icon>
                                 <span>Export</span>
                             </md-button>
@@ -458,7 +458,7 @@
                         Plan
                     </div>
                     <!--<div style="color: #aaa;width: 20%;float: left;">-->
-                      <!--Description-->
+                    <!--Description-->
                     <!--</div>-->
                     <div style="color: #aaa;width: 20%;float: left;text-align: right">
                         Unit price
@@ -476,14 +476,14 @@
                 </div>
                 <div class="list-item" style="border-bottom: solid 1px #eee;padding: 10px;overflow: hidden;" ng-repeat="detail in selectedInvoice.invoiceDetails">
                     <div style="float: left;color: #aaa;width: 20%">
-                      <div>{{detail.name}} ({{detail.code}})<span ng-if="detail.code == '' || detail.code == null">-</span></div>
-                      <div style="font-size: 10px">{{detail.description}}</div>
+                        <div>{{detail.name}} ({{detail.code}})<span ng-if="detail.code == '' || detail.code == null">-</span></div>
+                        <div style="font-size: 10px">{{detail.description}}</div>
                     </div>
                     <!--<div style="float: left;color: #aaa;width: 20%">-->
-                        <!--{{detail.description}}-->
+                    <!--{{detail.description}}-->
                     <!--</div>-->
                     <div style="float: left;color: #aaa;width: 20%;text-align: right">
-                      {{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
+                        {{detail.unitPrice | isoCurrency:selectedInvoice.currency:decimalPoint}}
                     </div>
                     <div style="width: 2%;float: left;height: 11px;"></div>
                     <div style="float: left;color: #aaa;width: 18%">

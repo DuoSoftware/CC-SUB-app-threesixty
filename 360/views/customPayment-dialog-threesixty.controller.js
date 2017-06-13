@@ -82,5 +82,42 @@
       $scope.isTimelineDialogLoaded=false;
       $mdDialog.hide();
     }
+
+	  // Kasun_Wijeratne_12_06_2017
+	  $scope.adminData=null;
+	  $scope.getAdminUser= function () {
+		  $charge.commondetails().getAdminInfo().success(function(data){
+			  $scope.adminData=data;
+		  }).error(function (data) {
+
+		  })
+	  }
+
+	  $scope.getAdminUser();
+	  $scope.emailInvoice= function (ev,divName) {
+		  var printContents = document.getElementById(divName).innerHTML;
+		  var base64Conversion=window.btoa(unescape(encodeURIComponent(printContents)));
+		  $scope.emailTemplateInit(ev,base64Conversion);
+	  }
+	  $scope.emailTemplateInit = function(ev,base64Conversion){
+		  $mdDialog.hide();
+
+		  $mdDialog.show({
+			  controller: 'AddInvoiceController',
+			  templateUrl: 'app/main/invoice/dialogs/compose/mailTemplate.html',
+			  parent: angular.element(document.body),
+			  targetEvent: ev,
+			  clickOutsideToClose:true,
+			  locals : {
+				  selectedInvoice: $scope.selectedInvoice,
+				  base64Content:base64Conversion,
+				  adminData:$scope.adminData
+			  },
+			  fullscreen: true // Only for -xs, -sm breakpoints.
+		  })
+		  //
+
+	  }
+	  // Kasun_Wijeratne_12_06_2017
   }
 })();

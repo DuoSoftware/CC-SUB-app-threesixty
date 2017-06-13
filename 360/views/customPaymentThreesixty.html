@@ -18,12 +18,12 @@
             </md-button>
 
             <md-menu-content width="3">
-              <!--<md-menu-item>-->
-                <!--<md-button aria-label="Send Mail" ng-click="emailInvoice('invoice-read')">-->
-                  <!--<md-icon md-font-icon="icon-send"></md-icon>-->
-                  <!--<span>Send</span>-->
-                <!--</md-button>-->
-              <!--</md-menu-item>-->
+              <md-menu-item>
+                <md-button aria-label="Send Mail" ng-click="emailInvoice($event,'invoice-read')">
+                  <md-icon md-font-icon="icon-send"></md-icon>
+                  <span>Send</span>
+                </md-button>
+              </md-menu-item>
               <md-menu-item>
                 <md-button ng-click="printDiv('invoice-read')">
                   <md-icon md-font-icon="icon-floppy"></md-icon>

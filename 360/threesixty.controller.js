@@ -90,27 +90,27 @@
 			vm.dynamicHeight = current;
 		});
 
-    function gst(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-      }
-      //debugger;
-      return null;
-    }
+		function gst(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+			}
+			//debugger;
+			return null;
+		}
 
-    function getDomainName() {
-      var _st = gst("domain");
-      return (_st != null) ? _st : "gihan"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
-    }
+		function getDomainName() {
+			var _st = gst("domain");
+			return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+		}
 
-    function getDomainExtension() {
-      var _st = gst("extension_mode");
-      return (_st != null) ? _st : "test"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
-    }
+		function getDomainExtension() {
+			var _st = gst("extension_mode");
+			return (_st != null) ? _st : "test"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+		}
 
 		/**
 		 * Select product
@@ -140,26 +140,26 @@
 			//	$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.nic_ssn;
 			//}
 
-      $scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
-      $scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
-      $scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+			$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
+			$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
+			$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
 
-      vm.selectedProfileOriginal=angular.copy(threesixty);
+			vm.selectedProfileOriginal=angular.copy(threesixty);
 
-      $charge.profile().getByID(threesixty.profileId).success(function(data) {
-        //console.log(data);
-        $scope.customer_supplier.profile=data[0];
+			$charge.profile().getByIDWithStripeKey(threesixty.profileId).success(function(data) {
+				//console.log(data);
+				$scope.customer_supplier.profile=data[0];
 
-        $scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
-        $scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
-        $scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+				$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
+				$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
+				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
 
-        vm.selectedProfileOriginal=angular.copy(threesixty);
+				vm.selectedProfileOriginal=angular.copy(threesixty);
 
-        // $scope.isLoading = false;
-      }).error(function(data) {
-        //console.log(data);
-      })
+				// $scope.isLoading = false;
+			}).error(function(data) {
+				//console.log(data);
+			})
 
 			vm.profileDetailSubmitted = false;
 			$scope.editProfileInfoEnabled=false;
@@ -363,7 +363,7 @@
 			$scope.isFooterDet=false;
 		})
 
-			$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes","DecimalPointLength").success(function(data) {
+		$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes","DecimalPointLength").success(function(data) {
 			$scope.decimalPoint=parseInt(data[0].RecordFieldData);
 			//
 			//
@@ -400,7 +400,7 @@
 			//	{
 			//		skipUserProfile += takeUserProfile;
 			//		//
-            //
+			//
 			//		for (var i = 0; i < data.length; i++) {
 			//			//
 			//			if(data[i].status==0)
@@ -413,9 +413,9 @@
 			//			}
 			//			data[i].createddate = new Date(data[i].createddate);
 			//			vm.items.push(data[i]);
-            //
+			//
 			//		}
-            //
+			//
 			//		vm.profiles = vm.items;
 			//		$scope.searchMoreInit = false;
 			//		vm.isListLoaded = true;
@@ -429,7 +429,7 @@
 			//			$scope.hideSearchMore=true;
 			//		}
 			//	}
-            //
+			//
 			//}).error(function(data)
 			//{
 			//	console.log(data);
@@ -440,67 +440,67 @@
 			//	$scope.hideSearchMore=true;
 			//})
 
-      var dbNamePart1="";
-      var dbNamePart2="";
-      var dbName="";
-      var filter="";
-      dbNamePart1=getDomainName().split('.')[0];
-      dbNamePart2=getDomainExtension();
-      dbName=dbNamePart1+"_"+dbNamePart2;
-      //filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
-      var data={
-        "search": "*",
-        "filter": "(domain eq '"+dbName+"')",
-        "orderby" : "createddate desc",
-        "top":takeUserProfile,
-        "skip":skipUserProfile
-      }
+			var dbNamePart1="";
+			var dbNamePart2="";
+			var dbName="";
+			var filter="";
+			dbNamePart1=getDomainName().split('.')[0];
+			dbNamePart2=getDomainExtension();
+			dbName=dbNamePart1+"_"+dbNamePart2;
+			//filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
+			var data={
+				"search": "*",
+				"filter": "(domain eq '"+dbName+"')",
+				"orderby" : "createddate desc",
+				"top":takeUserProfile,
+				"skip":skipUserProfile
+			}
 
-      $charge.azuresearch().getAllProfilesPost(data).success(function(data)
-      {
-        //console.log(data);
-        if(vm.loading)
-        {
-          skipUserProfile += takeUserProfile;
-          //
+			$charge.azuresearch().getAllProfilesPost(data).success(function(data)
+			{
+				//console.log(data);
+				if(vm.loading)
+				{
+					skipUserProfile += takeUserProfile;
+					//
 
-          for (var i = 0; i < data.value.length; i++) {
-            //
-            if(data.value[i].status==0)
-            {
-              data.value[i].status=false;
-            }
-            else
-            {
-              data.value[i].status=true;
-            }
-            data.value[i].createddate = new Date(data.value[i].createddate);
-            vm.items.push(data.value[i]);
+					for (var i = 0; i < data.value.length; i++) {
+						//
+						if(data.value[i].status==0)
+						{
+							data.value[i].status=false;
+						}
+						else
+						{
+							data.value[i].status=true;
+						}
+						data.value[i].createddate = new Date(data.value[i].createddate);
+						vm.items.push(data.value[i]);
 
-          }
+					}
 
-          vm.profiles = vm.items;
-          $scope.searchMoreInit = false;
-          vm.isListLoaded = true;
-          //selectProfile(data[0]);
-          vm.loading = false;
-          vm.isLoading = false;
-          vm.isdataavailable=true;
-          if(data.value.length<takeUserProfile){
-            vm.isdataavailable=false;
-            $scope.searchMoreInit = false;
-            $scope.hideSearchMore=true;
-          }
-        }
-      }).error(function(data)
-      {
-        //console.log(data);
-        vm.isSpinnerShown=false;
-        vm.isdataavailable=false;
-        vm.isLoading = false;
-        vm.isListLoaded = true;
-        $scope.hideSearchMore=true;
-      })
+					vm.profiles = vm.items;
+					$scope.searchMoreInit = false;
+					vm.isListLoaded = true;
+					//selectProfile(data[0]);
+					vm.loading = false;
+					vm.isLoading = false;
+					vm.isdataavailable=true;
+					if(data.value.length<takeUserProfile){
+						vm.isdataavailable=false;
+						$scope.searchMoreInit = false;
+						$scope.hideSearchMore=true;
+					}
+				}
+			}).error(function(data)
+			{
+				//console.log(data);
+				vm.isSpinnerShown=false;
+				vm.isdataavailable=false;
+				vm.isLoading = false;
+				vm.isListLoaded = true;
+				$scope.hideSearchMore=true;
+			})
 
 		};
 		// we call the function twice to populate the list
@@ -543,17 +543,17 @@
 					takeProfileSearch = 100;
 					tempList = [];
 
-          var dbName="";
-          dbName=getDomainName().split('.')[0]+"_"+getDomainExtension();
-          //filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
-          var data={
-            "search": keyword+"*",
-            "searchFields": "first_name,last_name,email_addr,phone",
-            "filter": "(domain eq '"+dbName+"')",
-            "orderby" : "createddate desc",
-            "top":takeProfileSearch,
-            "skip":skipProfileSearch
-          }
+					var dbName="";
+					dbName=getDomainName().split('.')[0]+"_"+getDomainExtension();
+					//filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
+					var data={
+						"search": keyword+"*",
+						"searchFields": "first_name,last_name,email_addr,phone",
+						"filter": "(domain eq '"+dbName+"')",
+						"orderby" : "createddate desc",
+						"top":takeProfileSearch,
+						"skip":skipProfileSearch
+					}
 
 
 					$charge.azuresearch().getAllProfilesPost(data).success(function (data) {
@@ -566,7 +566,7 @@
 							{
 								data.value[i].status=true;
 							}
-              data.value[i].createddate = new Date(data.value[i].createddate);
+							data.value[i].createddate = new Date(data.value[i].createddate);
 							tempList.push(data.value[i]);
 						}
 						vm.profiles = tempList;
@@ -1470,7 +1470,7 @@
 						$scope.editProfileInfo();
 						vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
 						vm.profileDetailSubmitted = false;
-            $rootScope.refreshpage();
+						$rootScope.refreshpage();
 					}
 					else
 					{
@@ -1576,6 +1576,8 @@
 			}
 		};
 		// Kasun_Wijeratne_15_May
+
+
 
 	}
 })();
