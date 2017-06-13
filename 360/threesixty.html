@@ -16,7 +16,7 @@
     <!-- CENTER -->
     <div ng-switch-when="default" class="center" layout="column" flex>
         <div layout="column" layout-align="start start">
-            <div class="v-header" layout="row" flex fill-width>
+            <div class="v-header" layout="column" flex fill-width>
                 <div class="title" layout="column" layout-align="center start">
                     <div class="logo" layout="row" layout-align="start center">
                         <span class="logo-icon">
@@ -25,17 +25,18 @@
                         <span class="logo-text">360°</span>
                     </div>
                 </div>
-                <div class="search-wrapper md-whiteframe-4dp animate-fade-in-out" layout="row" layout-align="start center" flex="50">
-                    <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md>
-                        <md-icon class="icon" md-font-icon="icon-menu"></md-icon>
-                    </md-button>
+                <div layout="row">
+                    <div class="search-wrapper md-whiteframe-4dp animate-fade-in-out" layout="row" layout-align="start center" flex>
+                        <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md>
+                            <md-icon class="icon" md-font-icon="icon-menu"></md-icon>
+                        </md-button>
 
-                    <div class="search" flex layout="row" layout-align="start center">
-                        <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
-                        <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordProfile(vm.search,3)" placeholder="Search for Profiles">
+                        <div class="search" flex layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
+                            <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordProfile(vm.search,3)" placeholder="Search for Profiles">
+                        </div>
                     </div>
                 </div>
-                <div flex></div>
                 <!--<md-button class="md-raised main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activePlanPaneIndex == 1" ng-click="toggleEdit()" ng-if="!inpageReadPaneEdit"><span class="fs-18 mr-10 fc-accent">+</span> NEW-->
                 <!--</md-button>-->
             </div>
@@ -179,7 +180,8 @@
                                                         </div>
                                                         <md-divider class="mv-10"></md-divider>
                                                         <div layout="row" flex ng-if="showMoreUserInfo">
-                                                            <div layout="column" flex>
+                                                            <div layout="column" class="pos-rel" flex>
+                                                                <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
                                                                 <div layout="row">
                                                                     <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                         <div class="iconed-label" layout="row" layout-align="start center" flex>
@@ -219,7 +221,7 @@
                                                                     <div class="info-grid-row bordered" flex="5"></div>
                                                                 </div>
                                                                 <div layout="row">
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                         <div class="iconed-label" layout="row" layout-align="start center" flex="25">
                                                                             <i class="material-icons">local_shipping</i> <span flex>Shipping address</span>
                                                                         </div>
@@ -227,47 +229,57 @@
                                                                     </div>
                                                                     <div class="info-grid-row" flex="5"></div>
                                                                 </div>
+                                                                <div layout="row" class="mt-20">
+                                                                    <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex="25">
+                                                                            <md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Cards</span>
+                                                                        </div>
+                                                                        <div flex ng-if="customer_supplier.profile.stripeCustId != null"><md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> Available</div>
+                                                                        <div flex class="op-5" ng-if="customer_supplier.profile.stripeCustId == null"><i>Not available</i></div>
+                                                                    </div>
+                                                                    <div class="info-grid-row" flex="5"></div>
+                                                                </div>
 
-                                                                <md-card flex class="input-block-gen m-0 mt-20">
-                                                                    <md-card-title>
-                                                                        <div layout="row" layout-align="start center">
-                                                                            <md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <h3>Cards</h3>
-                                                                        </div>
-                                                                    </md-card-title>
-                                                                    <md-card-content md-whiteframe="1dp">
-                                                                        <div flex layout="row" layout-align="center center" class="msg-empty-list m-0">
-                                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No card has been added yet</span>
-                                                                        </div>
-                                                                        <div layout="row" fill-width class="list-item" ng-repeat="card in cardDetails" modal-animation-class="mt-20">
+                                                                <!--<md-card flex class="input-block-gen m-0 mt-20">-->
+                                                                    <!--<md-card-title>-->
+                                                                        <!--<div layout="row" layout-align="start center">-->
+                                                                            <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <h3>Cards</h3>-->
+                                                                        <!--</div>-->
+                                                                    <!--</md-card-title>-->
+                                                                    <!--<md-card-content md-whiteframe="1dp">-->
+                                                                        <!--<div flex layout="row" layout-align="center center" class="msg-empty-list m-0">-->
+                                                                            <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon> No card has been added yet</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div layout="row" fill-width class="list-item" ng-repeat="card in cardDetails" modal-animation-class="mt-20">-->
 
-                                                                            <div class="prodCost" flex layout="row" layout-align="start center">
-                                                                                <span ng-class="card.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{card.last4}}</span>
-                                                                                <md-tooltip>XXXX-XXXX-XXXX-{{card.last4}}</md-tooltip>
-                                                                            </div>
-                                                                            <div class="prodCost" flex="30" layout="row" layout-align="start center">
-                                                                                <!-- <span> {{card.exp_month | parseDate | date: 'MMMM' | limitTo:3}} {{card.exp_year | parseDate | date: 'yyyy'}}</span> -->
-                                                                                <span ng-if="card.exp_month==1">January</span>
-                                                                                <span ng-if="card.exp_month==2">February</span>
-                                                                                <span ng-if="card.exp_month==3">March</span>
-                                                                                <span ng-if="card.exp_month==4">April</span>
-                                                                                <span ng-if="card.exp_month==5">May</span>
-                                                                                <span ng-if="card.exp_month==6">June</span>
-                                                                                <span ng-if="card.exp_month==7">July</span>
-                                                                                <span ng-if="card.exp_month==8">August</span>
-                                                                                <span ng-if="card.exp_month==9">September</span>
-                                                                                <span ng-if="card.exp_month==10">October</span>
-                                                                                <span ng-if="card.exp_month==11">November</span>
-                                                                                <span ng-if="card.exp_month==12">December</span>
-                                                                                <span>&nbsp;{{card.exp_year}}</span>
-                                                                            </div>
-                                                                            <div class="prodCost" layout="column" layout-align="center end">
-                                                                                <span class="default" ng-if="card.rowId===0">Default</span>
-                                                                                <md-button class="md-raised make-default" ng-if="card.rowId != 0" ng-click="defaultPayment('1',card)" layout-align="center center"> Make Default</md-button>
-                                                                            </div>
-                                                                            <md-button class="md-warn md-icon-button" ng-click="removeCard()" layout-align="center center" style="margin-right: -10px"><md-icon md-font-icon="icon-close-circle"></md-icon><md-tooltip>Remove card</md-tooltip></md-button>
-                                                                        </div>
-                                                                    </md-card-content>
-                                                                </md-card>
+                                                                            <!--<div class="prodCost" flex layout="row" layout-align="start center">-->
+                                                                                <!--<span ng-class="card.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{card.last4}}</span>-->
+                                                                                <!--<md-tooltip>XXXX-XXXX-XXXX-{{card.last4}}</md-tooltip>-->
+                                                                            <!--</div>-->
+                                                                            <!--<div class="prodCost" flex="30" layout="row" layout-align="start center">-->
+                                                                                <!--&lt;!&ndash; <span> {{card.exp_month | parseDate | date: 'MMMM' | limitTo:3}} {{card.exp_year | parseDate | date: 'yyyy'}}</span> &ndash;&gt;-->
+                                                                                <!--<span ng-if="card.exp_month==1">January</span>-->
+                                                                                <!--<span ng-if="card.exp_month==2">February</span>-->
+                                                                                <!--<span ng-if="card.exp_month==3">March</span>-->
+                                                                                <!--<span ng-if="card.exp_month==4">April</span>-->
+                                                                                <!--<span ng-if="card.exp_month==5">May</span>-->
+                                                                                <!--<span ng-if="card.exp_month==6">June</span>-->
+                                                                                <!--<span ng-if="card.exp_month==7">July</span>-->
+                                                                                <!--<span ng-if="card.exp_month==8">August</span>-->
+                                                                                <!--<span ng-if="card.exp_month==9">September</span>-->
+                                                                                <!--<span ng-if="card.exp_month==10">October</span>-->
+                                                                                <!--<span ng-if="card.exp_month==11">November</span>-->
+                                                                                <!--<span ng-if="card.exp_month==12">December</span>-->
+                                                                                <!--<span>&nbsp;{{card.exp_year}}</span>-->
+                                                                            <!--</div>-->
+                                                                            <!--<div class="prodCost" layout="column" layout-align="center end">-->
+                                                                                <!--<span class="default" ng-if="card.rowId===0">Default</span>-->
+                                                                                <!--<md-button class="md-raised make-default" ng-if="card.rowId != 0" ng-click="defaultPayment('1',card)" layout-align="center center"> Make Default</md-button>-->
+                                                                            <!--</div>-->
+                                                                            <!--<md-button class="md-warn md-icon-button" ng-click="removeCard()" layout-align="center center" style="margin-right: -10px"><md-icon md-font-icon="icon-close-circle"></md-icon><md-tooltip>Remove card</md-tooltip></md-button>-->
+                                                                        <!--</div>-->
+                                                                    <!--</md-card-content>-->
+                                                                <!--</md-card>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -335,7 +347,7 @@
 
                                                         <div flex="5"></div>
 
-                                                        <div flex="30" ng-class="{'isTimelineDialogLoaded':isTimelineDialogLoaded == false}" class="info-portion" layout="row" layout-align="center center">
+                                                        <div flex="30" ng-class="{'isTimelineDialogLoaded':isTimelineDialogLoaded == false, 'dead':item.transactionType.toLowerCase() == 'creditnote'}" class="info-portion" layout="row" layout-align="center center">
                                                             <md-card md-theme="default" md-theme-watch="" ng-click="clickLedgerItem($event,item)" layout="row" layout-align="space-between center" flex>
                                                                 <div layout="column">
                                                                     <div layout="row">
@@ -365,6 +377,16 @@
                                                     </div>
 
                                                 </div>
+                                                <div layout="column" ng-if="ledgerlist.length == 0">
+                                                    <div layout="row" class="h-50">
+                                                        <div flex></div>
+                                                        <md-divider></md-divider>
+                                                        <div flex></div>
+                                                    </div>
+                                                    <div class="msg-empty-list">
+                                                        <span><md-icon md-font-icon="icon-information"></md-icon> No ledger records available for this customer</span>
+                                                    </div>
+                                                </div>
                                                 <!-- / Customer Ledger-->
                                             </div>
                                         </div>
@@ -376,7 +398,7 @@
                                     </md-tab-label>
                                     <md-tab-body>
                                         <div class="md-padding">
-                                            <div flex class="list-offset sub-list" md-whiteframe="1dp">
+                                            <div flex class="list-offset sub-list">
                                                 <div class="list-header" layout="row" flex md-whiteframe="1dp">
                                                     <div flex="10">ID</div>
                                                     <div flex="20">Created date</div>
@@ -385,8 +407,8 @@
                                                 </div>
                                                 <md-card-content class="p-0" flex>
                                                     <md-content class="list-content" ms-scroll>
-                                                        <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="noAuditTrailLabel">
-                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No record has been created yet</span>
+                                                        <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="auditTrailList.length == 0">
+                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No history for audit trail is available</span>
                                                         </div>
                                                         <div layout="row" flex class="list-item" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel">
                                                             <div flex="10">
