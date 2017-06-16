@@ -231,13 +231,23 @@
                                                                 </div>
                                                                 <div layout="row" class="mt-20">
                                                                     <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex="25">
+                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
                                                                             <md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Cards</span>
                                                                         </div>
                                                                         <div flex ng-if="customer_supplier.profile.stripeCustId != null"><md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> Available</div>
                                                                         <div flex class="op-5" ng-if="customer_supplier.profile.stripeCustId == null"><i>Not available</i></div>
                                                                     </div>
-                                                                    <div class="info-grid-row" flex="5"></div>
+                                                                    <div flex="5"></div>
+                                                                    <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                            <i class="material-icons">local_atm</i>
+                                                                            <span flex>Payment gateway</span>
+                                                                        </div>
+                                                                        <div flex>
+                                                                            <!--{{customer_supplier.profile.gatewayType}}-->
+                                                                            <div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -40px"></div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                                 <!--<md-card flex class="input-block-gen m-0 mt-20">-->
