@@ -70,7 +70,7 @@
                 <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 1">
                     <md-button class="md-icon-button"
                                ng-click="vm.closeReadPane()"
-                               >
+                    >
                         <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
                     </md-button>
                 </div>
@@ -213,7 +213,8 @@
                                                                             <md-icon md-font-icon="icon-phone"></md-icon> <span flex>Contact</span>
                                                                         </div>
                                                                         <div flex class="">{{customer_supplier.profile.contact}}</div>
-                                                                    </div>                                                  </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div layout="row" class="mt-20">
                                                                     <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                         <div class="iconed-label" layout="row" layout-align="start center" flex="25">
@@ -254,44 +255,44 @@
                                                                 </div>
 
                                                                 <!--<md-card flex class="input-block-gen m-0 mt-20">-->
-                                                                    <!--<md-card-title>-->
-                                                                        <!--<div layout="row" layout-align="start center">-->
-                                                                            <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <h3>Cards</h3>-->
-                                                                        <!--</div>-->
-                                                                    <!--</md-card-title>-->
-                                                                    <!--<md-card-content md-whiteframe="1dp">-->
-                                                                        <!--<div flex layout="row" layout-align="center center" class="msg-empty-list m-0">-->
-                                                                            <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon> No card has been added yet</span>-->
-                                                                        <!--</div>-->
-                                                                        <!--<div layout="row" fill-width class="list-item" ng-repeat="card in cardDetails" modal-animation-class="mt-20">-->
+                                                                <!--<md-card-title>-->
+                                                                <!--<div layout="row" layout-align="start center">-->
+                                                                <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <h3>Cards</h3>-->
+                                                                <!--</div>-->
+                                                                <!--</md-card-title>-->
+                                                                <!--<md-card-content md-whiteframe="1dp">-->
+                                                                <!--<div flex layout="row" layout-align="center center" class="msg-empty-list m-0">-->
+                                                                <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon> No card has been added yet</span>-->
+                                                                <!--</div>-->
+                                                                <!--<div layout="row" fill-width class="list-item" ng-repeat="card in cardDetails" modal-animation-class="mt-20">-->
 
-                                                                            <!--<div class="prodCost" flex layout="row" layout-align="start center">-->
-                                                                                <!--<span ng-class="card.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{card.last4}}</span>-->
-                                                                                <!--<md-tooltip>XXXX-XXXX-XXXX-{{card.last4}}</md-tooltip>-->
-                                                                            <!--</div>-->
-                                                                            <!--<div class="prodCost" flex="30" layout="row" layout-align="start center">-->
-                                                                                <!--&lt;!&ndash; <span> {{card.exp_month | parseDate | date: 'MMMM' | limitTo:3}} {{card.exp_year | parseDate | date: 'yyyy'}}</span> &ndash;&gt;-->
-                                                                                <!--<span ng-if="card.exp_month==1">January</span>-->
-                                                                                <!--<span ng-if="card.exp_month==2">February</span>-->
-                                                                                <!--<span ng-if="card.exp_month==3">March</span>-->
-                                                                                <!--<span ng-if="card.exp_month==4">April</span>-->
-                                                                                <!--<span ng-if="card.exp_month==5">May</span>-->
-                                                                                <!--<span ng-if="card.exp_month==6">June</span>-->
-                                                                                <!--<span ng-if="card.exp_month==7">July</span>-->
-                                                                                <!--<span ng-if="card.exp_month==8">August</span>-->
-                                                                                <!--<span ng-if="card.exp_month==9">September</span>-->
-                                                                                <!--<span ng-if="card.exp_month==10">October</span>-->
-                                                                                <!--<span ng-if="card.exp_month==11">November</span>-->
-                                                                                <!--<span ng-if="card.exp_month==12">December</span>-->
-                                                                                <!--<span>&nbsp;{{card.exp_year}}</span>-->
-                                                                            <!--</div>-->
-                                                                            <!--<div class="prodCost" layout="column" layout-align="center end">-->
-                                                                                <!--<span class="default" ng-if="card.rowId===0">Default</span>-->
-                                                                                <!--<md-button class="md-raised make-default" ng-if="card.rowId != 0" ng-click="defaultPayment('1',card)" layout-align="center center"> Make Default</md-button>-->
-                                                                            <!--</div>-->
-                                                                            <!--<md-button class="md-warn md-icon-button" ng-click="removeCard()" layout-align="center center" style="margin-right: -10px"><md-icon md-font-icon="icon-close-circle"></md-icon><md-tooltip>Remove card</md-tooltip></md-button>-->
-                                                                        <!--</div>-->
-                                                                    <!--</md-card-content>-->
+                                                                <!--<div class="prodCost" flex layout="row" layout-align="start center">-->
+                                                                <!--<span ng-class="card.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{card.last4}}</span>-->
+                                                                <!--<md-tooltip>XXXX-XXXX-XXXX-{{card.last4}}</md-tooltip>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="prodCost" flex="30" layout="row" layout-align="start center">-->
+                                                                <!--&lt;!&ndash; <span> {{card.exp_month | parseDate | date: 'MMMM' | limitTo:3}} {{card.exp_year | parseDate | date: 'yyyy'}}</span> &ndash;&gt;-->
+                                                                <!--<span ng-if="card.exp_month==1">January</span>-->
+                                                                <!--<span ng-if="card.exp_month==2">February</span>-->
+                                                                <!--<span ng-if="card.exp_month==3">March</span>-->
+                                                                <!--<span ng-if="card.exp_month==4">April</span>-->
+                                                                <!--<span ng-if="card.exp_month==5">May</span>-->
+                                                                <!--<span ng-if="card.exp_month==6">June</span>-->
+                                                                <!--<span ng-if="card.exp_month==7">July</span>-->
+                                                                <!--<span ng-if="card.exp_month==8">August</span>-->
+                                                                <!--<span ng-if="card.exp_month==9">September</span>-->
+                                                                <!--<span ng-if="card.exp_month==10">October</span>-->
+                                                                <!--<span ng-if="card.exp_month==11">November</span>-->
+                                                                <!--<span ng-if="card.exp_month==12">December</span>-->
+                                                                <!--<span>&nbsp;{{card.exp_year}}</span>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="prodCost" layout="column" layout-align="center end">-->
+                                                                <!--<span class="default" ng-if="card.rowId===0">Default</span>-->
+                                                                <!--<md-button class="md-raised make-default" ng-if="card.rowId != 0" ng-click="defaultPayment('1',card)" layout-align="center center"> Make Default</md-button>-->
+                                                                <!--</div>-->
+                                                                <!--<md-button class="md-warn md-icon-button" ng-click="removeCard()" layout-align="center center" style="margin-right: -10px"><md-icon md-font-icon="icon-close-circle"></md-icon><md-tooltip>Remove card</md-tooltip></md-button>-->
+                                                                <!--</div>-->
+                                                                <!--</md-card-content>-->
                                                                 <!--</md-card>-->
                                                             </div>
                                                         </div>
@@ -299,9 +300,9 @@
                                                 </div>
                                             </div>
                                             <!--<div layout="row" layout-align="end end" class="more-chevron" ng-style="{'top:0':showMoreUserInfo}">-->
-                                                <!--<div layout="row" layout-align="start center">-->
-                                                    <!--<md-button class="md-icon-button m-0" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>-->
-                                                <!--</div>-->
+                                            <!--<div layout="row" layout-align="start center">-->
+                                            <!--<md-button class="md-icon-button m-0" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>-->
+                                            <!--</div>-->
                                             <!--</div>-->
                                             <!-- / Contact Info portion-->
                                             <div class="md-padding top-m-20 pos-rel">
@@ -364,7 +365,7 @@
                                                             <md-card md-theme="default" md-theme-watch="" ng-click="clickLedgerItem($event,item)" layout="row" layout-align="space-between center" flex>
                                                                 <div layout="column">
                                                                     <div layout="row">
-                                                                        <span>{{item.transactionType}}</span>
+                                                                        <span>{{item.transactionType}} <span ng-if="item.transactionType.toLowerCase() != 'creditnote'" class="op-5">#{{item.transactionType.toLowerCase() == 'invoice' ? item.invoiceRef : item.paymentRef}}</span></span>
                                                                     </div>
                                                                     <div layout="row">
                                                                         <span>{{item.amount| isoCurrency:BaseCurrency:decimalPoint}}</span>
@@ -373,7 +374,7 @@
                                                                 <!--<div layout="column" layout-align="center center" class="preloader-dot-auto" ng-show="item.isDialogLoading || isDialogClosed" >-->
                                                                 <!--<img src="assets/images/142.gif" alt=""/>-->
                                                                 <!--</div>-->
-                                                                <md-progress-circular ng-show="item.isDialogLoading || isDialogClosed" style="opacity: 0.5"></md-progress-circular>
+                                                                <md-progress-circular ng-show="item.isDialogLoading" class="op-5"></md-progress-circular>
                                                             </md-card>
                                                         </div>
 
@@ -397,7 +398,7 @@
                                                         <div flex></div>
                                                     </div>
                                                     <div class="msg-empty-list">
-                                                        <span><md-icon md-font-icon="icon-information"></md-icon> No ledger records available for this customer</span>
+                                                        <span><md-icon md-font-icon="icon-information-outline"></md-icon> No ledger record is available for this customer</span>
                                                     </div>
                                                 </div>
                                                 <!-- / Customer Ledger-->
@@ -444,41 +445,41 @@
                                                 </md-card-content>
                                             </div>
                                             <!--<md-card class="carded-list-wrap" md-whiteframe="2dp">-->
-                                                <!--<md-card-header>-->
-                                                    <!--<md-card-header-text layout="row">-->
-                                                        <!--<span flex="10">ID</span>-->
-                                                        <!--<span flex>CREATED DATE</span>-->
-                                                        <!--<span flex>MODULE</span>-->
-                                                        <!--<span flex="35">REMARK</span>-->
-                                                    <!--</md-card-header-text>-->
-                                                <!--</md-card-header>-->
-                                                <!--<md-divider></md-divider>-->
+                                            <!--<md-card-header>-->
+                                            <!--<md-card-header-text layout="row">-->
+                                            <!--<span flex="10">ID</span>-->
+                                            <!--<span flex>CREATED DATE</span>-->
+                                            <!--<span flex>MODULE</span>-->
+                                            <!--<span flex="35">REMARK</span>-->
+                                            <!--</md-card-header-text>-->
+                                            <!--</md-card-header>-->
+                                            <!--<md-divider></md-divider>-->
 
-                                                <!--<md-content ms-scroll style="height: auto;background-color: #ffffff;max-height: 330px">-->
-                                                    <!--<div layout="column" layout-align="center center" class="preloader-dot-auto" ng-hide="moreAuditTrailLoaded" >-->
-                                                        <!--<img src="assets/images/142.gif" alt=""/>-->
-                                                    <!--</div>-->
-                                                    <!--<div layout="row" class="carded-list-row" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel" style="background-color: #ffffff">-->
-                                                        <!--<div flex="10">-->
-                                                            <!--{{$index + 1}}-->
-                                                        <!--</div>-->
-                                                        <!--<div flex>-->
-                                                            <!--{{detail.createdDate | limitTo:10}}-->
-                                                        <!--</div>-->
-                                                        <!--<div flex>-->
-                                                            <!--{{detail.module}}-->
-                                                        <!--</div>-->
-                                                        <!--<div flex="35">-->
-                                                            <!--{{detail.remark}}-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">-->
-                                                        <!--<md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>-->
-                                                    <!--</div>-->
-                                                    <!--<div ng-show="noAuditTrailLabel" layout="column" layout-align="center center" style="height: 100%;">-->
-                                                        <!--<span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Audit Trails for this User!</span>-->
-                                                    <!--</div>-->
-                                                <!--</md-content>-->
+                                            <!--<md-content ms-scroll style="height: auto;background-color: #ffffff;max-height: 330px">-->
+                                            <!--<div layout="column" layout-align="center center" class="preloader-dot-auto" ng-hide="moreAuditTrailLoaded" >-->
+                                            <!--<img src="assets/images/142.gif" alt=""/>-->
+                                            <!--</div>-->
+                                            <!--<div layout="row" class="carded-list-row" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel" style="background-color: #ffffff">-->
+                                            <!--<div flex="10">-->
+                                            <!--{{$index + 1}}-->
+                                            <!--</div>-->
+                                            <!--<div flex>-->
+                                            <!--{{detail.createdDate | limitTo:10}}-->
+                                            <!--</div>-->
+                                            <!--<div flex>-->
+                                            <!--{{detail.module}}-->
+                                            <!--</div>-->
+                                            <!--<div flex="35">-->
+                                            <!--{{detail.remark}}-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">-->
+                                            <!--<md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>-->
+                                            <!--</div>-->
+                                            <!--<div ng-show="noAuditTrailLabel" layout="column" layout-align="center center" style="height: 100%;">-->
+                                            <!--<span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Audit Trails for this User!</span>-->
+                                            <!--</div>-->
+                                            <!--</md-content>-->
                                             <!--</md-card>-->
                                         </div>
                                     </md-tab-body>
@@ -552,29 +553,29 @@
                                     </md-input-container>
                                     <div flex="5"></div>
                                     <md-input-container flex="30">
-                                      <label>Bill Country</label>
-                                      <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="customer_supplier.profile.bill_country">
-                                      <div ng-messages="vm.editProfileForm.bill_country.$error">
-                                        <div ng-message="maxlength">Country must be between 1-35 characters</div>
-                                      </div>
+                                        <label>Bill Country</label>
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="customer_supplier.profile.bill_country">
+                                        <div ng-messages="vm.editProfileForm.bill_country.$error">
+                                            <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                                        </div>
                                     </md-input-container>
                                 </div>
                                 <div layout="row">
-                                  <md-input-container flex="30">
-                                    <label>Shipping Address</label>
-                                    <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
-                                    <div ng-messages="vm.editProfileForm.ship_addr.$error">
-                                      <div ng-message="maxlength">Address must be between 1-200 characters</div>
-                                    </div>
-                                  </md-input-container>
-                                  <div flex="5"></div>
-                                  <md-input-container flex="30">
-                                    <label>Shipping Country</label>
-                                    <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="customer_supplier.profile.ship_country">
-                                    <div ng-messages="vm.editProfileForm.ship_country.$error">
-                                      <div ng-message="maxlength">Country must be between 1-35 characters</div>
-                                    </div>
-                                  </md-input-container>
+                                    <md-input-container flex="30">
+                                        <label>Shipping Address</label>
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
+                                        <div ng-messages="vm.editProfileForm.ship_addr.$error">
+                                            <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                                        </div>
+                                    </md-input-container>
+                                    <div flex="5"></div>
+                                    <md-input-container flex="30">
+                                        <label>Shipping Country</label>
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="customer_supplier.profile.ship_country">
+                                        <div ng-messages="vm.editProfileForm.ship_country.$error">
+                                            <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                                        </div>
+                                    </md-input-container>
                                 </div>
                             </md-card-content>
                         </md-card>
@@ -631,7 +632,7 @@
             <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 1">
                 <md-button class="md-icon-button"
                            ng-click="vm.closeReadPane()"
-                           >
+                >
                     <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
                 </md-button>
             </div>
@@ -646,7 +647,7 @@
                     <md-menu>
                         <md-button class="md-icon-button"
                                    ng-click="$mdOpenMenu($event)"
-                                   >
+                        >
                             <md-icon md-font-icon="icon-menu-down"></md-icon>
                         </md-button>
                         <md-menu-content width="3">
@@ -1066,22 +1067,22 @@
 		}
 	}
 
-  function geolocate3() {
-    initAutocomplete();
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var geolocation3 = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        var circle3 = new google.maps.Circle({
-          center: geolocation3,
-          radius: position.coords.accuracy
-        });
-        autocomplete.setBounds(circle3.getBounds());
-      });
-    }
-  }
+	function geolocate3() {
+		initAutocomplete();
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var geolocation3 = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				var circle3 = new google.maps.Circle({
+					center: geolocation3,
+					radius: position.coords.accuracy
+				});
+				autocomplete.setBounds(circle3.getBounds());
+			});
+		}
+	}
 
 	function fillInAddress2() {
 		// Get the place details from the autocomplete object.

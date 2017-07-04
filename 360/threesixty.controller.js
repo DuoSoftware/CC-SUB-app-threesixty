@@ -104,7 +104,7 @@
 
 		function getDomainName() {
 			var _st = gst("domain");
-			return (_st != null) ? _st : "suvenCom"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+			return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
 		}
 
 		function getDomainExtension() {
@@ -806,7 +806,7 @@
 			var cusId=customer.profileId;
 			//$scope.ledgerlist = [];
 			//console.log(cusId);
-			$charge.ledger().getByAccountID(cusId,skip,take,'desc').success(function(data)
+			$charge.ledger().getLedgersForAccountWithRef(cusId,skip,take,'desc').success(function(data)
 			{
 				//console.log(data);
 

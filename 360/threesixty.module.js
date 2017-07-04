@@ -1,9 +1,9 @@
 ////////////////////////////////
 // App : 360
 // Owner  : Gihan Herath
-// Last changed date : 2017/06/21
-// Version : 6.1.0.7
-// Modified By : Gihan
+// Last changed date : 2017/07/04
+// Version : 6.1.0.8
+// Modified By : Kasun
 /////////////////////////////////
 
 (function ()
