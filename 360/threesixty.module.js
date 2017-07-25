@@ -1,9 +1,9 @@
 ////////////////////////////////
 // App : 360
 // Owner  : Gihan Herath
-// Last changed date : 2017/07/10
-// Version : 6.1.0.9
-// Modified By : Kasun
+// Last changed date : 2017/07/25
+// Version : 6.1.0.8
+// Modified By : Gihan
 /////////////////////////////////
 
 (function ()
@@ -32,24 +32,12 @@
                     }
                 },
                 resolve: {
-					security: ['$q','mesentitlement','$timeout','$rootScope','$state','$location', function($q,mesentitlement,$timeout,$rootScope,$state, $location){
-						return $q(function(resolve, reject) {
-							$timeout(function() {
-								if ($rootScope.isBaseSet2) {
-									resolve(function () {
-										var entitledStatesReturn = mesentitlement.stateDepResolver('threesixty');
+                    security: ['$q','mesentitlement', function($q,mesentitlement){
+                        var entitledStatesReturn = mesentitlement.stateDepResolver('threesixty');
 
-										mesentitlementProvider.setStateCheck("threesixty");
-
-										if(entitledStatesReturn !== true){
-											return $q.reject("unauthorized");
-										}
-									});
-								} else {
-									return $location.path('/guide');
-								}
-							});
-						});
+                        if(entitledStatesReturn !== true){
+                              return $q.reject("unauthorized");
+                        };
                     }]
                 },
                 bodyClass: 'threesixty'
