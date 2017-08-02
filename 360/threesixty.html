@@ -135,6 +135,12 @@
                                         <span>Deactivate</span>
                                     </md-button>
                                 </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="editProfileInfo(customer_supplier.profile)">
+                                        <md-icon md-font-icon="icon-pencil"></md-icon>
+                                        <span>Edit</span>
+                                    </md-button>
+                                </md-menu-item>
                             </md-menu-content>
                         </md-menu>
                         <md-button class="md-icon-button" ng-click="switchInfoPane('close',vm.selectedPlan)">
@@ -166,220 +172,317 @@
                                     <md-tab-body flex>
                                         <div ng-if="!editProfileInfoEnabled">
                                             <!--Contact Info portion-->
-                                            <div layout="row" flex class="p-16">
-                                                <div layout="column" flex>
-                                                    <div>
-                                                        <div layout="row">
-                                                            <div layout="row" layout-align="start center" flex class="user">
-                                                                <i class="material-icons mr-10 fs-30 h-30">face</i>
-                                                                <div class="user-name fs-18">
-                                                                    <span>{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</span>
-                                                                </div>
-                                                            </div>
-                                                            <md-button ng-click="editProfileInfo(customer_supplier.profile)" class="md-icon-button edit-icon"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>
-                                                        </div>
-                                                        <md-divider class="mv-10"></md-divider>
-                                                        <div layout="row" flex ng-if="showMoreUserInfo">
-                                                            <div layout="column" class="pos-rel" flex>
-                                                                <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
-                                                                <div layout="row">
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                            <md-icon md-font-icon="icon-email"></md-icon> <span flex>Email</span>
-                                                                        </div>
-                                                                        <div flex>{{customer_supplier.profile.email_addr}}</div>
-                                                                    </div>
-                                                                    <div flex="5"></div>
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                            <md-icon md-font-icon="icon-map"></md-icon> <span flex>User category</span>
-                                                                        </div>
-                                                                        <div flex class="">{{customer_supplier.profile.category}}</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div layout="row">
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                            <md-icon md-font-icon="icon-calendar-check"></md-icon> <span flex>Registered date</span>
-                                                                        </div>
-                                                                        <div flex class="">{{customer_supplier.profile.createddate.split(' ')[0]}}</div>
-                                                                    </div>
-                                                                    <div flex="5"></div>
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                            <md-icon md-font-icon="icon-phone"></md-icon> <span flex>Contact</span>
-                                                                        </div>
-                                                                        <div flex class="">{{customer_supplier.profile.contact}}</div>
-                                                                    </div>                                                  </div>
-                                                                <div layout="row" class="mt-20">
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex="25">
-                                                                            <md-icon md-font-icon="icon-home"></md-icon> <span flex>Billing address</span>
-                                                                        </div>
-                                                                        <div flex class="">{{customer_supplier.profile.bill_addr}}</div>
-                                                                    </div>
-                                                                    <div class="info-grid-row bordered" flex="5"></div>
-                                                                </div>
-                                                                <div layout="row">
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex="25">
-                                                                            <i class="material-icons">local_shipping</i> <span flex>Shipping address</span>
-                                                                        </div>
-                                                                        <div flex class="">{{customer_supplier.profile.ship_addr}}</div>
-                                                                    </div>
-                                                                    <div class="info-grid-row" flex="5"></div>
-                                                                </div>
-                                                                <div layout="row" class="mt-20">
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                            <md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Cards</span>
-                                                                        </div>
-                                                                        <div flex ng-if="customer_supplier.profile.stripeCustId != null"><md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> Available</div>
-                                                                        <div flex class="op-5" ng-if="customer_supplier.profile.stripeCustId == null"><i>Not available</i></div>
-                                                                    </div>
-                                                                    <div flex="5"></div>
-                                                                    <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                            <i class="material-icons">local_atm</i>
-                                                                            <span flex>Payment gateway</span>
-                                                                        </div>
-                                                                        <div flex>
-                                                                            <!--{{customer_supplier.profile.gatewayType}}-->
-                                                                            <div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -40px"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div layout="row" class="mt-20">
-                                                                  <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                    <md-chips  id="pdfChip" ng-model="vm.profileAttachmentList.result" style="margin-left:-5px;"  readonly="true"  ng-disabled="true" >
-                                                                      <md-chip-template ng-click="openItemUrl($chip)">
-                                                                        <div layout="row">
-                                                                          <div ng-if="$chip.split('.')[$chip.split('.').length-1]=='pdf'" layout="column" flex="10">
-                                                                            <img src="\assets\images\adobe-pdf-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>
-                                                                          </div>
-                                                                          <div ng-if="$chip.split('.')[$chip.split('.').length-1]!='pdf'" layout="column" flex="10">
-                                                                            <img src="\assets\images\Preview-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>
-                                                                          </div>
-                                                                          <div layout="column" flex="10"></div>
-                                                                          <div layout="column" flex="70">
-                                                                            <span style="width: 225px;">
-                                                                                <strong class="font-Lato font-size14">{{$chip.split('/')[$chip.split('/').length-1]}}</strong>
-
-                                                                            </span>
-                                                                          </div>
-                                                                          <div layout="column" flex="10"><i class="material-icons" ng-click="removeAttachment($chip)">close</i></div>
-                                                                        </div>
-
-                                                                      </md-chip-template>
-                                                                    </md-chips>
-                                                                  </div>
-                                                                </div>
-
-                                                                <div layout="row" class="mt-20">
-                                                                  <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                    <md-input-container flex="100">
-                                                                      <label>Comment</label>
-                                                                      <input type="textarea" ng-required="true" min="1" ng-maxlength="300" name="comment" ng-model="profileComment.comment">
-                                                                    </md-input-container>
-                                                                  </div>
-                                                                  <div flex="5"></div>
-                                                                  <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                    <md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)" class="md-raised md-accent">Add</md-button>
-                                                                  </div>
-                                                                </div>
-                                                                <div layout="row" class="mt-20">
-                                                                  <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
-                                                                    <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
-                                                                      <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Comments</span>-->
+                                            <!--<div layout="row" flex class="p-16">-->
+                                                <!--<div layout="column" flex>-->
+                                                    <!--<div>-->
+                                                        <!--<div layout="row">-->
+                                                            <!--<div layout="row" layout-align="start center" flex class="user">-->
+                                                                <!--<i class="material-icons mr-10 fs-30 h-30">face</i>-->
+                                                                <!--<div class="user-name fs-18">-->
+                                                                    <!--<span>{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</span>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!--<md-button ng-click="editProfileInfo(customer_supplier.profile)" class="md-icon-button edit-icon"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>-->
+                                                        <!--</div>-->
+                                                        <!--<md-divider class="mv-10"></md-divider>-->
+                                                        <!--<div layout="row" flex ng-if="showMoreUserInfo">-->
+                                                            <!--<div layout="column" class="pos-rel" flex>-->
+                                                                <!--<div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>-->
+                                                                <!--<div layout="row">-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row bordered" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                                            <!--<md-icon md-font-icon="icon-email"></md-icon> <span flex>Email</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex>{{customer_supplier.profile.email_addr}}</div>-->
                                                                     <!--</div>-->
+                                                                    <!--<div flex="5"></div>-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row bordered" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                                            <!--<md-icon md-font-icon="icon-map"></md-icon> <span flex>User category</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex class="">{{customer_supplier.profile.category}}</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div layout="row">-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row bordered" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                                            <!--<md-icon md-font-icon="icon-calendar-check"></md-icon> <span flex>Registered date</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex class="">{{customer_supplier.profile.createddate.split(' ')[0]}}</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div flex="5"></div>-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row bordered" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                                            <!--<md-icon md-font-icon="icon-phone"></md-icon> <span flex>Contact</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex class="">{{customer_supplier.profile.contact}}</div>-->
+                                                                    <!--</div>                                                  </div>-->
+                                                                <!--<div layout="row" class="mt-20">-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row bordered" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex="25">-->
+                                                                            <!--<md-icon md-font-icon="icon-home"></md-icon> <span flex>Billing address</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex class="">{{customer_supplier.profile.bill_addr}}</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="info-grid-row bordered" flex="5"></div>-->
+                                                                <!--</div>-->
+                                                                <!--<div layout="row">-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row bordered" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex="25">-->
+                                                                            <!--<i class="material-icons">local_shipping</i> <span flex>Shipping address</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex class="">{{customer_supplier.profile.ship_addr}}</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="info-grid-row" flex="5"></div>-->
+                                                                <!--</div>-->
+                                                                <!--<div layout="row" class="mt-20">-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                                            <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Cards</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex ng-if="customer_supplier.profile.stripeCustId != null"><md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> Available</div>-->
+                                                                        <!--<div flex class="op-5" ng-if="customer_supplier.profile.stripeCustId == null"><i>Not available</i></div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div flex="5"></div>-->
+                                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                                        <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                                            <!--<i class="material-icons">local_atm</i>-->
+                                                                            <!--<span flex>Payment gateway</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div flex>-->
+                                                                            <!--&lt;!&ndash;{{customer_supplier.profile.gatewayType}}&ndash;&gt;-->
+                                                                            <!--<div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -40px"></div>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+
+                                                                <!--<div layout="row" class="mt-20">-->
+                                                                  <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                                    <!--<md-chips  id="pdfChip" ng-model="vm.profileAttachmentList.result" style="margin-left:-5px;"  readonly="true"  ng-disabled="true" >-->
+                                                                      <!--<md-chip-template ng-click="openItemUrl($chip)">-->
+                                                                        <!--<div layout="row">-->
+                                                                          <!--<div ng-if="$chip.split('.')[$chip.split('.').length-1]=='pdf'" layout="column" flex="10">-->
+                                                                            <!--<img src="\assets\images\adobe-pdf-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
+                                                                          <!--</div>-->
+                                                                          <!--<div ng-if="$chip.split('.')[$chip.split('.').length-1]!='pdf'" layout="column" flex="10">-->
+                                                                            <!--<img src="\assets\images\Preview-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
+                                                                          <!--</div>-->
+                                                                          <!--<div layout="column" flex="10"></div>-->
+                                                                          <!--<div layout="column" flex="70">-->
+                                                                            <!--<span style="width: 225px;">-->
+                                                                                <!--<strong class="font-Lato font-size14" ng-if="$chip.split('/')[$chip.split('/').length-1].length < 25">{{$chip.split('/')[$chip.split('/').length-1]}}</strong>-->
+                                                                                <!--<strong class="font-Lato font-size14" ng-if="$chip.split('/')[$chip.split('/').length-1].length >= 25">{{$chip.split('/')[$chip.split('/').length-1].substr(0,24)}}..</strong>-->
+
+                                                                            <!--</span>-->
+                                                                          <!--</div>-->
+                                                                          <!--<div layout="column" flex="10"><i class="material-icons" ng-click="removeAttachment(customer_supplier.profile,$chip.split('/')[$chip.split('/').length-1])">close</i></div>-->
+                                                                        <!--</div>-->
+
+                                                                      <!--</md-chip-template>-->
+                                                                    <!--</md-chips>-->
+                                                                  <!--</div>-->
+                                                                <!--</div>-->
+
+                                                                <!--<div layout="row" class="mt-20">-->
+                                                                  <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                                    <!--<md-input-container flex="100">-->
+                                                                      <!--<label>Comment</label>-->
+                                                                      <!--<input type="textarea" ng-required="true" min="1" ng-maxlength="300" name="comment" ng-model="profileComment.comment">-->
+                                                                    <!--</md-input-container>-->
                                                                   <!--</div>-->
                                                                   <!--<div flex="5"></div>-->
-                                                                  <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                    <md-card flex class="input-block-gen mt-30">
-                                                                      <md-card-title>
-                                                                        <div layout="row" layout-align="start center">
-                                                                          <i class="material-icons">share</i> <h3>Comments</h3>
-                                                                        </div>
-                                                                      </md-card-title>
-                                                                      <div class="list-header" layout="row" flex>
-                                                                        <span flex>Comment Date</span>
-                                                                        <span flex>Comment</span>
-                                                                      </div>
-                                                                      <md-card-content class="p-0">
-                                                                        <div class="preloader" ng-if="vm.isProfileCommentsLoaded">
-                                                                          <md-progress-circular></md-progress-circular>
-                                                                        </div>
-                                                                        <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="commentsList.length == 0">
-                                                                          <span><md-icon md-font-icon="icon-information-outline"></md-icon> No Comments has added yet</span>
-                                                                        </div>
-                                                                        <div class="sub-list">
-                                                                          <div layout="row" class="list-item" ng-repeat="item in commentsList" ng-click="" layout-align="start center">
-                                                                            <span flex class="fw-500">{{item.createdDate}}</span>
-                                                                            <span flex>{{item.comment}}</span>
-                                                                          </div>
-                                                                        </div>
-                                                                        <div layout="row" layout-align="center center" class="" ng-if="!moreProfileCommentsLoaded">
-                                                                          <md-button ng-click="searchmoreProfileComments(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
-                                                                        </div>
-                                                                      </md-card-content>
-                                                                    </md-card>
-                                                                  </div>
-                                                                </div>
-
-                                                                <!--<md-card flex class="input-block-gen m-0 mt-20">-->
-                                                                    <!--<md-card-title>-->
+                                                                  <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                                    <!--<md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)" class="md-raised md-accent">Add</md-button>-->
+                                                                  <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div layout="row" class="mt-20">-->
+                                                                  <!--&lt;!&ndash;<div layout="row" layout-align="start center" class="info-grid-row" flex>&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;<div class="iconed-label" layout="row" layout-align="start center" flex>&ndash;&gt;-->
+                                                                      <!--&lt;!&ndash;<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Comments</span>&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                  <!--&lt;!&ndash;<div flex="5"></div>&ndash;&gt;-->
+                                                                  <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                                    <!--<md-card flex class="input-block-gen mt-30">-->
+                                                                      <!--<md-card-title>-->
                                                                         <!--<div layout="row" layout-align="start center">-->
-                                                                            <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <h3>Cards</h3>-->
+                                                                          <!--<i class="material-icons">share</i> <h3>Comments</h3>-->
                                                                         <!--</div>-->
-                                                                    <!--</md-card-title>-->
-                                                                    <!--<md-card-content md-whiteframe="1dp">-->
-                                                                        <!--<div flex layout="row" layout-align="center center" class="msg-empty-list m-0">-->
-                                                                            <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon> No card has been added yet</span>-->
+                                                                      <!--</md-card-title>-->
+                                                                      <!--<div class="list-header" layout="row" flex>-->
+                                                                        <!--<span flex>Comment Date</span>-->
+                                                                        <!--<span flex>Comment</span>-->
+                                                                      <!--</div>-->
+                                                                      <!--<md-card-content class="p-0">-->
+                                                                        <!--<div class="preloader" ng-if="vm.isProfileCommentsLoaded">-->
+                                                                          <!--<md-progress-circular></md-progress-circular>-->
                                                                         <!--</div>-->
-                                                                        <!--<div layout="row" fill-width class="list-item" ng-repeat="card in cardDetails" modal-animation-class="mt-20">-->
+                                                                        <!--<div layout="row" layout-align="center center" class="msg-empty-list" ng-if="commentsList.length == 0">-->
+                                                                          <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon> No Comments has added yet</span>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div class="sub-list">-->
+                                                                          <!--<div layout="row" class="list-item" ng-repeat="item in commentsList" ng-click="" layout-align="start center">-->
+                                                                            <!--<span flex class="fw-500">{{item.createdDate}}</span>-->
+                                                                            <!--<span flex>{{item.comment}}</span>-->
+                                                                          <!--</div>-->
+                                                                        <!--</div>-->
+                                                                        <!--<div layout="row" layout-align="center center" class="" ng-if="!moreProfileCommentsLoaded">-->
+                                                                          <!--<md-button ng-click="searchmoreProfileComments(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>-->
+                                                                        <!--</div>-->
+                                                                      <!--</md-card-content>-->
+                                                                    <!--</md-card>-->
+                                                                  <!--</div>-->
+                                                                <!--</div>-->
 
-                                                                            <!--<div class="prodCost" flex layout="row" layout-align="start center">-->
-                                                                                <!--<span ng-class="card.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{card.last4}}</span>-->
-                                                                                <!--<md-tooltip>XXXX-XXXX-XXXX-{{card.last4}}</md-tooltip>-->
-                                                                            <!--</div>-->
-                                                                            <!--<div class="prodCost" flex="30" layout="row" layout-align="start center">-->
-                                                                                <!--<!-- <span> {{card.exp_month | parseDate | date: 'MMMM' | limitTo:3}} {{card.exp_year | parseDate | date: 'yyyy'}}</span> -->
-                                                                                <!--<span ng-if="card.exp_month==1">January</span>-->
-                                                                                <!--<span ng-if="card.exp_month==2">February</span>-->
-                                                                                <!--<span ng-if="card.exp_month==3">March</span>-->
-                                                                                <!--<span ng-if="card.exp_month==4">April</span>-->
-                                                                                <!--<span ng-if="card.exp_month==5">May</span>-->
-                                                                                <!--<span ng-if="card.exp_month==6">June</span>-->
-                                                                                <!--<span ng-if="card.exp_month==7">July</span>-->
-                                                                                <!--<span ng-if="card.exp_month==8">August</span>-->
-                                                                                <!--<span ng-if="card.exp_month==9">September</span>-->
-                                                                                <!--<span ng-if="card.exp_month==10">October</span>-->
-                                                                                <!--<span ng-if="card.exp_month==11">November</span>-->
-                                                                                <!--<span ng-if="card.exp_month==12">December</span>-->
-                                                                                <!--<span>&nbsp;{{card.exp_year}}</span>-->
-                                                                            <!--</div>-->
-                                                                            <!--<div class="prodCost" layout="column" layout-align="center end">-->
-                                                                                <!--<span class="default" ng-if="card.rowId===0">Default</span>-->
-                                                                                <!--<md-button class="md-raised make-default" ng-if="card.rowId != 0" ng-click="defaultPayment('1',card)" layout-align="center center"> Make Default</md-button>-->
-                                                                            <!--</div>-->
-                                                                            <!--<md-button class="md-warn md-icon-button" ng-click="removeCard()" layout-align="center center" style="margin-right: -10px"><md-icon md-font-icon="icon-close-circle"></md-icon><md-tooltip>Remove card</md-tooltip></md-button>-->
-                                                                        <!--</div>-->
-                                                                    <!--</md-card-content>-->
-                                                                <!--</md-card>-->
+                                                                <!--&lt;!&ndash;<md-card flex class="input-block-gen m-0 mt-20">&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;<md-card-title>&ndash;&gt;-->
+                                                                        <!--&lt;!&ndash;<div layout="row" layout-align="start center">&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <h3>Cards</h3>&ndash;&gt;-->
+                                                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;</md-card-title>&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;<md-card-content md-whiteframe="1dp">&ndash;&gt;-->
+                                                                        <!--&lt;!&ndash;<div flex layout="row" layout-align="center center" class="msg-empty-list m-0">&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;<span><md-icon md-font-icon="icon-information-outline"></md-icon> No card has been added yet</span>&ndash;&gt;-->
+                                                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                        <!--&lt;!&ndash;<div layout="row" fill-width class="list-item" ng-repeat="card in cardDetails" modal-animation-class="mt-20">&ndash;&gt;-->
+
+                                                                            <!--&lt;!&ndash;<div class="prodCost" flex layout="row" layout-align="start center">&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-class="card.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{card.last4}}</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<md-tooltip>XXXX-XXXX-XXXX-{{card.last4}}</md-tooltip>&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;<div class="prodCost" flex="30" layout="row" layout-align="start center">&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;&lt;!&ndash; <span> {{card.exp_month | parseDate | date: 'MMMM' | limitTo:3}} {{card.exp_year | parseDate | date: 'yyyy'}}</span> &ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==1">January</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==2">February</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==3">March</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==4">April</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==5">May</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==6">June</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==7">July</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==8">August</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==9">September</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==10">October</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==11">November</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span ng-if="card.exp_month==12">December</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span>&nbsp;{{card.exp_year}}</span>&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;<div class="prodCost" layout="column" layout-align="center end">&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<span class="default" ng-if="card.rowId===0">Default</span>&ndash;&gt;-->
+                                                                                <!--&lt;!&ndash;<md-button class="md-raised make-default" ng-if="card.rowId != 0" ng-click="defaultPayment('1',card)" layout-align="center center"> Make Default</md-button>&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;<md-button class="md-warn md-icon-button" ng-click="removeCard()" layout-align="center center" style="margin-right: -10px"><md-icon md-font-icon="icon-close-circle"></md-icon><md-tooltip>Remove card</md-tooltip></md-button>&ndash;&gt;-->
+                                                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;</md-card-content>&ndash;&gt;-->
+                                                                <!--&lt;!&ndash;</md-card>&ndash;&gt;-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div layout="row" layout-align="start center" class="more-collapse" ng-style="showMoreUserInfo ? {'right':'10px','bottom':'0px', 'background':'#fafafa'} : null">-->
+                                                <!--<div layout="row" layout-align="start center">-->
+                                                    <!--<md-button class="md-icon-button m-0" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!-- / Contact Info portion-->
+                                            <div class="md-padding top-m-50 pos-rel">
+                                                <!--Contact info portion-->
+                                                <div layout="row" flex>
+                                                    <div layout="column" flex>
+                                                        <div class="pos-rel">
+                                                            <div layout="row" layout-align="space-between center">
+                                                                <div layout="row" layout-align="space-between center" ng-class="{'flex':paymentRetryHistory.paymentFailedDate == null}">
+                                                                    <div layout="row" layout-align="start center" flex class="user">
+                                                                        <i class="material-icons mr-10 fs-30 h-30">face</i>
+                                                                        <div class="user-name fs-18">
+                                                                            <span>{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--<md-button ng-click="editProfileInfo(customer_supplier.profile)" class="md-icon-button edit-icon"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>-->
+                                                                    <div layout="row" layout-align="start center" class="more-collapse" ng-style="showMoreUserInfo ? {'right':'10px','bottom':'0px', 'background':'#fafafa'} : null">
+                                                                        <md-button class="md-icon-button m-0" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <md-divider class="mt-10"></md-divider>
+                                                            <div layout="row" flex ng-if="showMoreUserInfo" class="p-10 light-gray">
+                                                                <div layout="column" class="pos-rel" flex>
+                                                                    <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
+                                                                    <div layout="row">
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                                <md-icon md-font-icon="icon-email"></md-icon> <span flex>Email</span>
+                                                                            </div>
+                                                                            <div flex>{{customer_supplier.profile.email_addr}}</div>
+                                                                        </div>
+                                                                        <div flex="5"></div>
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                                <md-icon md-font-icon="icon-map"></md-icon> <span flex>User category</span>
+                                                                            </div>
+                                                                            <div flex class="">{{customer_supplier.profile.category}}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div layout="row">
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                                <md-icon md-font-icon="icon-calendar-check"></md-icon> <span flex>Registered date</span>
+                                                                            </div>
+                                                                            <div flex class="">{{customer_supplier.profile.createddate.split(' ')[0]}}</div>
+                                                                        </div>
+                                                                        <div flex="5"></div>
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                                <md-icon md-font-icon="icon-phone"></md-icon> <span flex>Contact</span>
+                                                                            </div>
+                                                                            <div flex class="">{{customer_supplier.profile.contact}}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div layout="row" class="mt-20">
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex="25">
+                                                                                <md-icon md-font-icon="icon-home"></md-icon> <span flex>Billing address</span>
+                                                                            </div>
+                                                                            <div flex class="">{{customer_supplier.profile.bill_addr}}</div>
+                                                                        </div>
+                                                                        <div class="info-grid-row bordered" flex="5"></div>
+                                                                    </div>
+                                                                    <div layout="row">
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex="25">
+                                                                                <i class="material-icons">local_shipping</i> <span flex>Shipping address</span>
+                                                                            </div>
+                                                                            <div flex class="">{{customer_supplier.profile.ship_addr}}</div>
+                                                                        </div>
+                                                                        <div class="info-grid-row" flex="5"></div>
+                                                                    </div>
+                                                                    <div layout="row" class="mt-20">
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                                <md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Cards</span>
+                                                                            </div>
+                                                                            <div flex ng-if="customer_supplier.profile.stripeCustId != null"><md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> Available</div>
+                                                                            <div flex class="op-5" ng-if="customer_supplier.profile.stripeCustId == null"><i>Not available</i></div>
+                                                                        </div>
+                                                                        <div flex="5"></div>
+                                                                        <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                                <i class="material-icons">local_atm</i>
+                                                                                <span flex>Payment gateway</span>
+                                                                            </div>
+                                                                            <div flex>
+                                                                                <!--{{customer_supplier.profile.gatewayType}}-->
+                                                                                <div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -40px"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div layout="row" layout-align="end end" class="more-chevron" ng-style="{'top:0':showMoreUserInfo}">
-                                                <div layout="row" layout-align="start center">
-                                                    <md-button class="md-icon-button m-0" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>
-                                                </div>
-                                            </div>
-                                            <!-- / Contact Info portion-->
-                                            <div class="md-padding top-m-50 pos-rel">
-                                                <div class="info-block" layout="row">
+                                                <!--Contact info portion - END-->
+                                                <div class="info-block mt-20" layout="row">
                                                     <div class="payment reg" flex>
                                                         <div>Total billed</div>
                                                         <div class="pos-rel">
@@ -471,13 +574,84 @@
                                                         <div flex></div>
                                                     </div>
                                                     <div class="msg-empty-list">
-                                                        <span><md-icon md-font-icon="icon-information"></md-icon> No ledger records available for this customer</span>
+                                                        <span><md-icon md-font-icon="icon-information-outline"></md-icon> No ledger records available for this customer</span>
                                                     </div>
                                                 </div>
                                                 <!-- / Customer Ledger-->
                                             </div>
                                         </div>
                                     </md-tab-body>
+                                </md-tab>
+                                <md-tab label="Attachments">
+                                    <md-tab-label>
+                                        <md-icon md-font-icon="icon-attachment"></md-icon> Attachments
+                                    </md-tab-label>
+                                    <md-tab-body>
+                                        <div class="md-padding">
+                                            <div layout="row" layout-align="start center" ng-click="openItemUrl(attachment)" id="pdfChip" ng-repeat="attachment in vm.profileAttachmentList.result" readonly="true" class="attachment">
+                                                <!--<img ng-if="attachment.split('.')[attachment.split('.').length-1]=='pdf'" layout="column" flex="10" src="assets/images/adobe-pdf-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
+                                                <!--<img ng-if="attachment.split('.')[attachment.split('.').length-1]!='pdf'" src="assets/images/Preview-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
+                                                <md-icon class="md-accent" md-font-icon="icon-{{attachment.split('.')[attachment.split('.').length-1]=='pdf' ? 'file-pdf-box' : 'file-image-box'}}"></md-icon>
+                                                <div flex>
+                                                    <div ng-if="attachment.split('/')[attachment.split('/').length-1].length < 25">{{attachment.split('/')[attachment.split('/').length-1]}}</div>
+                                                    <div ng-if="attachment.split('/')[attachment.split('/').length-1].length >= 25">{{attachment.split('/')[attachment.split('/').length-1].substr(0,24)}}..</div>
+                                                </div>
+                                                <md-button class="md-icon-button" ng-click="removeAttachment(customer_supplier.profile,attachment.split('/')[attachment.split('/').length-1])">
+                                                    <md-icon md-font-icon="icon-close"></md-icon>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                    </md-tab-body>
+                                </md-tab>
+                                <md-tab label="Comments">
+                                        <md-tab-label>
+                                            <md-icon md-font-icon="icon-comment"></md-icon> Comments
+                                        </md-tab-label>
+                                        <md-tab-body>
+                                            <div class="md-padding">
+                                                <div layout="row">
+                                                    <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
+                                                    <!--<div class="iconed-label" layout="row" layout-align="start center" flex>-->
+                                                    <!--<md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Comments</span>-->
+                                                    <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--<div flex="5"></div>-->
+                                                    <div layout="column" layout-align="center start" flex>
+                                                        <!--<div layout="row" layout-align="start center" fill-width>-->
+                                                            <!--<i class="material-icons mr-10 font-accent">message</i> <h3 style="color: #688fa2;">Comments</h3>-->
+                                                        <!--</div>-->
+                                                        <div class="p-0 comments-wrap" fill-width>
+                                                            <!--<div class="preloader" ng-if="vm.isProfileCommentsLoaded">-->
+                                                            <!--<md-progress-circular></md-progress-circular>-->
+                                                            <!--</div>-->
+                                                            <!--<div layout="row" layout-align="center center" class="msg-empty-list" ng-if="commentsList.length == 0" flex>-->
+                                                            <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon> No comments has been added yet</span>-->
+                                                            <!--</div>-->
+                                                            <!--ng-repeat="item in commentsList"-->
+                                                            <div class="sub-list">
+                                                                <div layout="column" class="list-item" ng-click="" layout-align="center start" ng-repeat="item in commentsList">
+                                                                    <span flex class="mb-10">{{item.comment}}</span>
+                                                                    <span fill-width class="fs-12 text-right fw-500">{{item.createdDate | date:'dd-mm-yyyy'}} <span>{{item.createdDate | date:'shortTime'}}</span></span>
+                                                                    <!--<span flex class="fw-500">{{item.createdDate}}</span>-->
+                                                                    <!--<span flex>{{item.comment}}</span>-->
+                                                                </div>
+                                                            </div>
+                                                            <div layout="row" layout-align="center center" class="" ng-if="!moreProfileCommentsLoaded">
+                                                                <md-button ng-click="searchmoreProfileComments(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div layout="row" layout-align="start center" md-whiteframe="8dp" class="p-10 input-footer">
+                                                <md-input-container class="mb-0 mt-20" flex>
+                                                    <label>Comment</label>
+                                                    <textarea ng-required="true" ng-maxlength="300" name="comment" ng-model="profileComment.comment"></textarea>
+                                                </md-input-container>
+                                                <div flex="5"></div>
+                                                <md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)" class="h-35 md-raised md-accent">Add</md-button>
+                                            </div>
+                                        </md-tab-body>
                                 </md-tab>
                                 <md-tab label="History">
                                     <md-tab-label>
@@ -655,7 +829,7 @@
                         <md-card flex class="input-block-gen">
                           <md-card-title>
                             <div layout="row" layout-align="start center">
-                              <md-icon md-font-icon="icon-home"></md-icon> <h3>Additional Information</h3>
+                              <md-icon md-font-icon="icon-attachment"></md-icon> <h3>Attachments</h3>
                             </div>
                           </md-card-title>
                           <md-card-content md-whiteframe="1dp">
@@ -668,7 +842,7 @@
                                 <!--</div>-->
                               <!--</md-input-container>-->
                             <!--</div>-->
-                            <div layout="row">
+                              <div class="op-5 text-center mb-20">Add any attachment here that you think necessary for this profile</div>
                               <!--<md-input-container flex="65">-->
                                 <!--<label>Attachments</label>-->
                                 <!--<input type="text" ng-required="false" min="1" ng-maxlength="200" name="attachment" ng-model="customer_supplier.profile.attachment">-->
@@ -676,21 +850,10 @@
                                   <!--<div ng-message="maxlength">attachment must be between 1-200 characters</div>-->
                                 <!--</div>-->
                               <!--</md-input-container>-->
-                              <div layout="row">
-                                <h4>Attachments</h4>
-                              </div>
-                              <div>
-
-                                <div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">Receipts,Documents,etc..</div>
-                                <lf-ng-md-file-input lf-files="customer_supplier.profile.attachment"  lf-on-file-click="onFileClick"  lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" drag preview></lf-ng-md-file-input>
+                                <!--<div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">Receipts,Documents,etc..</div>-->
+                                <lf-ng-md-file-input lf-files="customer_supplier.profile.attachment"  lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" drag preview flex></lf-ng-md-file-input>
                                 <!--<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>-->
                                 <!--</file-up-loader>-->
-                              </div>
-                            </div>
-                            <div layout="row"></div>
-                            <div layout="row"></div>
-                            <div layout="row"></div>
-                            <div layout="row"></div>
                           </md-card-content>
                         </md-card>
                     </form>
