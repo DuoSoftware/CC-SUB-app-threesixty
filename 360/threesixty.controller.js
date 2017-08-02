@@ -104,7 +104,7 @@
 
 		function getDomainName() {
 			var _st = gst("domain");
-			return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+			return (_st != null) ? _st : "suvenCom"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
 		}
 
 		function getDomainExtension() {
@@ -978,135 +978,157 @@
 			$scope.getAuditTrailDetails(customer);
 		}
 
-    vm.profileAttachmentList={
-      0:"https://buidln.clipdealer.com/001/758/844//previews/16--1758844-grass.jpg",
-      1:"http://www.un.org/Depts/Cartographic/map/profile/world.pdf"
-    }
+		vm.profileAttachmentList={};
+		// vm.profileAttachmentList={
+		// 	result:{
+		// 		0:"https://buidln.clipdealer.com/001/758/844//previews/16--1758844-grass.jpg",
+		// 		1:"http://www.un.org/Depts/Cartographic/map/profile/world.pdf"
+		// 	}
+		// };
 
-    $scope.openItemUrl = function(url) {
-      //$window.location.href=url;
-      $window.open(
-        url, '_blank'
-      );
-    };
+		$scope.openItemUrl = function(url) {
+			//$window.location.href=url;
+			$window.open(
+				url, '_blank'
+			);
+		};
 
-    $scope.removeAttachment = function(url) {
-      //$window.location.href=url;
-      notifications.toast("Attachment Removed!","success");
-    };
+		$scope.removeAttachment = function(customer,file) {
+			//$window.location.href=url;
+			var path="profileAttachments/CCProfile_"+customer.profileId+"/"+file;
+			$charge.storage().deleteAttachmentByPath(path).success(function(data)
+			{
+				//console.log(data);
+				notifications.toast("Attachment Removed!","success");
+				$scope.getProfileAttachments(customer);
 
-    var skipProfileComments=0;
-    var takeProfileComments=10;
-    $scope.commentsList=[];
-    vm.isProfileCommentsLoaded = true;
-    $scope.moreProfileCommentsLoaded = false;
+			}).error(function(data)
+			{
+				//console.log(data);
+				notifications.toast("Attachment Removing failed!","error");
+			})
+		};
 
-    $scope.getProfileCommentsInit = function (customer){
-      skipProfileComments=0;
-      takeProfileComments=10;
-      $scope.commentsList=[];
-      $scope.moreProfileCommentsLoaded = false;
-      $scope.getProfileComments(customer);
-      $scope.getProfileAttachments(customer);
-      $scope.profileComment={};
-    }
+		var skipProfileComments=0;
+		var takeProfileComments=10;
+		$scope.commentsList = [];
+		// $scope.commentsList = [{
+		// 	comment:" this ti s a text comment",
+		// 	createdDate: new Date('2012.12.12')
+		// },{
+		// 	comment:" this ti s a text comment",
+		// 	createdDate: new Date('2012.12.12')
+		// }];
+		vm.isProfileCommentsLoaded = true;
+		$scope.moreProfileCommentsLoaded = false;
 
-    $scope.getProfileAttachments = function (customer){
+		$scope.getProfileCommentsInit = function (customer){
+			skipProfileComments=0;
+			takeProfileComments=10;
+			// $scope.commentsList=[];
+			$scope.moreProfileCommentsLoaded = false;
+			$scope.getProfileComments(customer);
+			$scope.getProfileAttachments(customer);
+			$scope.profileComment={};
+		}
 
-      var cusId=customer.profileId;
-      var folderName="profileAttachments/CCProfile_"+cusId;
-      $charge.storage().getAttachmentsByFolder(folderName).success(function(data)
-      {
-        //console.log(data);
-        vm.profileAttachmentList=data;
+		$scope.getProfileAttachments = function (customer){
 
-      }).error(function(data)
-      {
-        //console.log(data);
-        vm.profileAttachmentList={};
-      })
-    }
+			var cusId=customer.profileId;
+			var folderName="profileAttachments/CCProfile_"+cusId;
+			$charge.storage().getAttachmentsByFolder(folderName).success(function(data)
+			{
+				//console.log(data);
+				vm.profileAttachmentList=data;
 
-    $scope.getProfileComments = function (customer){
+			}).error(function(data)
+			{
+				//console.log(data);
+				// vm.profileAttachmentList={};
+			})
+		}
 
-      var cusId=customer.profileId;
-      $scope.noProfileComentsLabel=false;
-      vm.isProfileCommentsLoaded = true;
-      $charge.profile().getAllComments(skipProfileComments,takeProfileComments,'desc',cusId).success(function(data)
-      {
-        //console.log(data);
-        skipProfileComments+=takeProfileComments;
-        //$scope.auditTrailList=data;
-        for (var i = 0; i < data.length; i++) {
-          var objProfileComment=data[i];
-          //objAuditTrail.id=i+1;
-          //objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
-          $scope.commentsList.push(objProfileComment);
+		$scope.getProfileComments = function (customer){
 
-        }
+			var cusId=customer.profileId;
+			$scope.noProfileComentsLabel=false;
+			vm.isProfileCommentsLoaded = true;
+			$charge.profile().getAllComments(skipProfileComments,takeProfileComments,'desc',cusId).success(function(data)
+			{
+				//console.log(data);
+				skipProfileComments+=takeProfileComments;
+				//$scope.auditTrailList=data;
+				for (var i = 0; i < data.length; i++) {
+					var objProfileComment=data[i];
+					//objAuditTrail.id=i+1;
+					//objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
+					objProfileComment.createdDate = new Date(data[i].createdDate);
+					$scope.commentsList.push(objProfileComment);
 
-        if(data.length<takeProfileComments)
-        {
-          $scope.moreProfileCommentsLoaded = true;
-        }
-        vm.isProfileCommentsLoaded = false;
+				}
 
-      }).error(function(data)
-      {
-        //console.log(data);
-        if(data==204)
-        {
-          $scope.noProfileComentsLabel=true;
-        }
-        $scope.moreProfileCommentsLoaded = true;
-        vm.isProfileCommentsLoaded = false;
-        //$scope.auditTrailList=[];
-      })
-    }
+				if(data.length<takeProfileComments)
+				{
+					$scope.moreProfileCommentsLoaded = true;
+				}
+				vm.isProfileCommentsLoaded = false;
 
-    $scope.searchmoreProfileComments = function (customer){
-      $scope.moreProfileCommentsLoaded = false;
-      $scope.getProfileComments(customer);
-    }
+			}).error(function(data)
+			{
+				//console.log(data);
+				if(data==204)
+				{
+					$scope.noProfileComentsLabel=true;
+				}
+				$scope.moreProfileCommentsLoaded = true;
+				vm.isProfileCommentsLoaded = false;
+				//$scope.auditTrailList=[];
+			})
+		}
 
-    vm.profileCommentSubmitted = false;
-    $scope.profileComment={};
-    $scope.submitProfileComment = function (customer){
+		$scope.searchmoreProfileComments = function (customer){
+			$scope.moreProfileCommentsLoaded = false;
+			$scope.getProfileComments(customer);
+		}
 
-      if($scope.profileComment.comment!="" && $scope.profileComment.comment!=undefined)
-      {
-        vm.profileCommentSubmitted = true;
-        var cusId=customer.profileId;
-        var profileComment={
-          "profileComment":
-            [
-              {"guProfileId": cusId, "comment": $scope.profileComment.comment}
-            ]
-        };
-        $charge.profile().addComments(profileComment).success(function(data)
-        {
-          //console.log(data);
-          if(data==true)
-          {
-            notifications.toast("Comment Added!","success");
-            $scope.profileComment.comment="";
-            $scope.getProfileCommentsInit(customer);
-          }
-          vm.profileCommentSubmitted = false;
+		vm.profileCommentSubmitted = false;
+		$scope.profileComment={};
+		$scope.submitProfileComment = function (customer){
 
-        }).error(function(data)
-        {
-          //console.log(data);
-          notifications.toast("Comment adding failed!","error");
-          vm.profileCommentSubmitted = false;
-          //$scope.auditTrailList=[];
-        })
-      }
-      else
-      {
-        notifications.toast("Comment cannot be empty!","error");
-      }
-    }
+			if($scope.profileComment.comment!="" && $scope.profileComment.comment!=undefined)
+			{
+				vm.profileCommentSubmitted = true;
+				var cusId=customer.profileId;
+				var profileComment={
+					"profileComment":
+						[
+							{"guProfileId": cusId, "comment": $scope.profileComment.comment}
+						]
+				};
+				$charge.profile().addComments(profileComment).success(function(data)
+				{
+					//console.log(data);
+					if(data==true)
+					{
+						notifications.toast("Comment Added!","success");
+						$scope.profileComment.comment="";
+						$scope.getProfileCommentsInit(customer);
+					}
+					vm.profileCommentSubmitted = false;
+
+				}).error(function(data)
+				{
+					//console.log(data);
+					notifications.toast("Comment adding failed!","error");
+					vm.profileCommentSubmitted = false;
+					//$scope.auditTrailList=[];
+				})
+			}
+			else
+			{
+				notifications.toast("Comment cannot be empty!","error");
+			}
+		}
 
 		$scope.addProceedsInventoryCount = function (guOrderId,index){
 			$charge.invoice().getInvoiceCount(guOrderId).success(function(dataInvoice)
@@ -1575,63 +1597,63 @@
 			$scope.resetProfileInfo();
 		}
 
-    $scope.submitProfilePre = function () {
-      if($scope.customer_supplier.profile.attachment.length>0) {
-        angular.forEach($scope.customer_supplier.profile.attachment, function (obj) {
-          //$uploader.uploadMedia("CCProfile_"+$scope.customer_supplier.profile.profileId, obj.lfFile, obj.lfFileName);
-          //
-          //$uploader.onSuccess(function (e, data) {
-          //  //debugger;
-          //  var path = $storage.getMediaUrl("CCProfile_"+$scope.customer_supplier.profile.profileId, obj.lfFileName);
-          //
-          //  $scope.customer_supplier.profile.attachment = path;
-          //  $scope.submitProfile();
-          //});
-          //$uploader.onError(function (e, data) {
-          //  //debugger;
-          //  $scope.customer_supplier.profile.attachment = "";
-          //  $scope.submitProfile();
-          //});
-          var filename= obj.lfFileName.substr(0,obj.lfFileName.length-(obj.lfFileName.split('.')[obj.lfFileName.split('.').length-1].length+1));
-          var format=obj.lfFileName.split('.')[obj.lfFileName.split('.').length-1];
-          var app="profileAttachments/CCProfile_"+$scope.customer_supplier.profile.profileId;
+		$scope.submitProfilePre = function () {
+			if($scope.customer_supplier.profile.attachment.length>0) {
+				angular.forEach($scope.customer_supplier.profile.attachment, function (obj) {
+					//$uploader.uploadMedia("CCProfile_"+$scope.customer_supplier.profile.profileId, obj.lfFile, obj.lfFileName);
+					//
+					//$uploader.onSuccess(function (e, data) {
+					//  //debugger;
+					//  var path = $storage.getMediaUrl("CCProfile_"+$scope.customer_supplier.profile.profileId, obj.lfFileName);
+					//
+					//  $scope.customer_supplier.profile.attachment = path;
+					//  $scope.submitProfile();
+					//});
+					//$uploader.onError(function (e, data) {
+					//  //debugger;
+					//  $scope.customer_supplier.profile.attachment = "";
+					//  $scope.submitProfile();
+					//});
+					var filename= obj.lfFileName.substr(0,obj.lfFileName.length-(obj.lfFileName.split('.')[obj.lfFileName.split('.').length-1].length+1));
+					var format=obj.lfFileName.split('.')[obj.lfFileName.split('.').length-1];
+					var app="profileAttachments/CCProfile_"+$scope.customer_supplier.profile.profileId;
 
-          var FR= new FileReader();
+					var FR= new FileReader();
 
-          FR.readAsDataURL( obj.lfFile );
-          FR.addEventListener("load", function(e) {
-            // $timeout(function () {
-            $scope.addedAttachment = e.target.result;
-            $scope.$apply();
-            $scope.divClass = false;
-            // },0);
-            var fileType=$scope.addedAttachment.split(',')[0]+",";
+					FR.readAsDataURL( obj.lfFile );
+					FR.addEventListener("load", function(e) {
+						// $timeout(function () {
+						$scope.addedAttachment = e.target.result;
+						$scope.$apply();
+						$scope.divClass = false;
+						// },0);
+						var fileType=$scope.addedAttachment.split(',')[0]+",";
 
-            var uploadAttachmentObj = {
-              "base64Image": $scope.addedAttachment,
-              "fileName": filename,
-              "format": format,
-              "app": app,
-              "fileType": fileType
-            }
-            $charge.storage().storeImage(uploadAttachmentObj).success(function (data) {
-              $scope.customer_supplier.profile.attachment = data.fileUrl;
-              $scope.submitProfile();
+						var uploadAttachmentObj = {
+							"base64Image": $scope.addedAttachment,
+							"fileName": filename,
+							"format": format,
+							"app": app,
+							"fileType": fileType
+						}
+						$charge.storage().storeImage(uploadAttachmentObj).success(function (data) {
+							$scope.customer_supplier.profile.attachment = data.fileUrl;
+							$scope.submitProfile();
 
-            }).error(function (data) {
-              //console.log(data);
-              notifications.toast("Uploading attachment Failed","error");
-              $scope.customer_supplier.profile.attachment = "";
-              $scope.submitProfile();
-            })
+						}).error(function (data) {
+							//console.log(data);
+							notifications.toast("Uploading attachment Failed","error");
+							$scope.customer_supplier.profile.attachment = "";
+							$scope.submitProfile();
+						})
 
-          });
-        });
-      }
-      else{
-        $scope.submitProfile();
-      }
-    }
+					});
+				});
+			}
+			else{
+				$scope.submitProfile();
+			}
+		}
 
 		$scope.submitProfile = function () {
 
@@ -1661,7 +1683,7 @@
 						$scope.editProfileInfo();
 						vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
 						vm.profileDetailSubmitted = false;
-            $scope.getProfileAttachments($scope.customer_supplier.profile);
+						$scope.getProfileAttachments($scope.customer_supplier.profile);
 						$rootScope.refreshpage();
 					}
 					else
