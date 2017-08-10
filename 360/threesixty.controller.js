@@ -52,6 +52,8 @@
 		vm.isLedgerLoaded = false;
 		vm.isListLoaded = false;
 		vm.tlLoadMore = tlLoadMore;
+		vm.refreshAttachmentPreview = refreshAttachmentPreview;
+		vm.downloadAttachment = downloadAttachment;
 
 		$scope.a={};
 		$scope.customer_supplier={};
@@ -62,6 +64,12 @@
 		$scope.selectedDoc = {};
 
 		/////////
+		function refreshAttachmentPreview () {
+			$scope.refreshPreview = false;
+			$timeout(function(){
+				$scope.refreshPreview = true;
+			},5);
+		};
 		function tlLoadMore(){
 			$scope.currLength = vm.ledgerLength - 10;
 			if($scope.currLength>10) {
@@ -104,7 +112,7 @@
 
 		function getDomainName() {
 			var _st = gst("domain");
-			return (_st != null) ? _st : "suvenCom"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+			return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
 		}
 
 		function getDomainExtension() {
@@ -123,6 +131,7 @@
 		{
 			vm.isLoaded = false;
 			vm.selectedProfile = threesixty;
+			$scope.isAttachmentPreviewOn = false;
 
 			$scope.customer_supplier.profile=threesixty;
 
@@ -985,12 +994,32 @@
 		// 		1:"http://www.un.org/Depts/Cartographic/map/profile/world.pdf"
 		// 	}
 		// };
-
+		$scope.isAttachmentPreviewOn = false;
+		$scope.threesixtyTabs = 0;
+		$scope.refreshPreview = true;
 		$scope.openItemUrl = function(url) {
-			//$window.location.href=url;
-			$window.open(
-				url, '_blank'
-			);
+			vm.refreshAttachmentPreview();
+			var tempname = url.split('/').pop();
+			$scope.isAttachmentPreviewOn = true;
+			$scope.attachmentPreview = url;
+			$scope.fileExtension = tempname.split('.').pop().toLowerCase();
+			getBlob(url, function (blob) {
+				if(blob != null){
+					dataURLtoFile(blob, tempname, function (file) {
+						if(file != null){
+							var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'), i=0, fileSize = file.size;
+							while(fileSize>900){fileSize/=1024;i++;}
+							$scope.fileSize = (Math.round(fileSize*100)/100)+' '+fSExt[i];
+							$scope.fileName = tempname;
+							$scope.$apply();
+						}
+					});
+				}
+			});
+
+			// $window.open(
+			// 	url, '_blank'
+			// );
 		};
 
 		$scope.removeAttachment = function(customer,file) {
@@ -1025,7 +1054,7 @@
 		$scope.getProfileCommentsInit = function (customer){
 			skipProfileComments=0;
 			takeProfileComments=10;
-			// $scope.commentsList=[];
+			$scope.commentsList=[];
 			$scope.moreProfileCommentsLoaded = false;
 			$scope.getProfileComments(customer);
 			$scope.getProfileAttachments(customer);
@@ -1789,6 +1818,41 @@
 				}
 			}
 		};
+		function dataURLtoFile(dataurl, filename, callback) {
+			var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+				bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+			while(n--){
+				u8arr[n] = bstr.charCodeAt(n);
+			}
+			callback(new File([u8arr], filename, {type:mime}));
+		}
+
+		function getBlob(url, callback) {
+			var request = new XMLHttpRequest();
+			request.open('GET', url, true);
+			request.responseType = 'blob';
+			request.onload = function() {
+				var reader = new FileReader();
+				reader.readAsDataURL(request.response);
+				reader.onload =  function(e){
+					callback(e.target.result);
+				};
+			};
+			request.send();
+		}
+
+		$scope.downloading = false;
+		function downloadAttachment(url){
+			$scope.downloading = true;
+			getBlob(url, function (blobFile) {
+				var dlnk = document.getElementById('hidden-donwload-anchor');
+				$timeout(function(){
+					dlnk.href = blobFile;
+					dlnk.click();
+				},100);
+				$scope.downloading = false;
+			});
+		}
 		// Kasun_Wijeratne_15_May
 
 
