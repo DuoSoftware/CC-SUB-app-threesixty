@@ -1,8 +1,8 @@
 ////////////////////////////////
 // App : 360
 // Owner  : Gihan Herath
-// Last changed date : 2017/08/02
-// Version : 6.1.0.11
+// Last changed date : 2017/08/10
+// Version : 6.1.0.12
 // Modified By : Kasun
 /////////////////////////////////
 
@@ -14,10 +14,15 @@
         .module('app.threesixty', [])
         .config(config)
         .filter('parseDate',parseDateFilter)
-        .filter('numberFixedLen',numberFixedLength);
+        .filter('numberFixedLen',numberFixedLength)
+		.filter('trustUrl', function ($sce) {
+			return function(url) {
+				return $sce.trustAsResourceUrl(url);
+			};
+		});
 
     /** @ngInject */
-    function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider)
+    function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider, $sceDelegateProvider)
     {
 
         mesentitlementProvider.setStateCheck("threesixty");
@@ -62,6 +67,23 @@
             state    : 'app.threesixty',
             weight   : 7
         });
+
+		$sceDelegateProvider.resourceUrlWhitelist([
+			// Allow same origin resource loads.
+			"self",
+			// Allow loading from Google maps
+			"http://azure.cloudcharge.com/services/reports**",
+
+			"https://azure.cloudcharge.com/services/reports**",
+
+			"http://app.cloudcharge.com/services/reports**",
+
+			"https://app.cloudcharge.com/services/reports**",
+
+			"https://cloudcharge.com/services/reports**",
+			"http://ccresourcegrpdisks974.blob.core.windows.net/**",
+			"https://ccresourcegrpdisks974.blob.core.windows.net/**"
+		]);
     }
 
     function parseDateFilter(){

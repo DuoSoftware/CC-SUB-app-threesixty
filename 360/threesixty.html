@@ -1,3 +1,4 @@
+<script src="../../../../../../../../../../SmoothFlow/Website/smoothflow-website/js/app.js"></script>
 <meta name="updatedBy" content="GihanHerath">
 <meta name="modifiedDate" content="24-10-2016">
 <meta name="version" content="6.0.0.4">
@@ -159,12 +160,12 @@
                     </div>
                 </div>
 
-                <md-content ms-scroll layout="column" class="inpage-readpane-body p-0" ng-if="!inpageReadPaneEdit && !editProfileInfoEnabled">
+                <md-content ng-attr-data-toggle="{{!isAttachmentPreviewOn ? 'ms-scroll' : ''}}" layout="column" class="inpage-readpane-body p-0 pos-rel" ng-if="!inpageReadPaneEdit && !editProfileInfoEnabled">
                     <div id="threesixty-read" flex>
                         <!--Billing Info row-->
                         <div layout="column" class="billing-info" fill-height>
                             <!--Payments portion-->
-                            <md-tabs md-border-bottom class="inner-iconed-tabs" flex>
+                            <md-tabs md-border-bottom class="inner-iconed-tabs input-footer-tabs" md-selected="threesixtyTabs" flex>
                                 <md-tab label="Overview">
                                     <md-tab-label>
                                         <md-icon md-font-icon="icon-cog"></md-icon> Overall
@@ -587,18 +588,63 @@
                                         <md-icon md-font-icon="icon-attachment"></md-icon> Attachments
                                     </md-tab-label>
                                     <md-tab-body>
-                                        <div class="md-padding">
-                                            <div layout="row" layout-align="start center" ng-click="openItemUrl(attachment)" id="pdfChip" ng-repeat="attachment in vm.profileAttachmentList.result" readonly="true" class="attachment">
+                                        <div class="preloader" ng-if="!vm.isLoaded">
+                                            <md-progress-circular></md-progress-circular>
+                                        </div>
+                                        <div layout="row" layout-align="start start" fill-height>
+                                            <md-content flex fill-height ms-scroll class="md-padding">
                                                 <!--<img ng-if="attachment.split('.')[attachment.split('.').length-1]=='pdf'" layout="column" flex="10" src="assets/images/adobe-pdf-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
                                                 <!--<img ng-if="attachment.split('.')[attachment.split('.').length-1]!='pdf'" src="assets/images/Preview-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
-                                                <md-icon class="md-accent" md-font-icon="icon-{{attachment.split('.')[attachment.split('.').length-1]=='pdf' ? 'file-pdf-box' : 'file-image-box'}}"></md-icon>
-                                                <div flex>
-                                                    <div ng-if="attachment.split('/')[attachment.split('/').length-1].length < 25">{{attachment.split('/')[attachment.split('/').length-1]}}</div>
-                                                    <div ng-if="attachment.split('/')[attachment.split('/').length-1].length >= 25">{{attachment.split('/')[attachment.split('/').length-1].substr(0,24)}}..</div>
+                                                <div layout="column" layout-align="center center" class="msg-empty-list" ng-if="vm.profileAttachmentList.result.length == 0" flex>
+                                                    <span><md-icon md-font-icon="icon-information-outline"></md-icon> No attachment is available</span>
                                                 </div>
-                                                <md-button class="md-icon-button" ng-click="removeAttachment(customer_supplier.profile,attachment.split('/')[attachment.split('/').length-1])">
-                                                    <md-icon md-font-icon="icon-close"></md-icon>
+                                                <md-button ng-repeat="attachment in vm.profileAttachmentList.result" ng-class="{'md-whiteframe-1dp':attachmentPreview == attachment}" layout="column" layout-align="start center" class="attachment text-center" ng-click="openItemUrl(attachment)" id="pdfChip" readonly="true">
+                                                    <md-icon class="md-accent" md-font-icon="icon-{{attachment.split('.').pop().toLowerCase()=='pdf' ? 'file-pdf-box' : attachment.split('.').pop().toLowerCase() == 'png' ? 'file-image-box' : 'file-document-box'}}"></md-icon>
+                                                    <div flex>
+                                                        <div ng-if="attachment.split('/').pop().length < 13">{{attachment.split('/').pop().split('.')[0]}}.{{attachment.split('/').pop().split('.').pop()}}</div>
+                                                        <div ng-if="attachment.split('/').pop().length >= 13">{{attachment.split('/').pop().substr(0,13)}}..{{attachment.split('/').pop().split('.').pop()}}</div>
+                                                    </div>
                                                 </md-button>
+                                            </md-content>
+                                            <div flex="60" fill-height ng-if="isAttachmentPreviewOn" class="pos-rel md-padding" layout="column" layout-align="start center" style="background:#fafafa;border-left: solid 1px #eee">
+                                                <!--<iframe src="{{attachmentPreview | trustUrl}}" frameborder="0"></iframe>-->
+                                                <!--<img src="{{attachmentPreview}}" alt="">-->
+                                                <pdf-viewer ng-if="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex
+                                                        delegate-handle="my-pdf-container"
+                                                        url="attachmentPreview"
+                                                        scale="1"
+                                                        show-toolbar="true"
+                                                        headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
+
+                                                <div class="preview-container" flex layout="column" layout-align="center center" ng-if="fileExtension == 'jpeg' || fileExtension == 'jpg' || fileExtension == 'png' || fileExtension == 'svg' || fileExtension == 'gif'">
+                                                    <img md-whiteframe="2dp" src="{{attachmentPreview}}">
+                                                </div>
+                                                <div class="preview-container text-center" flex layout="column" layout-align="center center" ng-if="fileExtension != 'jpeg' &&
+                                                                  fileExtension != 'jpg' &&
+                                                                  fileExtension != 'pdf' &&
+                                                                  fileExtension != 'svg' &&
+                                                                  fileExtension != 'gif' &&
+                                                                  fileExtension != 'png'">
+                                                    <img class="w-100 op-5" src="assets/icons/no-preview.svg" alt="No preview available">
+                                                    <div class="mt-10">No preview is available for this attachment</div>
+                                                </div>
+
+                                                <div layout="row" layout-align="space-between center" class="mt-20" fill-width>
+                                                    <div flex>
+                                                        <div class="mb-5" layout="row"><span class="w-60 fw-500">Name:</span> {{fileName}}</div>
+                                                        <div class="mb-5" layout="row"><span class="w-60 fw-500">Size:</span> {{fileSize}}</div>
+                                                    </div>
+                                                    <md-button ng-disabled="downloading" class="md-icon-button md-accent" ng-click="vm.downloadAttachment(attachmentPreview)"><md-icon md-font-icon="icon-download"></md-icon><md-tooltip>Download</md-tooltip></md-button>
+                                                    <md-button class="md-icon-button" ng-click="removeAttachment(customer_supplier.profile,attachmentPreview.split('/').pop())">
+                                                        <md-icon md-font-icon="icon-delete"></md-icon>
+                                                    </md-button>
+
+                                                    <!--Hidden download link-->
+                                                    <a id='hidden-donwload-anchor' download="{{attachmentPreview.split('/').pop()}}" ng-hide="true" />
+                                                    <!--Hidden download link-->
+
+                                                    <!--<md-button class="md-icon-button md-warn"><md-icon md-font-icon="icon-delete"></md-icon></md-button>-->
+                                                </div>
                                             </div>
                                         </div>
                                     </md-tab-body>
@@ -608,6 +654,9 @@
                                             <md-icon md-font-icon="icon-comment"></md-icon> Comments
                                         </md-tab-label>
                                         <md-tab-body>
+                                            <div class="preloader" ng-if="!vm.isLoaded">
+                                                <md-progress-circular></md-progress-circular>
+                                            </div>
                                             <div class="md-padding">
                                                 <div layout="row">
                                                     <!--<div layout="row" layout-align="start center" class="info-grid-row" flex>-->
@@ -643,14 +692,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div layout="row" layout-align="start center" md-whiteframe="8dp" class="p-10 input-footer">
-                                                <md-input-container class="mb-0 mt-20" flex>
-                                                    <label>Comment</label>
-                                                    <textarea ng-required="true" ng-maxlength="300" name="comment" ng-model="profileComment.comment"></textarea>
-                                                </md-input-container>
-                                                <div flex="5"></div>
-                                                <md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)" class="h-35 md-raised md-accent">Add</md-button>
-                                            </div>
                                         </md-tab-body>
                                 </md-tab>
                                 <md-tab label="History">
@@ -658,6 +699,9 @@
                                         <md-icon md-font-icon="icon-history"></md-icon> History
                                     </md-tab-label>
                                     <md-tab-body>
+                                        <div class="preloader" ng-if="!vm.isLoaded">
+                                            <md-progress-circular></md-progress-circular>
+                                        </div>
                                         <div class="md-padding">
                                             <div flex class="list-offset sub-list">
                                                 <div class="list-header" layout="row" flex md-whiteframe="1dp">
@@ -735,6 +779,14 @@
                             <!-- / Payments portion-->
                         </div>
                         <!-- / Billing Info row-->
+                    </div>
+                    <div layout="row" layout-align="start center" md-whiteframe="8dp" class="p-10 input-footer animate-fade-in-out" ng-if="threesixtyTabs == 2" flex>
+                        <md-input-container class="mb-0 mt-20" flex>
+                            <label>Comment</label>
+                            <textarea ng-required="true" ng-maxlength="300" name="comment" ng-model="profileComment.comment"></textarea>
+                        </md-input-container>
+                        <div flex="5"></div>
+                        <md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)" class="h-35 md-raised md-accent">Add</md-button>
                     </div>
                 </md-content>
                 <md-content ms-scroll layout="column" class="inpage-readpane-body p-0" ng-if="!inpageReadPaneEdit && editProfileInfoEnabled" flex>
