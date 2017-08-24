@@ -1,8 +1,8 @@
 ////////////////////////////////
 // App : 360
 // Owner  : Gihan Herath
-// Last changed date : 2017/08/10
-// Version : 6.1.0.12
+// Last changed date : 2017/08/24
+// Version : 6.1.0.13
 // Modified By : Kasun
 /////////////////////////////////
 
@@ -25,7 +25,20 @@
     function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider, $sceDelegateProvider)
     {
 
-        mesentitlementProvider.setStateCheck("threesixty");
+        function gst(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            //debugger;
+            return null;
+        }
+        /** Check for Super admin */
+        var isSuperAdmin = gst('isSuperAdmin');
+        /** Check for Super admin - END */ 
 
         $stateProvider
             .state('app.threesixty', {
@@ -40,7 +53,7 @@
 					security: ['$q','mesentitlement','$timeout','$rootScope','$state','$location', function($q,mesentitlement,$timeout,$rootScope,$state, $location){
 						return $q(function(resolve, reject) {
 							$timeout(function() {
-								if ($rootScope.isBaseSet2) {
+								if ($rootScope.isBaseSet2 && isSuperAdmin != 'true') {
 									resolve(function () {
 										var entitledStatesReturn = mesentitlement.stateDepResolver('threesixty');
 
@@ -62,11 +75,13 @@
 
         // Navigation
 
-        msNavigationServiceProvider.saveItem('threesixty', {
-            title    : '360',
-            state    : 'app.threesixty',
-            weight   : 7
-        });
+        if(isSuperAdmin != 'true'){
+            msNavigationServiceProvider.saveItem('threesixty', {
+                title    : '360',
+                state    : 'app.threesixty',
+                weight   : 7
+            });
+        }
 
 		$sceDelegateProvider.resourceUrlWhitelist([
 			// Allow same origin resource loads.
