@@ -601,8 +601,8 @@
                                                 <md-button ng-repeat="attachment in vm.profileAttachmentList.result" ng-class="{'md-whiteframe-1dp':attachmentPreview == attachment}" layout="column" layout-align="start center" class="attachment text-center" ng-click="openItemUrl(attachment)" id="pdfChip" readonly="true">
                                                     <md-icon class="md-accent" md-font-icon="icon-{{attachment.split('.').pop().toLowerCase()=='pdf' ? 'file-pdf-box' : attachment.split('.').pop().toLowerCase() == 'png' ? 'file-image-box' : 'file-document-box'}}"></md-icon>
                                                     <div flex>
-                                                        <div ng-if="attachment.split('/').pop().length < 13">{{attachment.split('/').pop().split('.')[0]}}.{{attachment.split('/').pop().split('.').pop()}}</div>
-                                                        <div ng-if="attachment.split('/').pop().length >= 13">{{attachment.split('/').pop().substr(0,13)}}..{{attachment.split('/').pop().split('.').pop()}}</div>
+                                                        <div ng-if="attachment.split('/').pop().split('.')[0].length < 10">{{attachment.split('/').pop().split('.')[0]}}.{{attachment.split('/').pop().split('.').pop()}}</div>
+                                                        <div ng-if="attachment.split('/').pop().split('.')[0].length >= 10">{{attachment.split('/').pop().substr(0,10)}}..{{attachment.split('/').pop().split('.').pop()}}</div>
                                                     </div>
                                                 </md-button>
                                             </md-content>
@@ -629,7 +629,7 @@
                                                     <div class="mt-10">No preview is available for this attachment</div>
                                                 </div>
 
-                                                <div layout="row" layout-align="space-between center" class="mt-20" fill-width>
+                                                <div layout="row" layout-align="space-between center" class="mt-20 pl-15 pb-5 pt-10 bg-white" fill-width>
                                                     <div flex>
                                                         <div class="mb-5" layout="row"><span class="w-60 fw-500">Name:</span> {{fileName}}</div>
                                                         <div class="mb-5" layout="row"><span class="w-60 fw-500">Size:</span> {{fileSize}}</div>

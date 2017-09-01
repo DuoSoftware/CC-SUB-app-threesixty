@@ -1,43 +1,47 @@
 ////////////////////////////////
 // App : 360
 // Owner  : Gihan Herath
-// Last changed date : 2017/08/24
-// Version : 6.1.0.12
-// Modified By : Kasun
+// Last changed date : 2017/08/31
+// Version : 6.1.0.13
+// Modified By : Gihan
 /////////////////////////////////
 
 (function ()
 {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('app.threesixty', [])
-		.config(config)
-		.filter('parseDate',parseDateFilter)
-		.filter('numberFixedLen',numberFixedLength)
+    angular
+        .module('app.threesixty', [])
+        .config(config)
+        .filter('parseDate',parseDateFilter)
+        .filter('numberFixedLen',numberFixedLength)
 		.filter('trustUrl', function ($sce) {
 			return function(url) {
 				return $sce.trustAsResourceUrl(url);
 			};
 		});
 
-	/** @ngInject */
-	function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider, $sceDelegateProvider)
-	{
-		$stateProvider
-			.state('app.threesixty', {
-				url    : '/threesixty',
-				views  : {
-					'threesixty@app': {
-						templateUrl: 'app/main/360/threesixty.html',
-						controller : 'ThreeSixtyController as vm'
-					}
-				},
-				resolve: {
+    /** @ngInject */
+    function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider, $sceDelegateProvider)
+    {
+
+        mesentitlementProvider.setStateCheck("threesixty");
+
+        $stateProvider
+            .state('app.threesixty', {
+                url    : '/threesixty',
+                views  : {
+                    'threesixty@app': {
+                        templateUrl: 'app/main/360/threesixty.html',
+                        controller : 'ThreeSixtyController as vm'
+                    }
+                },
+                resolve: {
 					security: ['$q','mesentitlement','$timeout','$rootScope','$state','$location', function($q,mesentitlement,$timeout,$rootScope,$state, $location){
 						return $q(function(resolve, reject) {
 							$timeout(function() {
-								if ($rootScope.isBaseSet2) {
+								if (true) {
+								//if ($rootScope.isBaseSet2) {
 									resolve(function () {
 										var entitledStatesReturn = mesentitlement.stateDepResolver('threesixty');
 
@@ -53,17 +57,17 @@
 							});
 						});
 					}]
-				},
-				bodyClass: 'threesixty'
-			});
+                },
+                bodyClass: 'threesixty'
+            });
 
-		// Navigation
+        // Navigation
 
-		msNavigationServiceProvider.saveItem('threesixty', {
-			title    : '360',
-			state    : 'app.threesixty',
-			weight   : 7
-		});
+        msNavigationServiceProvider.saveItem('threesixty', {
+            title    : '360',
+            state    : 'app.threesixty',
+            weight   : 7
+        });
 
 		$sceDelegateProvider.resourceUrlWhitelist([
 			// Allow same origin resource loads.
@@ -81,26 +85,26 @@
 			"http://ccresourcegrpdisks974.blob.core.windows.net/**",
 			"https://ccresourcegrpdisks974.blob.core.windows.net/**"
 		]);
-	}
+    }
 
-	function parseDateFilter(){
-		return function(input){
-			return new Date(input);
-		};
-	}
+    function parseDateFilter(){
+        return function(input){
+            return new Date(input);
+        };
+    }
 
-	function numberFixedLength(){
-		return function (n, len) {
-			var num = parseInt(n, 10);
-			len = parseInt(len, 10);
-			if (isNaN(num) || isNaN(len)) {
-				return n;
-			}
-			num = ''+num;
-			while (num.length < len) {
-				num = '0'+num;
-			}
-			return num;
-		};
-	}
+    function numberFixedLength(){
+      return function (n, len) {
+        var num = parseInt(n, 10);
+        len = parseInt(len, 10);
+        if (isNaN(num) || isNaN(len)) {
+          return n;
+        }
+        num = ''+num;
+        while (num.length < len) {
+          num = '0'+num;
+        }
+        return num;
+      };
+    }
 })();
