@@ -15,7 +15,7 @@
 		.controller('ThreeSixtyController', ThreeSixtyController);
 
 	/** @ngInject */
-	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $mdMedia, $mdSidenav,$charge,$filter)
+	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
 	{
 		var vm = this;
 
@@ -401,118 +401,160 @@
 			$scope.more();
 		}
 
-		$scope.more = function(){
-			//
-			//$charge.profile().all(skipUserProfile,takeUserProfile,'desc').success(function(data)
-			//{
-			//	console.log(data);
-			//	if(vm.loading)
-			//	{
-			//		skipUserProfile += takeUserProfile;
-			//		//
-			//
-			//		for (var i = 0; i < data.length; i++) {
-			//			//
-			//			if(data[i].status==0)
-			//			{
-			//				data[i].status=false;
-			//			}
-			//			else
-			//			{
-			//				data[i].status=true;
-			//			}
-			//			data[i].createddate = new Date(data[i].createddate);
-			//			vm.items.push(data[i]);
-			//
-			//		}
-			//
-			//		vm.profiles = vm.items;
-			//		$scope.searchMoreInit = false;
-			//		vm.isListLoaded = true;
-			//		//selectProfile(data[0]);
-			//		vm.loading = false;
-			//		vm.isLoading = false;
-			//		vm.isdataavailable=true;
-			//		if(data.length<takeUserProfile){
-			//			vm.isdataavailable=false;
-			//			$scope.searchMoreInit = false;
-			//			$scope.hideSearchMore=true;
-			//		}
-			//	}
-			//
-			//}).error(function(data)
-			//{
-			//	console.log(data);
-			//	vm.isSpinnerShown=false;
-			//	vm.isdataavailable=false;
-			//	vm.isLoading = false;
-			//	vm.isListLoaded = true;
-			//	$scope.hideSearchMore=true;
-			//})
+    $scope.more = function(){
+      //
+      //$charge.profile().all(skipUserProfile,takeUserProfile,'desc').success(function(data)
+      //{
+      //	console.log(data);
+      //	if(vm.loading)
+      //	{
+      //		skipUserProfile += takeUserProfile;
+      //		//
+      //
+      //		for (var i = 0; i < data.length; i++) {
+      //			//
+      //			if(data[i].status==0)
+      //			{
+      //				data[i].status=false;
+      //			}
+      //			else
+      //			{
+      //				data[i].status=true;
+      //			}
+      //			data[i].createddate = new Date(data[i].createddate);
+      //			vm.items.push(data[i]);
+      //
+      //		}
+      //
+      //		vm.profiles = vm.items;
+      //		$scope.searchMoreInit = false;
+      //		vm.isListLoaded = true;
+      //		//selectProfile(data[0]);
+      //		vm.loading = false;
+      //		vm.isLoading = false;
+      //		vm.isdataavailable=true;
+      //		if(data.length<takeUserProfile){
+      //			vm.isdataavailable=false;
+      //			$scope.searchMoreInit = false;
+      //			$scope.hideSearchMore=true;
+      //		}
+      //	}
+      //
+      //}).error(function(data)
+      //{
+      //	console.log(data);
+      //	vm.isSpinnerShown=false;
+      //	vm.isdataavailable=false;
+      //	vm.isLoading = false;
+      //	vm.isListLoaded = true;
+      //	$scope.hideSearchMore=true;
+      //})
 
-			var dbNamePart1="";
-			var dbNamePart2="";
-			var dbName="";
-			var filter="";
-			dbNamePart1=getDomainName().split('.')[0];
-			dbNamePart2=getDomainExtension();
-			dbName=dbNamePart1+"_"+dbNamePart2;
-			//filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
-			var data={
-				"search": "*",
-				"filter": "(domain eq '"+dbName+"')",
-				"orderby" : "createddate desc",
-				"top":takeUserProfile,
-				"skip":skipUserProfile
-			}
+      //var dbNamePart1="";
+      //var dbNamePart2="";
+      //var dbName="";
+      //var filter="";
+      //dbNamePart1=getDomainName().split('.')[0];
+      //dbNamePart2=getDomainExtension();
+      //dbName=dbNamePart1+"_"+dbNamePart2;
+      ////filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
+      //var data={
+      //	"search": "*",
+      //	"filter": "(domain eq '"+dbName+"')",
+      //	"orderby" : "createddate desc",
+      //	"top":takeUserProfile,
+      //	"skip":skipUserProfile
+      //}
+      //
+      //$charge.azuresearch().getAllProfilesPost(data).success(function(data)
+      //{
+      //	//console.log(data);
+      //	if(vm.loading)
+      //	{
+      //		skipUserProfile += takeUserProfile;
+      //		//
+      //
+      //		for (var i = 0; i < data.value.length; i++) {
+      //			//
+      //			if(data.value[i].status==0)
+      //			{
+      //				data.value[i].status=false;
+      //			}
+      //			else
+      //			{
+      //				data.value[i].status=true;
+      //			}
+      //			data.value[i].createddate = new Date(data.value[i].createddate);
+      //			vm.items.push(data.value[i]);
+      //
+      //		}
+      //
+      //		vm.profiles = vm.items;
+      //		$scope.searchMoreInit = false;
+      //		vm.isListLoaded = true;
+      //		//selectProfile(data[0]);
+      //		vm.loading = false;
+      //		vm.isLoading = false;
+      //		vm.isdataavailable=true;
+      //		if(data.value.length<takeUserProfile){
+      //			vm.isdataavailable=false;
+      //			$scope.searchMoreInit = false;
+      //			$scope.hideSearchMore=true;
+      //		}
+      //	}
+      //}).error(function(data)
+      //{
+      //	//console.log(data);
+      //	vm.isSpinnerShown=false;
+      //	vm.isdataavailable=false;
+      //	vm.isLoading = false;
+      //	vm.isListLoaded = true;
+      //	$scope.hideSearchMore=true;
+      //})
 
-			$charge.azuresearch().getAllProfilesPost(data).success(function(data)
-			{
-				//console.log(data);
-				if(vm.loading)
-				{
-					skipUserProfile += takeUserProfile;
-					//
+      $azureSearchHandle.getClient().SearchRequest("profile",skipUserProfile,takeUserProfile,'desc',"").onComplete(function(Response)
+      {
+        if(vm.loading)
+        {
+          skipUserProfile += takeUserProfile;
+          //
 
-					for (var i = 0; i < data.value.length; i++) {
-						//
-						if(data.value[i].status==0)
-						{
-							data.value[i].status=false;
-						}
-						else
-						{
-							data.value[i].status=true;
-						}
-						data.value[i].createddate = new Date(data.value[i].createddate);
-						vm.items.push(data.value[i]);
+          for (var i = 0; i < Response.length; i++) {
+            //
+            vm.items.push(Response[i]);
 
-					}
+          }
 
-					vm.profiles = vm.items;
-					$scope.searchMoreInit = false;
-					vm.isListLoaded = true;
-					//selectProfile(data[0]);
-					vm.loading = false;
-					vm.isLoading = false;
-					vm.isdataavailable=true;
-					if(data.value.length<takeUserProfile){
-						vm.isdataavailable=false;
-						$scope.searchMoreInit = false;
-						$scope.hideSearchMore=true;
-					}
-				}
-			}).error(function(data)
-			{
-				//console.log(data);
-				vm.isSpinnerShown=false;
-				vm.isdataavailable=false;
-				vm.isLoading = false;
-				vm.isListLoaded = true;
-				$scope.hideSearchMore=true;
-			})
+          vm.profiles = vm.items;
+          $scope.searchMoreInit = false;
+          vm.isListLoaded = true;
+          //selectProfile(data[0]);
+          vm.loading = false;
+          vm.isLoading = false;
+          vm.isdataavailable=true;
+          if(Response.length<takeUserProfile){
+            vm.isdataavailable=false;
+            $scope.searchMoreInit = false;
+            $scope.hideSearchMore=true;
+          }
+        }
 
-		};
+      }).onError(function(data)
+      {
+        //console.log(data);
+        vm.isSpinnerShown=false;
+        vm.isdataavailable=false;
+        vm.isLoading = false;
+        vm.isListLoaded = true;
+        $scope.hideSearchMore=true;
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+      });
+
+    };
 		// we call the function twice to populate the list
 		$scope.more();
 
@@ -532,7 +574,7 @@
 		var skipProfileSearch, takeProfileSearch;
 		var tempList;
 		$scope.loadByKeywordProfile= function (keyword,length) {
-			if(vm.items.length==100) {
+			if(vm.items.length>=100) {
 				//
 				if(length==undefined)
 				{
@@ -584,6 +626,11 @@
 						//$scope.loadPaging(keyword, skipProfileSearch, takeProfileSearch);
 					}).error(function (data) {
 						vm.profiles = [];
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =JSON.stringify(data);
+            $scope.infoJson.app ='360';
+            logHelper.error( $scope.infoJson);
 					});
 				}
 				else if (keyword.length == 0 || keyword == null) {
@@ -760,6 +807,11 @@
 					{
 						//console.log(data);
 						vm.isLoaded = true;
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =JSON.stringify(data);
+            $scope.infoJson.app ='360';
+            logHelper.error( $scope.infoJson);
 					})
 
 					//totbalance=invbalance+recbalance;
@@ -807,6 +859,10 @@
 			}).error(function(data)
 			{
 				//console.log(data);
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		}
 
@@ -883,6 +939,11 @@
 				$scope.isdataavailable=false;
 				vm.isLoaded = true;
 				vm.isLedgerLoaded = false;
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		}
 
@@ -935,6 +996,11 @@
 					$scope.noOrderScheduleLabel=true;
 				}
 				$scope.orderScheduledList=[];
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		}
 
@@ -1031,10 +1097,20 @@
 				notifications.toast("Attachment Removed!","success");
 				$scope.getProfileAttachments(customer);
 
+        $scope.infoJson= {};
+        $scope.infoJson.message =file+' Attachment Removed';
+        $scope.infoJson.app ='360';
+        logHelper.info( $scope.infoJson);
+
 			}).error(function(data)
 			{
 				//console.log(data);
 				notifications.toast("Attachment Removing failed!","error");
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =file+' Attachment Removing failed';
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		};
 
@@ -1074,6 +1150,10 @@
 			{
 				//console.log(data);
 				// vm.profileAttachmentList={};
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		}
 
@@ -1112,6 +1192,10 @@
 				$scope.moreProfileCommentsLoaded = true;
 				vm.isProfileCommentsLoaded = false;
 				//$scope.auditTrailList=[];
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		}
 
@@ -1142,6 +1226,11 @@
 						notifications.toast("Comment Added!","success");
 						$scope.profileComment.comment="";
 						$scope.getProfileCommentsInit(customer);
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =customer.profileId+' Comment Added to the Profile';
+            $scope.infoJson.app ='360';
+            logHelper.info( $scope.infoJson);
 					}
 					vm.profileCommentSubmitted = false;
 
@@ -1151,6 +1240,10 @@
 					notifications.toast("Comment adding failed!","error");
 					vm.profileCommentSubmitted = false;
 					//$scope.auditTrailList=[];
+          $scope.infoJson= {};
+          $scope.infoJson.message =customer.profileId+' Comment Added Failed to the Profile';
+          $scope.infoJson.app ='360';
+          logHelper.error( $scope.infoJson);
 				})
 			}
 			else
@@ -1171,6 +1264,11 @@
 
 				$scope.orderScheduledList[index].proceedinvoices=0;
 				//$scope.orderScheduledList.push(objOrderSchedule);
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(dataErrorInvoice);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 			})
 		}
 
@@ -1399,6 +1497,11 @@
 				//console.log(data);
 				$scope.spinnerInvoice=false;
 
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+
 			});
 		}
 
@@ -1492,6 +1595,11 @@
 				//console.log(data);
 				$scope.selectedPayment=false;
 
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+
 			});
 		}
 
@@ -1552,6 +1660,11 @@
 					}).error(function(data) {
 						//console.log(data);
 						$scope.showAdvancedAdjustment(ev,$scope.selectedInvoice,$scope.SelectedInvoiceForAdjustment);
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =JSON.stringify(data);
+            $scope.infoJson.app ='360';
+            logHelper.error( $scope.infoJson);
 					})
 
 
@@ -1584,6 +1697,11 @@
 			{
 				//console.log(data);
 				$scope.spinnerInvoice=false;
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
 
 			});
 
@@ -1669,11 +1787,21 @@
 							$scope.customer_supplier.profile.attachment = data.fileUrl;
 							$scope.submitProfile();
 
+              $scope.infoJson= {};
+              $scope.infoJson.message =obj.lfFileName+' Attachment Uploaded';
+              $scope.infoJson.app ='360';
+              logHelper.info( $scope.infoJson);
+
 						}).error(function (data) {
 							//console.log(data);
 							notifications.toast("Uploading attachment Failed","error");
 							$scope.customer_supplier.profile.attachment = "";
 							$scope.submitProfile();
+
+              $scope.infoJson= {};
+              $scope.infoJson.message =obj.lfFileName+' Uploading attachment Failed';
+              $scope.infoJson.app ='360';
+              logHelper.error( $scope.infoJson);
 						})
 
 					});
@@ -1714,17 +1842,32 @@
 						vm.profileDetailSubmitted = false;
 						$scope.getProfileAttachments($scope.customer_supplier.profile);
 						$rootScope.refreshpage();
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
+            $scope.infoJson.app ='360';
+            logHelper.info( $scope.infoJson);
 					}
 					else
 					{
 						notifications.toast("Updating Profile Failed","error");
 						vm.profileDetailSubmitted = false;
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =$scope.customer_supplier.profile.email+' Updating Profile Failed';
+            $scope.infoJson.app ='360';
+            logHelper.error( $scope.infoJson);
 					}
 
 				}).error(function(data){
 					//console.log(data);
 					notifications.toast("Updating Profile Failed","error");
 					vm.profileDetailSubmitted = false;
+
+          $scope.infoJson= {};
+          $scope.infoJson.message =$scope.customer_supplier.profile.email+' Updating Profile Failed';
+          $scope.infoJson.app ='360';
+          logHelper.error( $scope.infoJson);
 				})
 			}
 		}
