@@ -609,7 +609,7 @@
                                             <div flex="60" fill-height ng-if="isAttachmentPreviewOn" class="pos-rel md-padding" layout="column" layout-align="start center" style="background:#fafafa;border-left: solid 1px #eee">
                                                 <!--<iframe src="{{attachmentPreview | trustUrl}}" frameborder="0"></iframe>-->
                                                 <!--<img src="{{attachmentPreview}}" alt="">-->
-                                                <pdf-viewer ng-if="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex
+                                                <pdf-viewer ng-show ="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex
                                                         delegate-handle="my-pdf-container"
                                                         url="attachmentPreview"
                                                         scale="1"
