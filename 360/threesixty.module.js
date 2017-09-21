@@ -1,8 +1,8 @@
 ////////////////////////////////
 // App : 360
 // Owner  : Gihan Herath
-// Last changed date : 2017/08/31
-// Version : 6.1.0.13
+// Last changed date : 2017/09/21
+// Version : 6.1.0.14
 // Modified By : Gihan
 /////////////////////////////////
 
@@ -40,8 +40,8 @@
 					security: ['$q','mesentitlement','$timeout','$rootScope','$state','$location', function($q,mesentitlement,$timeout,$rootScope,$state, $location){
 						return $q(function(resolve, reject) {
 							$timeout(function() {
-								// if (true) {
-								if ($rootScope.isBaseSet2) {
+								if (true) {
+								//if ($rootScope.isBaseSet2) {
 									resolve(function () {
 										var entitledStatesReturn = mesentitlement.stateDepResolver('threesixty');
 

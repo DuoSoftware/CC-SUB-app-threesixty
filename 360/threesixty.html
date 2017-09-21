@@ -609,7 +609,7 @@
                                             <div flex="60" fill-height ng-if="isAttachmentPreviewOn" class="pos-rel md-padding" layout="column" layout-align="start center" style="background:#fafafa;border-left: solid 1px #eee">
                                                 <!--<iframe src="{{attachmentPreview | trustUrl}}" frameborder="0"></iframe>-->
                                                 <!--<img src="{{attachmentPreview}}" alt="">-->
-                                                <pdf-viewer ng-show ="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex
+                                                <pdf-viewer ng-if="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex
                                                         delegate-handle="my-pdf-container"
                                                         url="attachmentPreview"
                                                         scale="1"
@@ -775,6 +775,67 @@
                                         </div>
                                     </md-tab-body>
                                 </md-tab>
+                                <md-tab label="OrderSchedules">
+                                  <md-tab-label>
+                                    <md-icon md-font-icon="icon-history"></md-icon> Schedules
+                                  </md-tab-label>
+                                  <md-tab-body>
+                                    <div class="preloader" ng-if="!vm.isLoaded">
+                                      <md-progress-circular></md-progress-circular>
+                                    </div>
+                                    <md-card class="carded-list-wrap" md-whiteframe="2dp">
+                                      <md-card-header>
+                                        <md-card-header-text layout="row">
+                                          <span flex="5">ID</span>
+                                          <span flex>CREATE DATE</span>
+                                          <span flex>TYPE</span>
+                                          <span flex>FREQUENCY</span>
+                                          <span flex>PROCEEDS</span>
+                                          <span flex>REMAINING</span>
+                                          <span flex>NEXT DATE</span>
+                                          <span flex="10"></span>
+                                        </md-card-header-text>
+                                      </md-card-header>
+                                      <md-divider></md-divider>
+
+                                      <md-content ms-scroll>
+                                        <div layout="row" class="carded-list-row" ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">
+                                          <div flex="5">
+                                            {{$index + 1}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.createDate}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.type}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.frequency}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.proceedinvoices}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.occurences}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.logic | limitTo:10}}
+                                          </div>
+                                          <!--<div flex="5">-->
+                                          <!--<md-button class="md-icon-button stop-btn"><md-icon md-font-icon="icon-close"></md-icon> </md-button>-->
+                                          <!--</div>-->
+                                          <div flex="10" layout="row" layout-align="end center" >
+                                            <md-button class="stop-btn md-warn md-raised" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>
+                                            <md-button class="stop-btn md-accent md-raised" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>
+                                          </div>
+                                        </div>
+                                        <div ng-show="noOrderScheduleLabel" layout="column" layout-align="center center" style="height: 100%;">
+                                          <span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Scheduled Orders for this User!</span>
+                                        </div>
+                                      </md-content>
+                                    </md-card>
+                                  </md-tab-body>
+                                </md-tab>
                             </md-tabs>
                             <!-- / Payments portion-->
                         </div>
@@ -884,7 +945,7 @@
                               <md-icon md-font-icon="icon-attachment"></md-icon> <h3>Attachments</h3>
                             </div>
                           </md-card-title>
-                          <md-card-content class="pb-50">
+                          <md-card-content md-whiteframe="1dp">
                             <!--<div layout="row">-->
                               <!--<md-input-container flex="65">-->
                                 <!--<label>Comments</label>-->

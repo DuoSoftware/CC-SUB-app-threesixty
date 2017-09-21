@@ -1296,7 +1296,7 @@
 		{
 
 			$charge.job().resumeJob(orderId).success(function(data){
-				//console.log(data);
+				//console.log(data);borzinaspe@deyom.com
 				if(data.IsSuccess==true)
 				{
 					detail.scheduleActive=true;
