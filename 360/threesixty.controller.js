@@ -1872,6 +1872,79 @@
 			}
 		}
 
+    $scope.createProfile={};
+
+    $scope.addProfileInfoEnabled=false;
+    $scope.addNewProfileInfo = function () {
+      $scope.addProfileInfoEnabled=!$scope.addProfileInfoEnabled;
+    }
+
+    $scope.cancelAddNewProfileInfo = function () {
+      $scope.addNewProfileInfo();
+      $scope.createProfile={};
+    }
+
+    $scope.submitNewProfile = function () {
+
+      if (vm.addProfileForm.$valid == true) {
+        //debugger;
+        vm.profileDetailSubmitted = true;
+
+        //$scope.createProfile.firstName = $scope.createProfile.profilename;
+        //$scope.createProfile.lastName = $scope.createProfile.othername;
+        //$scope.createProfile.phone = $scope.createProfile.contact;
+        //$scope.createProfile.email = $scope.createProfile.email_addr;
+        $scope.createProfile.billAddress=document.getElementById('autocomplete').value;
+        //$scope.createProfile.bill_addr=document.getElementById('autocomplete').value;
+        $scope.createProfile.country=document.getElementById('country').value;
+        //$scope.createProfile.bill_country=document.getElementById('country').value;
+        $scope.createProfile.shipAddress=document.getElementById('autocomplete2').value;
+        //$scope.createProfile.ship_addr=document.getElementById('autocomplete2').value;
+        $scope.createProfile.shipCountry=document.getElementById('country2').value;
+        //$scope.createProfile.ship_country=document.getElementById('country2').value;
+
+        $charge.profile().store($scope.createProfile).success(function(data){
+          //console.log(data);
+
+          if(data.response=="succeeded")
+          {
+            notifications.toast("Successfully Created the Profile","success");
+            $scope.addNewProfileInfo();
+            //vm.selectedProfileOriginal=angular.copy($scope.createProfile);
+            vm.profileDetailSubmitted = false;
+            //$scope.getProfileAttachments($scope.customer_supplier.profile);
+            $rootScope.refreshpage();
+            $scope.createProfile={};
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
+            $scope.infoJson.app ='360';
+            logHelper.info( $scope.infoJson);
+          }
+          else
+          {
+            notifications.toast("Creating Profile Failed","error");
+            vm.profileDetailSubmitted = false;
+
+            $scope.infoJson= {};
+            $scope.infoJson.message =$scope.createProfile.email+' Creating Profile Failed';
+            $scope.infoJson.app ='360';
+            logHelper.error( $scope.infoJson);
+          }
+
+        }).error(function(data){
+          //console.log(data);
+          notifications.toast("Creating Profile Failed","error");
+          vm.profileDetailSubmitted = false;
+
+          $scope.infoJson= {};
+          $scope.infoJson.message =$scope.createProfile.email+' Creating Profile Failed';
+          $scope.infoJson.app ='360';
+          logHelper.error( $scope.infoJson);
+        })
+      }
+    }
+
 		$scope.showInpageReadpane = false;
 		$scope.switchInfoPane = function (state, profile) {
 			if(state=='show'){
