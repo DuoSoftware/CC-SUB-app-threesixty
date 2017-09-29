@@ -120,7 +120,7 @@
             <!-- / CONTENT CARD -->
             <!-- CONTENT CARD -->
             <div flex="80" class="inpage-readpane" layout="column" md-whiteframe="4dp" ng-if="showInpageReadpane">
-                <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar" ng-if="!editProfileInfoEnabled">
+                <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar" ng-if="!editProfileInfoEnabled && !addProfileInfoEnabled">
                     <h3 class="group-sub-head" layout="row" layout-align="start center">Customer info</h3>
                     <div layout="row">
                         <md-menu>
@@ -142,6 +142,12 @@
                                         <span>Edit</span>
                                     </md-button>
                                 </md-menu-item>
+                                <md-menu-item>
+                                  <md-button ng-click="addNewProfileInfo()">
+                                    <md-icon md-font-icon="icon-pencil"></md-icon>
+                                    <span>Create New</span>
+                                  </md-button>
+                                </md-menu-item>
                             </md-menu-content>
                         </md-menu>
                         <md-button class="md-icon-button" ng-click="switchInfoPane('close',vm.selectedPlan)">
@@ -150,17 +156,22 @@
                         </md-button>
                     </div>
                 </div>
-                <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar" ng-if="editProfileInfoEnabled">
-                    <h3 class="group-sub-head" layout="row" layout-align="start center">Edit customer</h3>
+                <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar" ng-if="editProfileInfoEnabled || addProfileInfoEnabled">
+                    <h3 class="group-sub-head" layout="row" layout-align="start center" ng-if="editProfileInfoEnabled">Edit customer</h3>
+                    <h3 class="group-sub-head" layout="row" layout-align="start center" ng-if="addProfileInfoEnabled">Create customer</h3>
                     <div layout="row">
-                        <md-button class="md-icon-button" ng-click="cancelEditProfileInfo()">
+                        <md-button class="md-icon-button" ng-click="cancelEditProfileInfo()" ng-if="editProfileInfoEnabled">
                             <md-icon md-font-icon="icon-close"></md-icon>
                             <md-tooltip>Close</md-tooltip>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="cancelAddNewProfileInfo()" ng-if="addProfileInfoEnabled">
+                          <md-icon md-font-icon="icon-close"></md-icon>
+                          <md-tooltip>Close</md-tooltip>
                         </md-button>
                     </div>
                 </div>
 
-                <md-content ng-attr-data-toggle="{{!isAttachmentPreviewOn ? 'ms-scroll' : ''}}" layout="column" class="inpage-readpane-body p-0 pos-rel" ng-if="!inpageReadPaneEdit && !editProfileInfoEnabled">
+                <md-content ng-attr-data-toggle="{{!isAttachmentPreviewOn ? 'ms-scroll' : ''}}" layout="column" class="inpage-readpane-body p-0 pos-rel" ng-if="!inpageReadPaneEdit && !editProfileInfoEnabled && !addProfileInfoEnabled">
                     <div id="threesixty-read" flex>
                         <!--Billing Info row-->
                         <div layout="column" class="billing-info" fill-height>
@@ -171,7 +182,7 @@
                                         <md-icon md-font-icon="icon-cog"></md-icon> Overall
                                     </md-tab-label>
                                     <md-tab-body flex>
-                                        <div ng-if="!editProfileInfoEnabled">
+                                        <div ng-if="!editProfileInfoEnabled && !addProfileInfoEnabled">
                                             <!--Contact Info portion-->
                                             <!--<div layout="row" flex class="p-16">-->
                                                 <!--<div layout="column" flex>-->
@@ -775,6 +786,67 @@
                                         </div>
                                     </md-tab-body>
                                 </md-tab>
+                                <md-tab label="OrderSchedules">
+                                  <md-tab-label>
+                                    <md-icon md-font-icon="icon-history"></md-icon> Schedules
+                                  </md-tab-label>
+                                  <md-tab-body>
+                                    <div class="preloader" ng-if="!vm.isLoaded">
+                                      <md-progress-circular></md-progress-circular>
+                                    </div>
+                                    <md-card class="carded-list-wrap" md-whiteframe="2dp">
+                                      <md-card-header>
+                                        <md-card-header-text layout="row">
+                                          <span flex="5">ID</span>
+                                          <span flex>CREATE DATE</span>
+                                          <span flex>TYPE</span>
+                                          <span flex>FREQUENCY</span>
+                                          <span flex>PROCEEDS</span>
+                                          <span flex>REMAINING</span>
+                                          <span flex>NEXT DATE</span>
+                                          <span flex="10"></span>
+                                        </md-card-header-text>
+                                      </md-card-header>
+                                      <md-divider></md-divider>
+
+                                      <md-content ms-scroll>
+                                        <div layout="row" class="carded-list-row" ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">
+                                          <div flex="5">
+                                            {{$index + 1}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.createDate}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.type}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.frequency}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.proceedinvoices}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.occurences}}
+                                          </div>
+                                          <div flex>
+                                            {{detail.logic | limitTo:10}}
+                                          </div>
+                                          <!--<div flex="5">-->
+                                          <!--<md-button class="md-icon-button stop-btn"><md-icon md-font-icon="icon-close"></md-icon> </md-button>-->
+                                          <!--</div>-->
+                                          <div flex="10" layout="row" layout-align="end center" >
+                                            <md-button class="stop-btn md-warn md-raised" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>
+                                            <md-button class="stop-btn md-accent md-raised" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>
+                                          </div>
+                                        </div>
+                                        <div ng-show="noOrderScheduleLabel" layout="column" layout-align="center center" style="height: 100%;">
+                                          <span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Scheduled Orders for this User!</span>
+                                        </div>
+                                      </md-content>
+                                    </md-card>
+                                  </md-tab-body>
+                                </md-tab>
                             </md-tabs>
                             <!-- / Payments portion-->
                         </div>
@@ -884,7 +956,7 @@
                               <md-icon md-font-icon="icon-attachment"></md-icon> <h3>Attachments</h3>
                             </div>
                           </md-card-title>
-                          <md-card-content class="pb-50">
+                          <md-card-content md-whiteframe="1dp">
                             <!--<div layout="row">-->
                               <!--<md-input-container flex="65">-->
                                 <!--<label>Comments</label>-->
@@ -941,6 +1013,102 @@
                     <md-progress-circular class="gen-save-indicator" ng-if="vm.profileDetailSubmitted"></md-progress-circular>
                     <md-button ng-click="resetProfileInfo()">Reset</md-button>
                     <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" form="editProfileForm" class="md-raised md-accent">Save</md-button>
+                </div>
+                <md-content ms-scroll layout="column" class="inpage-readpane-body p-0" ng-if="!inpageReadPaneEdit && addProfileInfoEnabled" flex>
+                  <!--Profile edit-->
+                  <form id="addProfileForm" name="vm.addProfileForm" ng-submit="submitNewProfile()" novalidate flex>
+                    <md-card flex class="input-block-gen">
+                      <md-card-title>
+                        <div layout="row" layout-align="start center">
+                          <md-icon md-font-icon="icon-cog"></md-icon> <h3>General details</h3>
+                        </div>
+                      </md-card-title>
+                      <md-card-content md-whiteframe="1dp">
+                        <div layout="row">
+                          <md-input-container flex="30">
+                            <label>First Name</label>
+                            <input type="text" ng-required="true" min="1" ng-maxlength="30" name="profilename" ng-model="createProfile.firstName">
+                            <div ng-messages="vm.addProfileForm.profilename.$error">
+                              <div ng-message="maxlength">First Name must be between 1-30 characters</div>
+                            </div>
+                          </md-input-container>
+                          <div flex="5"></div>
+                          <md-input-container flex="30">
+                            <label>Last Name</label>
+                            <input type="text" ng-required="true" min="1" ng-maxlength="30" name="othername" ng-model="createProfile.lastName">
+                            <div ng-messages="vm.addProfileForm.othername.$error">
+                              <div ng-message="maxlength">Last Name must be between 1-30 characters</div>
+                            </div>
+                          </md-input-container>
+                        </div>
+                        <div layout="row">
+                          <md-input-container flex="30">
+                            <label>Email</label>
+                            <input type="text" min="1" ng-maxlength="30" name="email_addr" ng-model="createProfile.email">
+                            <div ng-messages="vm.addProfileForm.email_addr.$error">
+                              <div ng-message="maxlength">Email must be between 1-30 characters</div>
+                            </div>
+                          </md-input-container>
+                          <div flex="5"></div>
+                          <md-input-container flex="30">
+                            <label>Contact Number</label>
+                            <input type="text" ng-required="false" min="1" ng-maxlength="30" name="contactNumber" ng-model="createProfile.phone">
+                            <div ng-messages="vm.addProfileForm.contactNumber.$error">
+                              <div ng-message="maxlength">Contact Number must be between 1-30 characters</div>
+                            </div>
+                          </md-input-container>
+                        </div>
+                      </md-card-content>
+                    </md-card>
+                    <md-card flex class="input-block-gen">
+                      <md-card-title>
+                        <div layout="row" layout-align="start center">
+                          <md-icon md-font-icon="icon-home"></md-icon> <h3>Billing & Shipping details</h3>
+                        </div>
+                      </md-card-title>
+                      <md-card-content md-whiteframe="1dp">
+                        <div layout="row">
+                          <md-input-container flex="30">
+                            <label>Billing Address</label>
+                            <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="createProfile.billAddress">
+                            <div ng-messages="vm.addProfileForm.bill_addr.$error">
+                              <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                            </div>
+                          </md-input-container>
+                          <div flex="5"></div>
+                          <md-input-container flex="30">
+                            <label>Bill Country</label>
+                            <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="createProfile.country">
+                            <div ng-messages="vm.addProfileForm.bill_country.$error">
+                              <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                            </div>
+                          </md-input-container>
+                        </div>
+                        <div layout="row">
+                          <md-input-container flex="30">
+                            <label>Shipping Address</label>
+                            <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="createProfile.shipAddress">
+                            <div ng-messages="vm.addProfileForm.ship_addr.$error">
+                              <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                            </div>
+                          </md-input-container>
+                          <div flex="5"></div>
+                          <md-input-container flex="30">
+                            <label>Shipping Country</label>
+                            <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="createProfile.shipCountry">
+                            <div ng-messages="vm.addProfileForm.ship_country.$error">
+                              <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                            </div>
+                          </md-input-container>
+                        </div>
+                      </md-card-content>
+                    </md-card>
+                  </form>
+                </md-content>
+                <div layout="row" layout-align="end center" class="bottom-fixed-bar" md-whiteframe="8dp" ng-if="addProfileInfoEnabled">
+                  <md-progress-circular class="gen-save-indicator" ng-if="vm.profileDetailSubmitted"></md-progress-circular>
+                  <md-button ng-click="resetProfileInfo()">Reset</md-button>
+                  <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" form="addProfileForm" class="md-raised md-accent">Save</md-button>
                 </div>
             </div>
             <!-- / CONTENT CARD -->
