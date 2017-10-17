@@ -54,6 +54,7 @@
 		vm.tlLoadMore = tlLoadMore;
 		vm.refreshAttachmentPreview = refreshAttachmentPreview;
 		vm.downloadAttachment = downloadAttachment;
+		vm.switchInnerView = switchInnerView;
 
 		$scope.a={};
 		$scope.customer_supplier={};
@@ -62,6 +63,25 @@
 		$scope.moreLedgerLoaded = false;
 		$scope.searchMoreInit = true;
 		$scope.selectedDoc = {};
+
+		function gst(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+			}
+			//debugger;
+			return null;
+		}
+
+
+		$scope.categories=['Dealer','Supplier','Customer'];
+		$scope.isInvoiceTenant=false;
+		$scope.TenantType = gst("category");
+		if($scope.TenantType=="invoice")$scope.isInvoiceTenant=true;
+
 
 		/////////
 		function refreshAttachmentPreview () {
@@ -98,18 +118,6 @@
 			vm.dynamicHeight = current;
 		});
 
-		function gst(name) {
-			var nameEQ = name + "=";
-			var ca = document.cookie.split(';');
-			for (var i = 0; i < ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-			}
-			//debugger;
-			return null;
-		}
-
 		function getDomainName() {
 			var _st = gst("domain");
 			return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
@@ -119,18 +127,6 @@
 			var _st = gst("extension_mode");
 			return (_st != null) ? _st : "test"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
 		}
-
-		$scope.categories=['Dealer','Supplier','Customer'];
-	    $scope.isInvoiceTenant=false;
-	    function getTenantType() {
-	    	var _st = gst("category");
-	    	return (st != null) ? st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
-	    }
-	    $scope.TenantType=getTenantType();
-	    if($scope.TenantType=="invoice")
-	    	$scope.isInvoiceTenant=true;
-	    else
-	    	$scope.isInvoiceTenant=false;
 
 		/**
 		 * Select product
@@ -338,10 +334,20 @@
 		 */
 
 		function toggleinnerView(){
+			if(vm.appInnerState === "default"){
+				vm.appInnerState = "add";
+				vm.pageTitle="View 360";
+			}else{
+				vm.appInnerState = "default";
+				vm.pageTitle="Create New";
+			}
+		}
+
+		function switchInnerView() {
 			if(vm.activeInvoicePaneIndex == 0){
 				vm.activeInvoicePaneIndex = 1;
 			}else{
-				vm.activeInvoicePaneIndex  = 0;
+				vm.activeInvoicePaneIndex = 0;
 			}
 		}
 
@@ -1923,9 +1929,10 @@
             //vm.selectedProfileOriginal=angular.copy($scope.createProfile);
             vm.profileDetailSubmitted = false;
             //$scope.getProfileAttachments($scope.customer_supplier.profile);
-            $rootScope.refreshpage();
-            $scope.createProfile={};
+			  vm.activeInvoicePaneIndex = 0;
 
+			  $rootScope.refreshpage();
+            $scope.createProfile={};
             $scope.infoJson= {};
             $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
             $scope.infoJson.app ='360';
