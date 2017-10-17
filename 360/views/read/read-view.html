@@ -1,300 +1,96 @@
-<meta name="updatedBy" content="GihanHerath">
-<meta name="modifiedDate" content="21-12-2016">
-<meta name="version" content="6.0.0.7">
-
-<div id="threesixty-read">
-
-  <!--Billing Info row-->
-  <div layout="row" class="layout-row billing-info">
-
-    <!--Contact Info portion-->
-    <div flex="25">
-      <div class="info-block">
-        <div>
-          <div class="cust-name" layout="row">
-            <md-icon md-font-icon="icon-account" class="ico-light user-ico-big"></md-icon>
-            <div flex>{{customer_supplier.profile.profilename+" "+customer_supplier.profile.othername}}</div>
-          </div>
-
-
-          <md-input-container class="md-block md-default-theme user-info-block" flex layout="row">
-            <div layout="row" class="ico-light">
-              <div layout-align="start center" layout="row"><md-icon md-font-icon="icon-phone" class="ico-light"></md-icon> <span>Phone</span></div>
+<form id="addProfileForm" name="vm.addProfileForm" ng-submit="submitNewProfile()" novalidate flex>
+    <md-card flex class="input-block-gen">
+        <md-card-title>
+            <div layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-cog"></md-icon> <h3>General details</h3>
             </div>
-            <div>{{customer_supplier.profile.contact}}</div>
-          </md-input-container>
-
-          <md-input-container class="md-block md-default-theme user-info-block" flex layout="row">
-            <div layout="row" class="ico-light">
-              <div layout-align="start center" layout="row"><md-icon md-font-icon="icon-email" class="ico-light"></md-icon> <span>Email</span></div>
+        </md-card-title>
+        <md-card-content md-whiteframe="1dp">
+            <div layout="row" ng-if="isInvoiceTenant">
+                <md-input-container flex="30">
+                    <label>Category</label>
+                    <md-select name="category" required ng-model="createProfile.category">
+                        <md-option value="{{cat}}" ng-repeat="cat in categories">{{cat}}</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
-            <div> {{customer_supplier.profile.email_addr}}</div>
-          </md-input-container>
-
-          <md-input-container class="md-block md-default-theme user-info-block" flex>
-            <div layout="row" class="ico-light">
-              <div layout-align="start center" layout="row"><md-icon md-font-icon="icon-home" class="ico-light"></md-icon> <span>Billing Address</span></div>
+            <div layout="row">
+                <md-input-container flex="30">
+                    <label>First Name</label>
+                    <input type="text" ng-required="true" min="1" ng-maxlength="30" name="profilename" ng-model="createProfile.firstName">
+                    <div ng-messages="vm.addProfileForm.profilename.$error">
+                        <div ng-message="maxlength">First Name must be between 1-30 characters</div>
+                    </div>
+                </md-input-container>
+                <div flex="5"></div>
+                <md-input-container flex="30">
+                    <label>Last Name</label>
+                    <input type="text" ng-required="true" min="1" ng-maxlength="30" name="othername" ng-model="createProfile.lastName">
+                    <div ng-messages="vm.addProfileForm.othername.$error">
+                        <div ng-message="maxlength">Last Name must be between 1-30 characters</div>
+                    </div>
+                </md-input-container>
             </div>
-
-            <div layout="row" class="layout-row">
-              {{customer_supplier.profile.bill_addr}}
+            <div layout="row">
+                <md-input-container flex="30">
+                    <label>Email</label>
+                    <input type="text" min="1" ng-maxlength="30" name="email_addr" ng-model="createProfile.email">
+                    <div ng-messages="vm.addProfileForm.email_addr.$error">
+                        <div ng-message="maxlength">Email must be between 1-30 characters</div>
+                    </div>
+                </md-input-container>
+                <div flex="5"></div>
+                <md-input-container flex="30">
+                    <label>Contact Number</label>
+                    <input type="text" ng-required="false" min="1" ng-maxlength="30" name="contactNumber" ng-model="createProfile.phone">
+                    <div ng-messages="vm.addProfileForm.contactNumber.$error">
+                        <div ng-message="maxlength">Contact Number must be between 1-30 characters</div>
+                    </div>
+                </md-input-container>
             </div>
-          </md-input-container>
-
-          <md-input-container class="md-block md-default-theme user-info-block" flex>
-            <div layout="row" class="ico-light">
-              <div layout-align="start center" layout="row"><md-icon md-font-icon="icon-home" class="ico-light"></md-icon> <span>Shipping Address</span></div>
+        </md-card-content>
+    </md-card>
+    <md-card flex class="input-block-gen">
+        <md-card-title>
+            <div layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home"></md-icon> <h3>Billing & Shipping details</h3>
             </div>
-
-            <div layout="row" class="layout-row">
-              {{customer_supplier.profile.ship_addr}}
+        </md-card-title>
+        <md-card-content md-whiteframe="1dp">
+            <div layout="row">
+                <md-input-container flex="30">
+                    <label>Billing Address</label>
+                    <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="createProfile.billAddress">
+                    <div ng-messages="vm.addProfileForm.bill_addr.$error">
+                        <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                    </div>
+                </md-input-container>
+                <div flex="5"></div>
+                <md-input-container flex="30">
+                    <label>Bill Country</label>
+                    <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="createProfile.country">
+                    <div ng-messages="vm.addProfileForm.bill_country.$error">
+                        <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                    </div>
+                </md-input-container>
             </div>
-          </md-input-container>
-
-          <md-input-container class="md-block md-default-theme user-info-block" flex>
-            <div layout="row" class="ico-light">
-              <div layout-align="start center" layout="row"><md-icon md-font-icon="icon-people" class="ico-light"></md-icon> <span>User Category</span></div>
+            <div layout="row">
+                <md-input-container flex="30">
+                    <label>Shipping Address</label>
+                    <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="createProfile.shipAddress">
+                    <div ng-messages="vm.addProfileForm.ship_addr.$error">
+                        <div ng-message="maxlength">Address must be between 1-200 characters</div>
+                    </div>
+                </md-input-container>
+                <div flex="5"></div>
+                <md-input-container flex="30">
+                    <label>Shipping Country</label>
+                    <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="createProfile.shipCountry">
+                    <div ng-messages="vm.addProfileForm.ship_country.$error">
+                        <div ng-message="maxlength">Country must be between 1-35 characters</div>
+                    </div>
+                </md-input-container>
             </div>
-
-            <div layout="row" class="layout-row">
-              {{customer_supplier.profile.category}}
-            </div>
-          </md-input-container>
-
-          <md-input-container class="md-block md-default-theme user-info-block" flex>
-            <div layout="row" class="ico-light">
-              <div layout-align="start center" layout="row"><md-icon md-font-icon="icon-file" class="ico-light"></md-icon> <span>Registered Date</span></div>
-            </div>
-
-            <div layout="row" class="layout-row">
-              {{customer_supplier.profile.createddate.split(' ')[0]}}
-            </div>
-          </md-input-container>
-
-          <div flex="5"></div>
-
-        </div>
-      </div>
-    </div>
-    <!-- / Contact Info portion-->
-
-    <!--Payments portion-->
-    <div flex="75">
-        <md-tabs md-dynamic-height md-border-bottom class="read-view-tabs">
-
-          <md-tab label="Overview">
-            <div class="md-padding" md-ink-ripple="false">
-              <div class="info-block" layout="row">
-                <div class="payment-reg" flex style="text-align: center;border-right: solid 1px #cccccc;padding-top: 13px">
-                  <div>
-                    Total Billed Amount
-                  </div>
-                  <div class="light-blue-fg">
-                    <div layout="column" layout-align="center center" class="preloader-dot-auto" flex ng-hide="vm.isLoaded" >
-                      <img src="assets/images/142.gif" alt=""/>
-                    </div>
-                    {{ledgerlist.invbalance| isoCurrency:BaseCurrency:decimalPoint}}
-                  </div>
-                </div>
-
-                <div class="payment-reg" flex style="text-align: center;border-right: solid 1px #cccccc;padding-top: 13px">
-                  <div>
-                    Total Paid Amount
-                  </div>
-                  <div class="green-fg">
-                    <div layout="column" layout-align="center center" class="preloader-dot-auto" ng-hide="vm.isLoaded" >
-                      <img src="assets/images/142.gif" alt=""/>
-                    </div>
-                    {{ledgerlist.recbalance| isoCurrency:BaseCurrency:decimalPoint}}
-                  </div>
-                </div>
-
-                <div class="payment-reg" flex style="text-align: center;border-right: solid 1px #cccccc;padding-top: 13px">
-                  <div>
-                    Adjustment Amount
-                  </div>
-                  <div class="blue-fg">
-                    <div layout="column" layout-align="center center" class="preloader-dot-auto" ng-hide="vm.isLoaded" >
-                      <img src="assets/images/142.gif" alt=""/>
-                    </div>
-                    {{ledgerlist.adjustmentbalance| isoCurrency:BaseCurrency:decimalPoint}}
-                  </div>
-                </div>
-
-                <div class="payment-total" flex style="text-align: center;padding-top: 13px">
-                  <div>
-                    Total Due Amount
-                  </div>
-                  <div class="orange-fg">
-                    <div layout="column" layout-align="center center" class="preloader-dot-auto" ng-hide="vm.isLoaded" >
-                      <img src="assets/images/142.gif" alt=""/>
-                    </div>
-                    {{ledgerlist.totalbal| isoCurrency:BaseCurrency:decimalPoint}}
-                  </div>
-                </div>
-
-              </div>
-
-              <md-divider></md-divider>
-
-              <md-card class="carded-list-wrap" md-whiteframe="2dp">
-                <md-card-header>
-                  <md-card-header-text layout="row">
-                    <span flex="5">ID</span>
-                    <span flex>CREATE DATE</span>
-                    <span flex>TYPE</span>
-                    <span flex>FREQUENCY</span>
-                    <span flex>PROCEEDS</span>
-                    <span flex>REMAINING</span>
-                    <span flex>NEXT DATE</span>
-                    <span flex="10"></span>
-                  </md-card-header-text>
-                </md-card-header>
-                <md-divider></md-divider>
-
-                <md-content ms-scroll>
-                  <div layout="row" class="carded-list-row" ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">
-                    <div flex="5">
-                      {{$index + 1}}
-                    </div>
-                    <div flex>
-                      {{detail.createDate}}
-                    </div>
-                    <div flex>
-                      {{detail.type}}
-                    </div>
-                    <div flex>
-                      {{detail.frequency}}
-                    </div>
-                    <div flex>
-                      {{detail.proceedinvoices}}
-                    </div>
-                    <div flex>
-                      {{detail.occurences}}
-                    </div>
-                    <div flex>
-                      {{detail.logic | limitTo:10}}
-                    </div>
-                    <!--<div flex="5">-->
-                    <!--<md-button class="md-icon-button stop-btn"><md-icon md-font-icon="icon-close"></md-icon> </md-button>-->
-                    <!--</div>-->
-                    <div flex="10" layout="row" layout-align="end center" >
-                      <md-button class="stop-btn md-warn md-raised" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>
-                      <md-button class="stop-btn md-accent md-raised" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>
-                    </div>
-                  </div>
-                  <div ng-show="noOrderScheduleLabel" layout="column" layout-align="center center" style="height: 100%;">
-                    <span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Scheduled Orders for this User!</span>
-                  </div>
-                </md-content>
-              </md-card>
-
-              <md-divider></md-divider>
-
-              <div layout="column" layout-align="center center" class="preloader-dot-auto" flex ng-hide="vm.isLoaded" >
-                <img src="assets/images/142.gif" alt="" class="preloader-inset" />
-              </div>
-              <!--Customer Ledger-->
-              <div class="cust-ledg-container">
-
-                <div layout="row" class="cust-ledg-item" ng-repeat="item in ledgerlist| orderBy:'-createdDate'">
-                  <div flex="10"></div>
-                  <div flex="40" class="date-portion">
-                    <div flex>
-                      <span>{{item.createdDate | parseDate | date: 'dd'}}</span>
-                      <span>{{item.createdDate | parseDate | date: 'MMMM'}}</span>
-                      <span>{{item.createdDate | parseDate | date: 'yyyy'}}</span>
-                      <div class="timeline-time">
-                        <span>{{item.createdDate | parseDate | date: ' h:mm:ss'}}</span>
-                      </div>
-                    </div>
-                    <div class="timeline-circle" ng-class="item.transactionType">
-                    </div>
-                  </div>
-
-                  <div flex="5"></div>
-
-                  <div flex="30" ng-class="{'isTimelineDialogLoaded':isTimelineDialogLoaded == false}" class="info-portion" layout="row" layout-align="center center">
-                    <md-card md-theme="default" md-theme-watch="" ng-click="clickLedgerItem($event,item)" layout="row" layout-align="space-between center" flex>
-                      <div layout="column">
-                        <div layout="row">
-                          <span>{{item.transactionType}}</span>
-                        </div>
-                        <div layout="row">
-                          <span>{{item.amount| isoCurrency:BaseCurrency:decimalPoint}}</span>
-                        </div>
-                      </div>
-                      <!--<div layout="column" layout-align="center center" class="preloader-dot-auto" ng-show="item.isDialogLoading || isDialogClosed" >-->
-                        <!--<img src="assets/images/142.gif" alt=""/>-->
-                      <!--</div>-->
-                      <md-progress-circular ng-show="item.isDialogLoading || isDialogClosed" style="opacity: 0.5"></md-progress-circular>
-                    </md-card>
-                  </div>
-
-                  <div flex="5"></div>
-                </div>
-
-                <!--load more button-->
-                <div layout="row" layout-align="center center" class="tl-load-more" ng-show="vm.isLedgerLoaded">
-                  <md-button class="md-icon-button" ng-click="searchmorebuttonclick(customer_supplier.profile)">
-                    <md-icon md-font-icon="icon-plus-circle md-accent"></md-icon>
-                    <md-progress-circular md-mode="indeterminate" class="md-accent more-ledger-circle" ng-hide="moreLedgerLoaded" style="opacity: 1!important;"></md-progress-circular>
-                    <md-tooltip>View More</md-tooltip>
-                  </md-button>
-                </div>
-
-              </div>
-              <!-- / Customer Ledger-->
-            </div>
-          </md-tab>
-
-          <md-tab label="History">
-            <md-content class="md-padding">
-              <md-card class="carded-list-wrap" md-whiteframe="2dp">
-                <md-card-header>
-                  <md-card-header-text layout="row">
-                    <span flex="10">ID</span>
-                    <span flex>CREATED DATE</span>
-                    <span flex>MODULE</span>
-                    <span flex="35">REMARK</span>
-                  </md-card-header-text>
-                </md-card-header>
-                <md-divider></md-divider>
-
-                <md-content ms-scroll style="height: auto;background-color: #ffffff;max-height: 330px">
-                  <div layout="column" layout-align="center center" class="preloader-dot-auto" ng-hide="moreAuditTrailLoaded" >
-                    <img src="assets/images/142.gif" alt=""/>
-                  </div>
-                  <div layout="row" class="carded-list-row" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel" style="background-color: #ffffff">
-                    <div flex="10">
-                      {{$index + 1}}
-                    </div>
-                    <div flex>
-                      {{detail.createdDate | limitTo:10}}
-                    </div>
-                    <div flex>
-                      {{detail.module}}
-                    </div>
-                    <div flex="35">
-                      {{detail.remark}}
-                    </div>
-                  </div>
-                  <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
-                    <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
-                  </div>
-                  <div ng-show="noAuditTrailLabel" layout="column" layout-align="center center" style="height: 100%;">
-                    <span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Audit Trails for this User!</span>
-                  </div>
-                </md-content>
-              </md-card>
-            </md-content>
-          </md-tab>
-
-        </md-tabs>
-    </div>
-    <!-- / Payments portion-->
-
-  </div>
-  <!-- / Billing Info row-->
-
-</div>
+        </md-card-content>
+    </md-card>
+</form>

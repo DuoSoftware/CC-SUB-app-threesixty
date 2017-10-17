@@ -63,6 +63,19 @@
 		$scope.searchMoreInit = true;
 		$scope.selectedDoc = {};
 
+
+		$scope.categories=['Dealer','Supplier','Customer'];
+		$scope.isInvoiceTenant=false;
+		function getTenantType() {
+			var _st = gst("category");
+			return (st != null) ? st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+		}
+		$scope.TenantType=getTenantType();
+		if($scope.TenantType=="invoice")
+			$scope.isInvoiceTenant=true;
+		else
+			$scope.isInvoiceTenant=false;
+
 		/////////
 		function refreshAttachmentPreview () {
 			$scope.refreshPreview = false;
@@ -332,6 +345,14 @@
 			}else{
 				vm.appInnerState = "default";
 				vm.pageTitle="Create New";
+			}
+		}
+
+		function switchInnerView() {
+			if(vm.activeInvoicePaneIndex == 0){
+				vm.activeInvoicePaneIndex = 1;
+			}else{
+				vm.activeInvoicePaneIndex = 0;
 			}
 		}
 
@@ -1913,9 +1934,10 @@
             //vm.selectedProfileOriginal=angular.copy($scope.createProfile);
             vm.profileDetailSubmitted = false;
             //$scope.getProfileAttachments($scope.customer_supplier.profile);
-            $rootScope.refreshpage();
-            $scope.createProfile={};
+			  vm.activeInvoicePaneIndex = 0;
 
+			  $rootScope.refreshpage();
+            $scope.createProfile={};
             $scope.infoJson= {};
             $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
             $scope.infoJson.app ='360';
