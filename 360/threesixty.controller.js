@@ -1925,6 +1925,7 @@
             //$scope.getProfileAttachments($scope.customer_supplier.profile);
             $rootScope.refreshpage();
             $scope.createProfile={};
+			  vm.activeInvoicePaneIndex = 0;
 
             $scope.infoJson= {};
             $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
