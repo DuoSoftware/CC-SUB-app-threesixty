@@ -37,9 +37,11 @@
                             <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordProfile(vm.search,3)" placeholder="Search for Profiles">
                         </div>
                     </div>
+                    <md-button class="md-raised md-accent main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activeInvoicePaneIndex == 1" ng-click="switchInnerView()" ng-if="!inpageReadPaneEdit"><span class="fs-18 mr-10">+</span> NEW
+                    </md-button>
                 </div>
-                <md-button class="md-raised main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activeInvoicePaneIndex == 1" ng-click="switchInnerView()"><span class="fs-18 mr-10 fc-accent">+</span> NEW
-                </md-button>
+                <!--<md-button class="md-raised main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activeInvoicePaneIndex == 1" ng-click="switchInnerView()"><span class="fs-18 mr-10 fc-accent">+</span> NEW-->
+                <!--</md-button>-->
             </div>
             <!--<div class="v-nav">-->
             <!--<div ng-include="'app/main/plans/sidenavs/main/main-sidenav.html'"></div>-->
