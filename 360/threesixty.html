@@ -38,8 +38,8 @@
                         </div>
                     </div>
                 </div>
-                <!--<md-button class="md-raised main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activePlanPaneIndex == 1" ng-click="toggleEdit()" ng-if="!inpageReadPaneEdit"><span class="fs-18 mr-10 fc-accent">+</span> NEW-->
-                <!--</md-button>-->
+                <md-button class="md-raised main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activePlanPaneIndex == 1" ng-click="toggleEdit()" ng-if="!inpageReadPaneEdit"><span class="fs-18 mr-10 fc-accent">+</span> NEW
+                </md-button>
             </div>
             <!--<div class="v-nav">-->
             <!--<div ng-include="'app/main/plans/sidenavs/main/main-sidenav.html'"></div>-->
@@ -108,6 +108,15 @@
                                 <div class="content invoice-display-pane"
                                      ng-include="'app/main/360/views/read/read-view.html'" ms-scroll>
                                 </div>
+                                <div md-whiteframe="8dp" layout="row" layout-align="space-between center" class="bottom-fixed-bar fixed">
+                                    <div layout="row"></div>
+
+                                    <div layout="row" class="layout-row">
+                                        <md-progress-circular class="gen-save-indicator" ng-if="vm.profileDetailSubmitted"></md-progress-circular>
+                                        <md-button ng-click="resetProfileInfo()">Reset</md-button>
+                                        <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" form="addProfileForm" class="md-raised md-accent">Save</md-button>
+                                    </div>
+                                </div>
                             </md-tab-body>
                         </md-tab>
                         <!-- / INVOICE DISPLAY PANE -->
@@ -142,12 +151,12 @@
                                         <span>Edit</span>
                                     </md-button>
                                 </md-menu-item>
-                                <md-menu-item>
-                                  <md-button ng-click="addNewProfileInfo()">
-                                    <md-icon md-font-icon="icon-pencil"></md-icon>
-                                    <span>Create New</span>
-                                  </md-button>
-                                </md-menu-item>
+                                <!--<md-menu-item>-->
+                                  <!--<md-button ng-click="addNewProfileInfo()">-->
+                                    <!--<md-icon md-font-icon="icon-pencil"></md-icon>-->
+                                    <!--<span>Create New</span>-->
+                                  <!--</md-button>-->
+                                <!--</md-menu-item>-->
                             </md-menu-content>
                         </md-menu>
                         <md-button class="md-icon-button" ng-click="switchInfoPane('close',vm.selectedPlan)">
@@ -1013,102 +1022,6 @@
                     <md-progress-circular class="gen-save-indicator" ng-if="vm.profileDetailSubmitted"></md-progress-circular>
                     <md-button ng-click="resetProfileInfo()">Reset</md-button>
                     <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" form="editProfileForm" class="md-raised md-accent">Save</md-button>
-                </div>
-                <md-content ms-scroll layout="column" class="inpage-readpane-body p-0" ng-if="!inpageReadPaneEdit && addProfileInfoEnabled" flex>
-                  <!--Profile edit-->
-                  <form id="addProfileForm" name="vm.addProfileForm" ng-submit="submitNewProfile()" novalidate flex>
-                    <md-card flex class="input-block-gen">
-                      <md-card-title>
-                        <div layout="row" layout-align="start center">
-                          <md-icon md-font-icon="icon-cog"></md-icon> <h3>General details</h3>
-                        </div>
-                      </md-card-title>
-                      <md-card-content md-whiteframe="1dp">
-                        <div layout="row">
-                          <md-input-container flex="30">
-                            <label>First Name</label>
-                            <input type="text" ng-required="true" min="1" ng-maxlength="30" name="profilename" ng-model="createProfile.firstName">
-                            <div ng-messages="vm.addProfileForm.profilename.$error">
-                              <div ng-message="maxlength">First Name must be between 1-30 characters</div>
-                            </div>
-                          </md-input-container>
-                          <div flex="5"></div>
-                          <md-input-container flex="30">
-                            <label>Last Name</label>
-                            <input type="text" ng-required="true" min="1" ng-maxlength="30" name="othername" ng-model="createProfile.lastName">
-                            <div ng-messages="vm.addProfileForm.othername.$error">
-                              <div ng-message="maxlength">Last Name must be between 1-30 characters</div>
-                            </div>
-                          </md-input-container>
-                        </div>
-                        <div layout="row">
-                          <md-input-container flex="30">
-                            <label>Email</label>
-                            <input type="text" min="1" ng-maxlength="30" name="email_addr" ng-model="createProfile.email">
-                            <div ng-messages="vm.addProfileForm.email_addr.$error">
-                              <div ng-message="maxlength">Email must be between 1-30 characters</div>
-                            </div>
-                          </md-input-container>
-                          <div flex="5"></div>
-                          <md-input-container flex="30">
-                            <label>Contact Number</label>
-                            <input type="text" ng-required="false" min="1" ng-maxlength="30" name="contactNumber" ng-model="createProfile.phone">
-                            <div ng-messages="vm.addProfileForm.contactNumber.$error">
-                              <div ng-message="maxlength">Contact Number must be between 1-30 characters</div>
-                            </div>
-                          </md-input-container>
-                        </div>
-                      </md-card-content>
-                    </md-card>
-                    <md-card flex class="input-block-gen">
-                      <md-card-title>
-                        <div layout="row" layout-align="start center">
-                          <md-icon md-font-icon="icon-home"></md-icon> <h3>Billing & Shipping details</h3>
-                        </div>
-                      </md-card-title>
-                      <md-card-content md-whiteframe="1dp">
-                        <div layout="row">
-                          <md-input-container flex="30">
-                            <label>Billing Address</label>
-                            <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="createProfile.billAddress">
-                            <div ng-messages="vm.addProfileForm.bill_addr.$error">
-                              <div ng-message="maxlength">Address must be between 1-200 characters</div>
-                            </div>
-                          </md-input-container>
-                          <div flex="5"></div>
-                          <md-input-container flex="30">
-                            <label>Bill Country</label>
-                            <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="createProfile.country">
-                            <div ng-messages="vm.addProfileForm.bill_country.$error">
-                              <div ng-message="maxlength">Country must be between 1-35 characters</div>
-                            </div>
-                          </md-input-container>
-                        </div>
-                        <div layout="row">
-                          <md-input-container flex="30">
-                            <label>Shipping Address</label>
-                            <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete2" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="createProfile.shipAddress">
-                            <div ng-messages="vm.addProfileForm.ship_addr.$error">
-                              <div ng-message="maxlength">Address must be between 1-200 characters</div>
-                            </div>
-                          </md-input-container>
-                          <div flex="5"></div>
-                          <md-input-container flex="30">
-                            <label>Shipping Country</label>
-                            <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="createProfile.shipCountry">
-                            <div ng-messages="vm.addProfileForm.ship_country.$error">
-                              <div ng-message="maxlength">Country must be between 1-35 characters</div>
-                            </div>
-                          </md-input-container>
-                        </div>
-                      </md-card-content>
-                    </md-card>
-                  </form>
-                </md-content>
-                <div layout="row" layout-align="end center" class="bottom-fixed-bar" md-whiteframe="8dp" ng-if="addProfileInfoEnabled">
-                  <md-progress-circular class="gen-save-indicator" ng-if="vm.profileDetailSubmitted"></md-progress-circular>
-                  <md-button ng-click="resetProfileInfo()">Reset</md-button>
-                  <md-button ng-disabled="vm.profileDetailSubmitted" type="submit" form="addProfileForm" class="md-raised md-accent">Save</md-button>
                 </div>
             </div>
             <!-- / CONTENT CARD -->

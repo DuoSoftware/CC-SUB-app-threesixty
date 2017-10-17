@@ -120,6 +120,18 @@
 			return (_st != null) ? _st : "test"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
 		}
 
+		$scope.categories=['Dealer','Supplier','Customer'];
+	    $scope.isInvoiceTenant=false;
+	    function getTenantType() {
+	    	var _st = gst("category");
+	    	return (st != null) ? st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+	    }
+	    $scope.TenantType=getTenantType();
+	    if($scope.TenantType=="invoice")
+	    	$scope.isInvoiceTenant=true;
+	    else
+	    	$scope.isInvoiceTenant=false;
+
 		/**
 		 * Select product
 		 *
@@ -326,12 +338,10 @@
 		 */
 
 		function toggleinnerView(){
-			if(vm.appInnerState === "default"){
-				vm.appInnerState = "add";
-				vm.pageTitle="View 360";
+			if(vm.activeInvoicePaneIndex == 0){
+				vm.activeInvoicePaneIndex = 1;
 			}else{
-				vm.appInnerState = "default";
-				vm.pageTitle="Create New";
+				vm.activeInvoicePaneIndex  = 0;
 			}
 		}
 
