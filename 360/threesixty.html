@@ -810,21 +810,21 @@
                                             <div flex class="list-offset sub-list">
                                                 <div class="list-header" layout="row" flex md-whiteframe="1dp">
                                                     <div flex="10">ID</div>
-                                                    <div flex>CREATE DATE</div>
-                                                    <div flex>TYPE</div>
-                                                    <div flex>FREQUENCY</div>
-                                                    <div flex>PROCEEDS</div>
-                                                    <div flex>REMAINING</div>
-                                                    <div flex>NEXT DATE</div>
+                                                    <div flex>Created date</div>
+                                                    <div flex>Type</div>
+                                                    <div flex>Frequency</div>
+                                                    <div flex>Proceeds</div>
+                                                    <div flex>Remaining</div>
+                                                    <div flex>Next date</div>
                                                     <div flex="10"></div>
                                                 </div>
                                                 <md-card-content class="p-0" flex>
                                                     <md-content class="list-content" ms-scroll>
-                                                        <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="auditTrailList.length == 0">
-                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No history for audit trail is available</span>
+                                                        <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="orderScheduledList.length == 0">
+                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No schedule is available</span>
                                                         </div>
                                                         <div layout="row" flex class="list-item"  ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">
-                                                            <div flex="5">
+                                                            <div flex="10">
                                                                 {{$index + 1}}
                                                             </div>
                                                             <div flex>
@@ -846,8 +846,8 @@
                                                                 {{detail.logic | limitTo:10}}
                                                             </div>
                                                             <div flex="10" layout="row" layout-align="end center" >
-                                                                <md-button class="stop-btn md-warn md-raised" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>
-                                                                <md-button class="stop-btn md-accent md-raised" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>
+                                                                <md-button class="stop-btn md-warn md-raised w-55 m-0" style="line-height: 20px;" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>
+                                                                <md-button class="stop-btn md-accent md-raised w-55 m-0" style="line-height: 20px;" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>
                                                             </div>
                                                         </div>
                                                         <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
