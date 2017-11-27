@@ -1838,14 +1838,14 @@
 				$scope.customer_supplier.profile.lastName = $scope.customer_supplier.profile.othername;
 				$scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
 				$scope.customer_supplier.profile.email = $scope.customer_supplier.profile.email_addr;
-				$scope.customer_supplier.profile.billAddress=document.getElementById('autocomplete').value;
-				$scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete').value;
-				$scope.customer_supplier.profile.country=document.getElementById('country').value;
-				$scope.customer_supplier.profile.bill_country=document.getElementById('country').value;
-				$scope.customer_supplier.profile.shipAddress=document.getElementById('autocomplete2').value;
-				$scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete2').value;
-				$scope.customer_supplier.profile.shipCountry=document.getElementById('country2').value;
-				$scope.customer_supplier.profile.ship_country=document.getElementById('country2').value;
+				$scope.customer_supplier.profile.billAddress=document.getElementById('autocomplete3').value;
+				$scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete3').value;
+				$scope.customer_supplier.profile.country=document.getElementById('country3').value;
+				$scope.customer_supplier.profile.bill_country=document.getElementById('country3').value;
+				$scope.customer_supplier.profile.shipAddress=document.getElementById('autocomplete4').value;
+				$scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete4').value;
+				$scope.customer_supplier.profile.shipCountry=document.getElementById('country4').value;
+				$scope.customer_supplier.profile.ship_country=document.getElementById('country4').value;
 
 				$charge.profile().update($scope.customer_supplier.profile).success(function(data){
 					//console.log(data);
