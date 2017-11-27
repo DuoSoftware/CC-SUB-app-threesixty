@@ -990,7 +990,7 @@
                                 <div layout="row">
                                     <md-input-container flex="30">
                                         <label>Billing Address</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete" placeholder="" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="customer_supplier.profile.bill_addr">
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete3" placeholder="" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="customer_supplier.profile.bill_addr">
                                         <div ng-messages="vm.editProfileForm.bill_addr.$error">
                                             <div ng-message="maxlength">Address must be between 1-200 characters</div>
                                         </div>
@@ -998,7 +998,7 @@
                                     <div flex="5"></div>
                                     <md-input-container flex="30">
                                         <label>Bill Country</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country" name="bill_country" ng-model="customer_supplier.profile.bill_country">
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country3" name="bill_country" ng-model="customer_supplier.profile.bill_country">
                                         <div ng-messages="vm.editProfileForm.bill_country.$error">
                                             <div ng-message="maxlength">Country must be between 1-35 characters</div>
                                         </div>
@@ -1007,7 +1007,7 @@
                                 <div layout="row">
                                     <md-input-container flex="30">
                                         <label>Shipping Address</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete2" placeholder="" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete4" placeholder="" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
                                         <div ng-messages="vm.editProfileForm.ship_addr.$error">
                                             <div ng-message="maxlength">Address must be between 1-200 characters</div>
                                         </div>
@@ -1015,7 +1015,7 @@
                                     <div flex="5"></div>
                                     <md-input-container flex="30">
                                         <label>Shipping Country</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country2" name="ship_country" ng-model="customer_supplier.profile.ship_country">
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country4" name="ship_country" ng-model="customer_supplier.profile.ship_country">
                                         <div ng-messages="vm.editProfileForm.ship_country.$error">
                                             <div ng-message="maxlength">Country must be between 1-35 characters</div>
                                         </div>
@@ -1481,6 +1481,22 @@
 		// When the user selects an address from the dropdown, populate the address
 		// fields in the form.
 		autocomplete2.addListener('place_changed', fillInAddress2);
+		
+		autocomplete3 = new google.maps.places.Autocomplete(
+			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete3')),
+			{types: ['geocode']});
+
+		// When the user selects an address from the dropdown, populate the address
+		// fields in the form.
+		autocomplete3.addListener('place_changed', fillInAddress2);
+		
+		autocomplete4 = new google.maps.places.Autocomplete(
+			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete4')),
+			{types: ['geocode']});
+
+		// When the user selects an address from the dropdown, populate the address
+		// fields in the form.
+		autocomplete4.addListener('place_changed', fillInAddress2);
 
 	}
 
@@ -1611,6 +1627,51 @@
 				});
 				autocomplete2.setBounds(circle2.getBounds());
 			});
+		}
+	}
+	
+	function geolocate4() {
+		initAutocomplete();
+		if (navigator.geolocation) {
+			document.getElementById('autocomplete4').focus();
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var geolocation2 = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				var circle2 = new google.maps.Circle({
+					center: geolocation2,
+					radius: position.coords.accuracy
+				});
+				autocomplete4.setBounds(circle2.getBounds());
+			});
+		}
+	}
+	
+	function fillInAddress4() {
+		// Get the place details from the autocomplete object.
+		var place = autocomplete4.getPlace();
+		//debugger;
+		for (var component in componentForm3) {
+			document.getElementById(component+"3").value = '';
+			//document.getElementById(component).disabled = false;
+		}
+
+		// Get each component of the address from the place details
+		// and fill the corresponding field on the form.
+		for (var i = 0; i < place.address_components.length; i++) {
+			var addressType = place.address_components[i].types[0];
+			if (componentForm3[addressType]) {
+				var val = place.address_components[i][componentForm3[addressType]];
+				document.getElementById(addressType+"3").value = val;
+				document.getElementById(addressType+"3").focus();
+			}
+			else if(addressType=='administrative_area_level_2')
+			{
+				var val = place.address_components[i]['long_name'];
+				document.getElementById('locality3').value = val;
+				document.getElementById('locality3').focus();
+			}
 		}
 	}
 
