@@ -142,7 +142,7 @@
 
                             <md-menu-content width="3">
                                 <md-menu-item>
-                                    <md-button ng-click="removePlan(vm.selectedPlan)" ng-disabled="vm.selectedPlan.status == 'Inactive'">
+                                    <md-button ng-click="removeUser(customer_supplier.profile)" ng-disabled="vm.selectedPlan.status == 'Inactive'">
                                         <md-icon md-font-icon="icon-close-circle"></md-icon>
                                         <span>Deactivate</span>
                                     </md-button>
@@ -1481,7 +1481,7 @@
 		// When the user selects an address from the dropdown, populate the address
 		// fields in the form.
 		autocomplete2.addListener('place_changed', fillInAddress2);
-		
+
 		autocomplete3 = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete3')),
 			{types: ['geocode']});
@@ -1489,7 +1489,7 @@
 		// When the user selects an address from the dropdown, populate the address
 		// fields in the form.
 		autocomplete3.addListener('place_changed', fillInAddress2);
-		
+
 		autocomplete4 = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete4')),
 			{types: ['geocode']});
@@ -1629,7 +1629,7 @@
 			});
 		}
 	}
-	
+
 	function geolocate4() {
 		initAutocomplete();
 		if (navigator.geolocation) {
@@ -1647,7 +1647,7 @@
 			});
 		}
 	}
-	
+
 	function fillInAddress4() {
 		// Get the place details from the autocomplete object.
 		var place = autocomplete4.getPlace();
