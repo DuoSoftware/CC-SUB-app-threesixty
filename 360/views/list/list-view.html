@@ -1,9 +1,9 @@
 <!-- INVOICE LIST ITEMS -->
-<div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-if="!vm.listLoaded">
+<div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-if="!vm.isListLoaded">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
 
-<div class="main-empty-list" ng-if="vm.profiles.length == 0 && vm.listLoaded">
+<div class="main-empty-list" ng-if="vm.profiles.length == 0 && vm.isListLoaded">
     <div>
         <img src="assets/images/empty-list.gif" alt="Nothing to show">
         <h2>Nothing to Show</h2>
