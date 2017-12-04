@@ -344,6 +344,7 @@
 		}
 
 		function switchInnerView() {
+			$scope.showInpageReadpane = false;
 			if(vm.activeInvoicePaneIndex == 0){
 				vm.activeInvoicePaneIndex = 1;
 			}else{
