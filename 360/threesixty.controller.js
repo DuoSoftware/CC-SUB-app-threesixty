@@ -15,7 +15,7 @@
 		.controller('ThreeSixtyController', ThreeSixtyController);
 
 	/** @ngInject */
-	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
+	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $location, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
 	{
 		var vm = this;
 
@@ -172,6 +172,8 @@
 				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
 
 				vm.selectedProfileOriginal=angular.copy(threesixty);
+
+        $scope.addUpdateCardDetails(threesixty);
 
 				// $scope.isLoading = false;
 			}).error(function(data) {
@@ -1269,6 +1271,48 @@
 			}
 		}
 
+    $scope.cardloadform = "";
+
+    $scope.addUpdateCardDetails = function (customer){
+
+      var cardDetails = {};
+      if($scope.customer_supplier.profile.stripeCustId!=null)
+      {
+        cardDetails = {
+          "profileId": customer.profileId,
+          "redirectUrl": $location.absUrl(),
+          "action": "update"
+        };
+      }
+      else
+      {
+        cardDetails = {
+          "profileId": customer.profileId,
+          "redirectUrl": $location.absUrl(),
+          "action": "insert"
+        };
+      }
+
+      $charge.paymentgateway().addUpdateCard(cardDetails).success(function(data)
+      {
+        //
+        $scope.cardloadform = data;
+        angular.element("#addUpdateCardId").empty();
+        angular.element("#addUpdateCardId").append($scope.cardloadform);
+        //$scope.showMoreUserInfo=false;
+
+      }).error(function(data)
+      {
+        //console.log(dataErrorInvoice);
+        //$scope.orderScheduledList.push(objOrderSchedule);
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+      })
+    }
+
 		$scope.addProceedsInventoryCount = function (guOrderId,index){
 			$charge.invoice().getInvoiceCount(guOrderId).success(function(dataInvoice)
 			{
@@ -2022,6 +2066,11 @@
 			$scope.reverseMoreLess =! $scope.reverseMoreLess;
 			if($scope.reverseMoreLess){
 				$scope.showMoreUserInfo=true;
+
+        $timeout(function(){
+          angular.element("#addUpdateCardId").empty();
+          angular.element("#addUpdateCardId").append($scope.cardloadform);
+        },10);
 			}else{
 				$scope.showMoreUserInfo=false;
 			}
