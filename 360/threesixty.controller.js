@@ -1292,6 +1292,7 @@
 
         }).error(function(data) {
           var cardloadfail = data;
+          $scope.cardLastDigits = {};
 
         });
 
@@ -1316,6 +1317,10 @@
       {
         //
         $scope.cardloadform = data;
+        if($scope.customer_supplier.profile.gatewayType=="adyen" || $scope.customer_supplier.profile.gatewayType==null)
+        {
+          $scope.cardloadform = $scope.cardloadform.toString().replace("adyen.createEncryptedForm(form, options);", "");
+        }
         angular.element("#addUpdateCardId").empty();
         angular.element("#addUpdateCardId").append($scope.cardloadform);
 
