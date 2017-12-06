@@ -495,8 +495,24 @@
                                                                                 <div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -40px"></div>
                                                                             </div>
                                                                         </div>
-                                                                        <div layout="row" layout-align="start center" class="info-grid-row" id="addUpdateCardId" flex>
+                                                                    </div>
+                                                                    <div layout="row" class="mt-20">
+                                                                      <div class="preloader" ng-if="vm.isAddUpdateCardLoading"><md-progress-circular></md-progress-circular></div>
+                                                                      <div layout="row" layout-align="start center" class="info-grid-row" flex ng-if="customer_supplier.profile.stripeCustId">
+                                                                        <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                          <i class="material-icons">local_atm</i>
+                                                                          <span flex>Card details</span>
                                                                         </div>
+                                                                        <div flex>
+                                                                          <div flex class="op-5"><i>XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</i></div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div layout="row" layout-align="start center" class="info-grid-row" id="addUpdateCardId" flex>
+                                                                      </div>
+                                                                      <!--<div layout="row" class="prodCost" flex layout="row" layout-align="start center" ng-if="cardLastDigits">-->
+                                                                        <!--<span ng-class="cardLastDigits.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</span>-->
+                                                                        <!--<md-tooltip>XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</md-tooltip>-->
+                                                                      <!--</div>-->
                                                                     </div>
                                                                 </div>
                                                             </div>
