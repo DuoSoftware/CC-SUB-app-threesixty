@@ -1272,12 +1272,29 @@
 		}
 
     $scope.cardloadform = "";
+    $scope.cardLastDigits = {};
+    vm.isAddUpdateCardLoading = false;
 
     $scope.addUpdateCardDetails = function (customer){
-
+      vm.isAddUpdateCardLoading = true;
       var cardDetails = {};
       if($scope.customer_supplier.profile.stripeCustId!=null)
       {
+        $charge.paymentgateway().getPaymentGatewayDetails(customer.profileId).success(function (response) {
+
+          var cardDetailDigits = response.data[0];
+          if(cardDetailDigits) {
+            $scope.cardLastDigits = cardDetailDigits;
+
+          }else{
+            $scope.cardLastDigits = {};
+          }
+
+        }).error(function(data) {
+          var cardloadfail = data;
+
+        });
+
         cardDetails = {
           "profileId": customer.profileId,
           "redirectUrl": $location.absUrl(),
@@ -1286,6 +1303,8 @@
       }
       else
       {
+        $scope.cardLastDigits = {};
+
         cardDetails = {
           "profileId": customer.profileId,
           "redirectUrl": $location.absUrl(),
@@ -1299,12 +1318,15 @@
         $scope.cardloadform = data;
         angular.element("#addUpdateCardId").empty();
         angular.element("#addUpdateCardId").append($scope.cardloadform);
+
+        vm.isAddUpdateCardLoading = false;
         //$scope.showMoreUserInfo=false;
 
       }).error(function(data)
       {
         //console.log(dataErrorInvoice);
         //$scope.orderScheduledList.push(objOrderSchedule);
+        vm.isAddUpdateCardLoading = false;
 
         $scope.infoJson= {};
         $scope.infoJson.message =JSON.stringify(data);
@@ -2066,10 +2088,13 @@
 			$scope.reverseMoreLess =! $scope.reverseMoreLess;
 			if($scope.reverseMoreLess){
 				$scope.showMoreUserInfo=true;
+        vm.isAddUpdateCardLoading = true;
 
         $timeout(function(){
           angular.element("#addUpdateCardId").empty();
           angular.element("#addUpdateCardId").append($scope.cardloadform);
+
+          vm.isAddUpdateCardLoading = false;
         },10);
 			}else{
 				$scope.showMoreUserInfo=false;
