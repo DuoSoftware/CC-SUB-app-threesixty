@@ -1298,7 +1298,7 @@
 
         cardDetails = {
           "profileId": customer.profileId,
-          "redirectUrl": "",
+          "redirectUrl": $location.absUrl(),
           "action": "update"
         };
       }
@@ -1308,7 +1308,7 @@
 
         cardDetails = {
           "profileId": customer.profileId,
-          "redirectUrl": "",
+          "redirectUrl": $location.absUrl(),
           "action": "insert"
         };
       }
@@ -1323,6 +1323,14 @@
         }
         angular.element("#addUpdateCardId").empty();
         angular.element("#addUpdateCardId").append($scope.cardloadform);
+
+        //var iframe = document.getElementById('addUpdateCardId');
+        //iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
+        //
+        //iframe.document.open();
+        //iframe.document.clear();
+        //iframe.document.write($scope.cardloadform);
+        //iframe.document.close();
 
         vm.isAddUpdateCardLoading = false;
         //$scope.showMoreUserInfo=false;
@@ -2098,6 +2106,13 @@
         $timeout(function(){
           angular.element("#addUpdateCardId").empty();
           angular.element("#addUpdateCardId").append($scope.cardloadform);
+          //var iframe = document.getElementById('addUpdateCardId');
+          //iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
+          //
+          //iframe.document.open();
+          //iframe.document.clear();
+          //iframe.document.write($scope.cardloadform);
+          //iframe.document.close();
 
           vm.isAddUpdateCardLoading = false;
         },10);
