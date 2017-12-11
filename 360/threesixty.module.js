@@ -43,6 +43,7 @@
                 var urlParams = $location.search();
                 if(urlParams.status && urlParams.cusId){
                   $rootScope.isBaseSet2 = true;
+                  vm.selectThreeSixty(urlParams.profile);
                 }
 								 //if (true) {
 								if ($rootScope.isBaseSet2) {

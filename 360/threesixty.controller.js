@@ -1298,7 +1298,7 @@
 
         cardDetails = {
           "profileId": customer.profileId,
-          "redirectUrl": $location.absUrl(),
+          "redirectUrl": $location.absUrl()+"/?profile="+customer,
           "action": "update"
         };
       }
@@ -1308,7 +1308,7 @@
 
         cardDetails = {
           "profileId": customer.profileId,
-          "redirectUrl": $location.absUrl(),
+          "redirectUrl": $location.absUrl()+"/?profile="+customer,
           "action": "insert"
         };
       }
