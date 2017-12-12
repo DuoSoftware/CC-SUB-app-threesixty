@@ -15,7 +15,7 @@
 		.controller('ThreeSixtyController', ThreeSixtyController);
 
 	/** @ngInject */
-	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
+	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $location, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
 	{
 		var vm = this;
 
@@ -54,6 +54,7 @@
 		vm.tlLoadMore = tlLoadMore;
 		vm.refreshAttachmentPreview = refreshAttachmentPreview;
 		vm.downloadAttachment = downloadAttachment;
+		vm.switchInnerView = switchInnerView;
 
 		$scope.a={};
 		$scope.customer_supplier={};
@@ -62,6 +63,25 @@
 		$scope.moreLedgerLoaded = false;
 		$scope.searchMoreInit = true;
 		$scope.selectedDoc = {};
+
+		function gst(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+			}
+			//debugger;
+			return null;
+		}
+
+
+		$scope.categories=['Dealer','Supplier','Customer'];
+		$scope.isInvoiceTenant=false;
+		$scope.TenantType = gst("category");
+		if($scope.TenantType=="invoice")$scope.isInvoiceTenant=true;
+
 
 		/////////
 		function refreshAttachmentPreview () {
@@ -97,18 +117,6 @@
 		{
 			vm.dynamicHeight = current;
 		});
-
-		function gst(name) {
-			var nameEQ = name + "=";
-			var ca = document.cookie.split(';');
-			for (var i = 0; i < ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-			}
-			//debugger;
-			return null;
-		}
 
 		function getDomainName() {
 			var _st = gst("domain");
@@ -164,6 +172,8 @@
 				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
 
 				vm.selectedProfileOriginal=angular.copy(threesixty);
+
+        $scope.addUpdateCardDetails(threesixty);
 
 				// $scope.isLoading = false;
 			}).error(function(data) {
@@ -332,6 +342,15 @@
 			}else{
 				vm.appInnerState = "default";
 				vm.pageTitle="Create New";
+			}
+		}
+
+		function switchInnerView() {
+			$scope.showInpageReadpane = false;
+			if(vm.activeInvoicePaneIndex == 0){
+				vm.activeInvoicePaneIndex = 1;
+			}else{
+				vm.activeInvoicePaneIndex = 0;
 			}
 		}
 
@@ -1252,6 +1271,83 @@
 			}
 		}
 
+    $scope.cardloadform = "";
+    $scope.cardLastDigits = {};
+    vm.isAddUpdateCardLoading = false;
+
+    $scope.addUpdateCardDetails = function (customer){
+      vm.isAddUpdateCardLoading = true;
+      var cardDetails = {};
+      if($scope.customer_supplier.profile.stripeCustId!=null)
+      {
+        $charge.paymentgateway().getPaymentGatewayDetails(customer.profileId).success(function (response) {
+
+          var cardDetailDigits = response.data[0];
+          if(cardDetailDigits) {
+            $scope.cardLastDigits = cardDetailDigits;
+
+          }else{
+            $scope.cardLastDigits = {};
+          }
+
+        }).error(function(data) {
+          var cardloadfail = data;
+          $scope.cardLastDigits = {};
+
+        });
+
+        cardDetails = {
+          "profileId": customer.profileId,
+          "redirectUrl": $location.absUrl(),
+          "action": "update"
+        };
+      }
+      else
+      {
+        $scope.cardLastDigits = {};
+
+        cardDetails = {
+          "profileId": customer.profileId,
+          "redirectUrl": $location.absUrl(),
+          "action": "insert"
+        };
+      }
+
+      $charge.paymentgateway().addUpdateCard(cardDetails).success(function(data)
+      {
+        //
+        $scope.cardloadform = data;
+        if($scope.customer_supplier.profile.gatewayType=="adyen" || $scope.customer_supplier.profile.gatewayType==null)
+        {
+          $scope.cardloadform = $scope.cardloadform.toString().replace("adyen.createEncryptedForm(form, options);", "");
+        }
+        angular.element("#addUpdateCardId").empty();
+        angular.element("#addUpdateCardId").append($scope.cardloadform);
+
+        //var iframe = document.getElementById('addUpdateCardId');
+        //iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
+        //
+        //iframe.document.open();
+        //iframe.document.clear();
+        //iframe.document.write($scope.cardloadform);
+        //iframe.document.close();
+
+        vm.isAddUpdateCardLoading = false;
+        //$scope.showMoreUserInfo=false;
+
+      }).error(function(data)
+      {
+        //console.log(dataErrorInvoice);
+        //$scope.orderScheduledList.push(objOrderSchedule);
+        vm.isAddUpdateCardLoading = false;
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+      })
+    }
+
 		$scope.addProceedsInventoryCount = function (guOrderId,index){
 			$charge.invoice().getInvoiceCount(guOrderId).success(function(dataInvoice)
 			{
@@ -1822,14 +1918,14 @@
 				$scope.customer_supplier.profile.lastName = $scope.customer_supplier.profile.othername;
 				$scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
 				$scope.customer_supplier.profile.email = $scope.customer_supplier.profile.email_addr;
-				$scope.customer_supplier.profile.billAddress=document.getElementById('autocomplete').value;
-				$scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete').value;
-				$scope.customer_supplier.profile.country=document.getElementById('country').value;
-				$scope.customer_supplier.profile.bill_country=document.getElementById('country').value;
-				$scope.customer_supplier.profile.shipAddress=document.getElementById('autocomplete2').value;
-				$scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete2').value;
-				$scope.customer_supplier.profile.shipCountry=document.getElementById('country2').value;
-				$scope.customer_supplier.profile.ship_country=document.getElementById('country2').value;
+				$scope.customer_supplier.profile.billAddress=document.getElementById('autocomplete3').value;
+				$scope.customer_supplier.profile.bill_addr=document.getElementById('autocomplete3').value;
+				$scope.customer_supplier.profile.country=document.getElementById('country3').value;
+				$scope.customer_supplier.profile.bill_country=document.getElementById('country3').value;
+				$scope.customer_supplier.profile.shipAddress=document.getElementById('autocomplete4').value;
+				$scope.customer_supplier.profile.ship_addr=document.getElementById('autocomplete4').value;
+				$scope.customer_supplier.profile.shipCountry=document.getElementById('country4').value;
+				$scope.customer_supplier.profile.ship_country=document.getElementById('country4').value;
 
 				$charge.profile().update($scope.customer_supplier.profile).success(function(data){
 					//console.log(data);
@@ -1872,6 +1968,47 @@
 			}
 		}
 
+    $scope.removeUser = function (user) {
+      $charge.profile().deactivateProfile(user.email_addr).success(function(data){
+        //console.log(data);
+
+        if(data.response=="succeeded")
+        {
+          notifications.toast("Successfully Deactivated the Profile","success");
+          //$scope.editProfileInfo();
+          //vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
+          //vm.profileDetailSubmitted = false;
+          //$scope.getProfileAttachments($scope.customer_supplier.profile);
+          $rootScope.refreshpage();
+
+          $scope.infoJson= {};
+          $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Deactivated the Profile';
+          $scope.infoJson.app ='360';
+          logHelper.info( $scope.infoJson);
+        }
+        else
+        {
+          notifications.toast("Remove Profile Failed","error");
+          vm.profileDetailSubmitted = false;
+
+          $scope.infoJson= {};
+          $scope.infoJson.message =$scope.customer_supplier.profile.email+' Remove Profile Failed';
+          $scope.infoJson.app ='360';
+          logHelper.error( $scope.infoJson);
+        }
+
+      }).error(function(data){
+        //console.log(data);
+        notifications.toast("Remove Profile Failed","error");
+        vm.profileDetailSubmitted = false;
+
+        $scope.infoJson= {};
+        $scope.infoJson.message =$scope.customer_supplier.profile.email+' REmove Profile Failed';
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+      })
+    }
+
     $scope.createProfile={};
 
     $scope.addProfileInfoEnabled=false;
@@ -1913,9 +2050,10 @@
             //vm.selectedProfileOriginal=angular.copy($scope.createProfile);
             vm.profileDetailSubmitted = false;
             //$scope.getProfileAttachments($scope.customer_supplier.profile);
-            $rootScope.refreshpage();
-            $scope.createProfile={};
+			  vm.activeInvoicePaneIndex = 0;
 
+			  $rootScope.refreshpage();
+            $scope.createProfile={};
             $scope.infoJson= {};
             $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
             $scope.infoJson.app ='360';
@@ -1963,6 +2101,21 @@
 			$scope.reverseMoreLess =! $scope.reverseMoreLess;
 			if($scope.reverseMoreLess){
 				$scope.showMoreUserInfo=true;
+        vm.isAddUpdateCardLoading = true;
+
+        $timeout(function(){
+          angular.element("#addUpdateCardId").empty();
+          angular.element("#addUpdateCardId").append($scope.cardloadform);
+          //var iframe = document.getElementById('addUpdateCardId');
+          //iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
+          //
+          //iframe.document.open();
+          //iframe.document.clear();
+          //iframe.document.write($scope.cardloadform);
+          //iframe.document.close();
+
+          vm.isAddUpdateCardLoading = false;
+        },10);
 			}else{
 				$scope.showMoreUserInfo=false;
 			}
