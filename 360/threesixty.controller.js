@@ -15,7 +15,7 @@
 		.controller('ThreeSixtyController', ThreeSixtyController);
 
 	/** @ngInject */
-	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $location, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
+	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $uploader, $storage, $window, $mdMedia, $mdSidenav,$charge,$filter,$azureSearchHandle,logHelper)
 	{
 		var vm = this;
 
@@ -173,8 +173,6 @@
 
 				vm.selectedProfileOriginal=angular.copy(threesixty);
 
-        $scope.addUpdateCardDetails(threesixty);
-
 				// $scope.isLoading = false;
 			}).error(function(data) {
 				//console.log(data);
@@ -192,7 +190,6 @@
 			$scope.getScheduledOrders(threesixty);
 			$scope.getAuditTrailDetails(threesixty);
 			$scope.getProfileCommentsInit(threesixty);
-			$scope.getProfileAccounts(threesixty);
 			//$scope.loadInvoiceByCustomerId(threesixty.guCustomerID);
 
 			$timeout(function ()
@@ -1272,215 +1269,6 @@
 			}
 		}
 
-    $scope.cardloadform = "";
-    $scope.cardLastDigits = {};
-    vm.isAddUpdateCardLoading = false;
-
-    $scope.addUpdateCardDetails = function (customer){
-      vm.isAddUpdateCardLoading = true;
-      var cardDetails = {};
-      if($scope.customer_supplier.profile.stripeCustId!=null)
-      {
-        $charge.paymentgateway().getPaymentGatewayDetails(customer.profileId).success(function (response) {
-
-          var cardDetailDigits = response.data[0];
-          if(cardDetailDigits) {
-            $scope.cardLastDigits = cardDetailDigits;
-
-          }else{
-            $scope.cardLastDigits = {};
-          }
-
-        }).error(function(data) {
-          var cardloadfail = data;
-          $scope.cardLastDigits = {};
-
-        });
-
-        cardDetails = {
-          "profileId": customer.profileId,
-          "redirectUrl": $location.absUrl(),
-          "action": "update"
-        };
-      }
-      else
-      {
-        $scope.cardLastDigits = {};
-
-        cardDetails = {
-          "profileId": customer.profileId,
-          "redirectUrl": $location.absUrl(),
-          "action": "insert"
-        };
-      }
-
-      $charge.paymentgateway().addUpdateCard(cardDetails).success(function(data)
-      {
-        //
-        $scope.cardloadform = data;
-        if($scope.customer_supplier.profile.gatewayType=="adyen" || $scope.customer_supplier.profile.gatewayType==null)
-        {
-          $scope.cardloadform = $scope.cardloadform.toString().replace("adyen.createEncryptedForm(form, options);", "");
-        }
-        angular.element("#addUpdateCardId").empty();
-        angular.element("#addUpdateCardId").append($scope.cardloadform);
-
-        //var iframe = document.getElementById('addUpdateCardId');
-        //iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
-        //
-        //iframe.document.open();
-        //iframe.document.clear();
-        //iframe.document.write($scope.cardloadform);
-        //iframe.document.close();
-
-        vm.isAddUpdateCardLoading = false;
-        //$scope.showMoreUserInfo=false;
-
-      }).error(function(data)
-      {
-        //console.log(dataErrorInvoice);
-        //$scope.orderScheduledList.push(objOrderSchedule);
-        vm.isAddUpdateCardLoading = false;
-
-        $scope.infoJson= {};
-        $scope.infoJson.message =JSON.stringify(data);
-        $scope.infoJson.app ='360';
-        logHelper.error( $scope.infoJson);
-      })
-    }
-
-    $scope.profileAccountsList = [];
-    vm.isProfileAccountsLoading = false;
-
-    $scope.getProfileAccounts = function (customer){
-      $scope.profileAccountsList = [];
-      vm.enableUpdateProfileAccount = false;
-      $scope.profileAccount = {};
-      var cusId=customer.profileId;
-      vm.isProfileAccountsLoading = true;
-      $charge.accounts().getAccountsByCustId(cusId).success(function(data)
-      {
-        //console.log(data);
-        for (var i = 0; i < data.length; i++) {
-          var objProfileAccount=data[i];
-          $scope.profileAccountsList.push(objProfileAccount);
-
-        }
-
-        vm.isProfileAccountsLoading = false;
-
-      }).error(function(data)
-      {
-        //console.log(data);
-        vm.isProfileAccountsLoading = false;
-        //$scope.auditTrailList=[];
-        $scope.infoJson= {};
-        $scope.infoJson.message =JSON.stringify(data);
-        $scope.infoJson.app ='360';
-        logHelper.error( $scope.infoJson);
-      })
-    }
-
-    $scope.profileAccount={};
-    vm.profileAccountSubmitted = false;
-
-    $scope.submitProfileAccounts = function (customer){
-
-      if(!vm.enableUpdateProfileAccount)
-      {
-        vm.profileAccountSubmitted = true;
-        var profAccObj = {
-          "guCustomerId": customer.profileId,
-          "status": "Active",
-          "guTranID": "",
-          "remarks": $scope.profileAccount.remarks
-        };
-        $charge.accounts().store(profAccObj).success(function(data)
-        {
-          //console.log(data);
-          if(data.error=="00000")
-          {
-            notifications.toast("New account created!","success");
-            $scope.profileAccount={};
-            $scope.getProfileAccounts(customer);
-          }
-          vm.profileAccountSubmitted = false;
-
-        }).error(function(data)
-        {
-          //console.log(data);
-          notifications.toast("New account creation failed!","error");
-          vm.profileAccountSubmitted = false;
-
-          $scope.infoJson= {};
-          $scope.infoJson.message =JSON.stringify(data);
-          $scope.infoJson.app ='360';
-          logHelper.error( $scope.infoJson);
-        })
-      }
-      else
-      {
-        vm.profileAccountSubmitted = true;
-        if($scope.profileAccount.statusBool)
-        {
-          $scope.profileAccount.status = "Active";
-        }
-        else
-        {
-          $scope.profileAccount.status = "Inactive";
-        }
-
-        var profAccObj = {
-          "permanentAccountNo":$scope.profileAccount.permanentAccountNo,
-          "remarks": $scope.profileAccount.remarks,
-          "status": $scope.profileAccount.status
-        };
-        $charge.accounts().updateAccount(profAccObj).success(function(data)
-        {
-          //console.log(data);
-          if(data.error=="00000")
-          {
-            notifications.toast("Account details updated!","success");
-            $scope.profileAccount={};
-            $scope.getProfileAccounts(customer);
-            vm.enableUpdateProfileAccount = false;
-          }
-          vm.profileAccountSubmitted = false;
-
-        }).error(function(data)
-        {
-          //console.log(data);
-          notifications.toast("Account details updating failed!","error");
-          vm.profileAccountSubmitted = false;
-
-          $scope.infoJson= {};
-          $scope.infoJson.message =JSON.stringify(data);
-          $scope.infoJson.app ='360';
-          logHelper.error( $scope.infoJson);
-        })
-      }
-
-    }
-
-    vm.enableUpdateProfileAccount = false;
-    $scope.updateProfileAccount = function (account){
-      vm.enableUpdateProfileAccount = true;
-      $scope.profileAccount = account;
-      if($scope.profileAccount.status=='Active')
-      {
-        $scope.profileAccount.statusBool = true;
-      }
-      else
-      {
-        $scope.profileAccount.statusBool = false;
-      }
-    }
-
-    $scope.cancelUpdateProfileAccount = function (){
-      vm.enableUpdateProfileAccount = false;
-      $scope.profileAccount = {};
-    }
-
 		$scope.addProceedsInventoryCount = function (guOrderId,index){
 			$charge.invoice().getInvoiceCount(guOrderId).success(function(dataInvoice)
 			{
@@ -2234,21 +2022,6 @@
 			$scope.reverseMoreLess =! $scope.reverseMoreLess;
 			if($scope.reverseMoreLess){
 				$scope.showMoreUserInfo=true;
-        vm.isAddUpdateCardLoading = true;
-
-        $timeout(function(){
-          angular.element("#addUpdateCardId").empty();
-          angular.element("#addUpdateCardId").append($scope.cardloadform);
-          //var iframe = document.getElementById('addUpdateCardId');
-          //iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
-          //
-          //iframe.document.open();
-          //iframe.document.clear();
-          //iframe.document.write($scope.cardloadform);
-          //iframe.document.close();
-
-          vm.isAddUpdateCardLoading = false;
-        },10);
 			}else{
 				$scope.showMoreUserInfo=false;
 			}
