@@ -624,6 +624,103 @@
                                         </div>
                                     </md-tab-body>
                                 </md-tab>
+                                <md-tab label="Accounts">
+                                  <md-tab-label>
+                                    <md-icon md-font-icon="icon-comment"></md-icon> Accounts
+                                  </md-tab-label>
+                                  <md-tab-body>
+                                    <div class="preloader" ng-if="!vm.isLoaded || vm.isProfileAccountsLoading">
+                                      <md-progress-circular></md-progress-circular>
+                                    </div>
+                                    <div class="md-padding">
+                                      <div flex class="list-offset sub-list">
+                                        <div class="list-header" layout="row" flex md-whiteframe="1dp">
+                                          <div flex="10">#</div>
+                                          <div flex="20">Account Number</div>
+                                          <div flex="35">Remarks</div>
+                                          <div flex>Status</div>
+                                        </div>
+                                        <md-card-content class="p-0" flex>
+                                          <md-content class="list-content" ms-scroll>
+                                            <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="profileAccountsList.length == 0">
+                                              <span><md-icon md-font-icon="icon-information-outline"></md-icon> No any other Account available for this profile</span>
+                                            </div>
+                                            <div layout="row" flex class="list-item" ng-repeat="item in profileAccountsList" ng-hide="profileAccountsList.length == 0">
+                                              <div flex="10">
+                                                <span>{{$index + 1}}</span>
+                                              </div>
+                                              <div flex="20">
+                                                <span>{{item.permanentAccountNo}}</span>
+                                              </div>
+                                              <div flex="35">
+                                                <span>{{item.remarks}}</span>
+                                              </div>
+                                              <div flex>
+                                                <span>{{item.status}}</span>
+                                              </div>
+                                              <div flex="10">
+                                                <span>
+                                                  <md-button ng-click="updateProfileAccount(item)">
+                                                    <md-icon md-font-icon="icon-pencil"></md-icon>
+                                                  </md-button>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </md-content>
+                                        </md-card-content>
+                                      </div>
+                                      <form id="addProfileAccountForm" name="vm.addProfileAccountForm" ng-submit="submitProfileAccounts(customer_supplier.profile)" novalidate flex>
+                                        <md-card flex class="input-block-gen">
+                                          <md-card-title>
+                                            <div layout="row" layout-align="start center">
+                                              <md-icon md-font-icon="icon-cog"></md-icon>
+                                              <h3 ng-if="!vm.enableUpdateProfileAccount">Create New Account</h3>
+                                              <h3 ng-if="vm.enableUpdateProfileAccount">Update Account</h3>
+                                            </div>
+                                          </md-card-title>
+                                          <md-card-content md-whiteframe="1dp">
+                                            <div layout="row" ng-if="vm.enableUpdateProfileAccount">
+                                              <md-input-container flex>
+                                                <label>Account Number</label>
+                                                <input type="text" ng-required="true" ng-disabled="true" min="" name="permanentAccountNo" ng-model="profileAccount.permanentAccountNo">
+                                              </md-input-container>
+                                              <div flex="5"></div>
+                                              <md-input-container layout="row" flex="30">
+                                                <label>Status</label>
+                                                <md-switch ng-model="profileAccount.statusBool" class="md-primary" ng-true-value="true" ng-false-value="false">
+                                                  {{profileAccount.statusBool==true?'Active':'Inactive'}}
+                                                </md-switch>
+                                              </md-input-container>
+                                            </div>
+                                            <div layout="row">
+                                              <md-input-container flex>
+                                                <label>Remark</label>
+                                                <input type="text" ng-required="false" min="" ng-maxlength="100" name="remarks" ng-model="profileAccount.remarks">
+                                                <div ng-messages="vm.addProfileAccountForm.remarks.$error">
+                                                  <div ng-message="maxlength">Remark must be between 1-100 characters</div>
+                                                </div>
+                                              </md-input-container>
+                                              <!--<div flex="5"></div>-->
+                                              <!--<md-input-container flex="30">-->
+                                                <!--<label>Last Name</label>-->
+                                                <!--<input type="text" ng-required="true" min="1" ng-maxlength="30" name="othername" ng-model="customer_supplier.profile.othername">-->
+                                                <!--<div ng-messages="vm.editProfileForm.othername.$error">-->
+                                                  <!--<div ng-message="maxlength">Last Name must be between 1-30 characters</div>-->
+                                                <!--</div>-->
+                                              <!--</md-input-container>-->
+                                            </div>
+                                            <div layout="row" layout-align="end center" class="">
+                                              <md-progress-circular class="gen-save-indicator" ng-if="vm.profileAccountSubmitted"></md-progress-circular>
+                                              <md-button ng-disabled="vm.profileAccountSubmitted" type="submit" form="addProfileAccountForm" class="md-raised md-accent" ng-if="!vm.enableUpdateProfileAccount">Save</md-button>
+                                              <md-button ng-disabled="vm.profileAccountSubmitted" type="submit" form="addProfileAccountForm" class="md-raised md-accent" ng-if="vm.enableUpdateProfileAccount">Update</md-button>
+                                              <md-button type="button" ng-click="cancelUpdateProfileAccount()" class="md-raised" ng-if="vm.enableUpdateProfileAccount">Cancel</md-button>
+                                            </div>
+                                          </md-card-content>
+                                        </md-card>
+                                      </form>
+                                    </div>
+                                  </md-tab-body>
+                                </md-tab>
                                 <md-tab label="Attachments">
                                     <md-tab-label>
                                         <md-icon md-font-icon="icon-attachment"></md-icon> Attachments

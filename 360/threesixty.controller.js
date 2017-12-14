@@ -192,6 +192,7 @@
 			$scope.getScheduledOrders(threesixty);
 			$scope.getAuditTrailDetails(threesixty);
 			$scope.getProfileCommentsInit(threesixty);
+			$scope.getProfileAccounts(threesixty);
 			//$scope.loadInvoiceByCustomerId(threesixty.guCustomerID);
 
 			$timeout(function ()
@@ -1346,6 +1347,138 @@
         $scope.infoJson.app ='360';
         logHelper.error( $scope.infoJson);
       })
+    }
+
+    $scope.profileAccountsList = [];
+    vm.isProfileAccountsLoading = false;
+
+    $scope.getProfileAccounts = function (customer){
+      $scope.profileAccountsList = [];
+      vm.enableUpdateProfileAccount = false;
+      $scope.profileAccount = {};
+      var cusId=customer.profileId;
+      vm.isProfileAccountsLoading = true;
+      $charge.accounts().getAccountsByCustId(cusId).success(function(data)
+      {
+        //console.log(data);
+        for (var i = 0; i < data.length; i++) {
+          var objProfileAccount=data[i];
+          $scope.profileAccountsList.push(objProfileAccount);
+
+        }
+
+        vm.isProfileAccountsLoading = false;
+
+      }).error(function(data)
+      {
+        //console.log(data);
+        vm.isProfileAccountsLoading = false;
+        //$scope.auditTrailList=[];
+        $scope.infoJson= {};
+        $scope.infoJson.message =JSON.stringify(data);
+        $scope.infoJson.app ='360';
+        logHelper.error( $scope.infoJson);
+      })
+    }
+
+    $scope.profileAccount={};
+    vm.profileAccountSubmitted = false;
+
+    $scope.submitProfileAccounts = function (customer){
+
+      if(!vm.enableUpdateProfileAccount)
+      {
+        vm.profileAccountSubmitted = true;
+        var profAccObj = {
+          "guCustomerId": customer.profileId,
+          "status": "Active",
+          "guTranID": "",
+          "remarks": $scope.profileAccount.remarks
+        };
+        $charge.accounts().store(profAccObj).success(function(data)
+        {
+          //console.log(data);
+          if(data.error=="00000")
+          {
+            notifications.toast("New account created!","success");
+            $scope.profileAccount={};
+            $scope.getProfileAccounts(customer);
+          }
+          vm.profileAccountSubmitted = false;
+
+        }).error(function(data)
+        {
+          //console.log(data);
+          notifications.toast("New account creation failed!","error");
+          vm.profileAccountSubmitted = false;
+
+          $scope.infoJson= {};
+          $scope.infoJson.message =JSON.stringify(data);
+          $scope.infoJson.app ='360';
+          logHelper.error( $scope.infoJson);
+        })
+      }
+      else
+      {
+        vm.profileAccountSubmitted = true;
+        if($scope.profileAccount.statusBool)
+        {
+          $scope.profileAccount.status = "Active";
+        }
+        else
+        {
+          $scope.profileAccount.status = "Inactive";
+        }
+
+        var profAccObj = {
+          "permanentAccountNo":$scope.profileAccount.permanentAccountNo,
+          "remarks": $scope.profileAccount.remarks,
+          "status": $scope.profileAccount.status
+        };
+        $charge.accounts().updateAccount(profAccObj).success(function(data)
+        {
+          //console.log(data);
+          if(data.error=="00000")
+          {
+            notifications.toast("Account details updated!","success");
+            $scope.profileAccount={};
+            $scope.getProfileAccounts(customer);
+            vm.enableUpdateProfileAccount = false;
+          }
+          vm.profileAccountSubmitted = false;
+
+        }).error(function(data)
+        {
+          //console.log(data);
+          notifications.toast("Account details updating failed!","error");
+          vm.profileAccountSubmitted = false;
+
+          $scope.infoJson= {};
+          $scope.infoJson.message =JSON.stringify(data);
+          $scope.infoJson.app ='360';
+          logHelper.error( $scope.infoJson);
+        })
+      }
+
+    }
+
+    vm.enableUpdateProfileAccount = false;
+    $scope.updateProfileAccount = function (account){
+      vm.enableUpdateProfileAccount = true;
+      $scope.profileAccount = account;
+      if($scope.profileAccount.status=='Active')
+      {
+        $scope.profileAccount.statusBool = true;
+      }
+      else
+      {
+        $scope.profileAccount.statusBool = false;
+      }
+    }
+
+    $scope.cancelUpdateProfileAccount = function (){
+      vm.enableUpdateProfileAccount = false;
+      $scope.profileAccount = {};
     }
 
 		$scope.addProceedsInventoryCount = function (guOrderId,index){
