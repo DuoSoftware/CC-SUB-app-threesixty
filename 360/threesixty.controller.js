@@ -2040,6 +2040,8 @@
 			  vm.activeInvoicePaneIndex = 0;
 
 			  $rootScope.refreshpage();
+			  $scope.addProfileInfoEnabled = false;
+			  $scope.editProfileInfoEnabled = false;
             $scope.createProfile={};
             $scope.infoJson= {};
             $scope.infoJson.message =$scope.customer_supplier.profile.email+' Successfully Updated the Profile';
