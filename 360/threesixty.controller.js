@@ -913,6 +913,14 @@
 						//recbalance+=parseFloat(obj.amount);
 						obj.amount=-obj.amount;
 					}
+					else if(obj.transactionType.toLowerCase()=="creditnote")
+				    {
+					  obj.transactionType = "CREDIT NOTE";
+				    }
+				    else if(obj.transactionType.toLowerCase()=="debitnote")
+				    {
+					  obj.transactionType = "DEBIT NOTE";
+				    }
 					var checkamount=parseFloat(obj.amount);
 					if(checkamount<0)
 					{
@@ -1486,9 +1494,10 @@
 			{
 				$scope.openPaymentLst(ev,item);
 			}
-			else if(item.transactionType.toLowerCase()=="creditnote"||item.transactionType.toLowerCase()=="debitnote")
+			else if(item.transactionType.toLowerCase()=="credit note"||item.transactionType.toLowerCase()=="debit note")
 			{
-				$scope.openAdjustmentLst(ev,item);
+				//$scope.openAdjustmentLst(ev,item);
+				item.isDialogLoading = false;
 			}
 		}
 
