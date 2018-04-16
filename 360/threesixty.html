@@ -18,23 +18,15 @@
     <div ng-switch-when="default" class="center" layout="column" flex>
         <div layout="column" layout-align="start start">
             <div class="v-header" layout="column" flex fill-width>
-                <div class="title" layout="column" layout-align="center start" ng-if="!themeDuoworld">
+                <div class="title" layout="column" layout-align="center start">
                     <div class="logo" layout="row" layout-align="start center">
                         <span class="logo-icon">
-                          <img src="app/core/app_icons/360_app_icon.png" alt=""/>
+                            <img src="app/core/app_icons/360_app_icon.png" alt="" />
                         </span>
                         <span class="logo-text">360°</span>
                     </div>
                 </div>
                 <div layout="row">
-                    <div class="title" layout="column" layout-align="center start" ng-if="themeDuoworld">
-                        <div class="logo" layout="row" layout-align="start center">
-                        <span class="logo-icon">
-                          <img src="app/core/app_icons/360_app_icon_black.png" alt=""/>
-                        </span>
-                            <span class="logo-text">360°</span>
-                        </div>
-                    </div>
                     <div class="search-wrapper md-whiteframe-4dp animate-fade-in-out" layout="row" layout-align="start center" flex>
                         <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md>
                             <md-icon class="icon" md-font-icon="icon-menu"></md-icon>
@@ -42,10 +34,13 @@
 
                         <div class="search" flex layout="row" layout-align="start center">
                             <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
-                            <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordProfile(vm.search,3)" placeholder="Search for Profiles">
+                            <input flex ng-model="vm.search" type="text" ng-keypress="searchKeyPress($event,vm.search,vm.search.length)" ng-change="loadByKeywordProfile(vm.search,3)"
+                                placeholder="Search for Profiles">
                         </div>
                     </div>
-                    <md-button class="md-raised md-accent main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activeInvoicePaneIndex == 1" ng-click="vm.switchInnerView()" ng-if="!inpageReadPaneEdit"><span class="fs-18 mr-10">+</span> NEW
+                    <md-button class="md-raised md-accent main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activeInvoicePaneIndex == 1"
+                        ng-click="vm.switchInnerView()" ng-if="!inpageReadPaneEdit">
+                        <span class="fs-18 mr-10">+</span> NEW
                     </md-button>
                 </div>
                 <!--<md-button class="md-raised main-app-create" layout="row" layout-align="center center" aria-label="compose" ng-disabled="vm.activeInvoicePaneIndex == 1" ng-click="switchInnerView()"><span class="fs-18 mr-10 fc-accent">+</span> NEW-->
@@ -79,9 +74,7 @@
 
                 <!-- INVOICE VIEW PANE TOOLBAR -->
                 <div class="toolbar" layout="row" layout-align="end center" ng-if="vm.activeInvoicePaneIndex === 1">
-                    <md-button class="md-icon-button"
-                               ng-click="vm.closeReadPane()"
-                    >
+                    <md-button class="md-icon-button" ng-click="vm.closeReadPane()">
                         <md-icon md-font-icon="icon-close"></md-icon>
                     </md-button>
                 </div>
@@ -101,8 +94,7 @@
                         <md-tab>
                             <md-tab-label>ThreeSixty List Pane</md-tab-label>
                             <md-tab-body>
-                                <div class="content main-list-pane"
-                                     ng-include="'app/main/360/views/list/list-view.html'" ms-scroll>
+                                <div class="content main-list-pane" ng-include="'app/main/360/views/list/list-view.html'" ms-scroll>
                                 </div>
                             </md-tab-body>
                         </md-tab>
@@ -112,8 +104,7 @@
                         <md-tab>
                             <md-tab-label>ThreeSixty Display Pane</md-tab-label>
                             <md-tab-body>
-                                <div class="content invoice-display-pane"
-                                     ng-include="'app/main/360/views/read/read-view.html'" ms-scroll>
+                                <div class="content invoice-display-pane" ng-include="'app/main/360/views/read/read-view.html'" ms-scroll>
                                 </div>
                                 <div md-whiteframe="8dp" layout="row" layout-align="space-between center" class="bottom-fixed-bar fixed">
                                     <div layout="row"></div>
@@ -159,10 +150,10 @@
                                     </md-button>
                                 </md-menu-item>
                                 <!--<md-menu-item>-->
-                                    <!--<md-button ng-click="addNewProfileInfo()">-->
-                                        <!--<md-icon md-font-icon="icon-pencil"></md-icon>-->
-                                        <!--<span>Create New</span>-->
-                                    <!--</md-button>-->
+                                <!--<md-button ng-click="addNewProfileInfo()">-->
+                                <!--<md-icon md-font-icon="icon-pencil"></md-icon>-->
+                                <!--<span>Create New</span>-->
+                                <!--</md-button>-->
                                 <!--</md-menu-item>-->
                             </md-menu-content>
                         </md-menu>
@@ -187,7 +178,8 @@
                     </div>
                 </div>
 
-                <md-content ng-attr-data-toggle="{{!isAttachmentPreviewOn ? 'ms-scroll' : ''}}" layout="column" class="inpage-readpane-body p-0 pos-rel" ng-if="!inpageReadPaneEdit && !editProfileInfoEnabled && !addProfileInfoEnabled">
+                <md-content ng-attr-data-toggle="{{!isAttachmentPreviewOn ? 'ms-scroll' : ''}}" layout="column" class="inpage-readpane-body p-0 pos-rel"
+                    ng-if="!inpageReadPaneEdit && !editProfileInfoEnabled && !addProfileInfoEnabled">
                     <div id="threesixty-read" flex>
                         <!--Billing Info row-->
                         <div layout="column" class="billing-info" fill-height>
@@ -428,25 +420,35 @@
                                                                     </div>
                                                                     <!--<md-button ng-click="editProfileInfo(customer_supplier.profile)" class="md-icon-button edit-icon"><md-icon md-font-icon="icon-pencil"></md-icon><md-tooltip>Edit Profile Info</md-tooltip> </md-button>-->
                                                                     <div layout="row" layout-align="start center" class="more-collapse" ng-style="showMoreUserInfo ? {'right':'10px','bottom':'0px', 'background':'#fafafa'} : null">
-                                                                        <md-button class="md-icon-button m-0" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>
+                                                                        <md-button class="md-icon-button m-0" ng-click="contentExpandHandler()">
+                                                                            <md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon>
+                                                                            <md-icon md-font-icon="icon-chevron-up"
+                                                                                ng-if="showMoreUserInfo"></md-icon>
+                                                                        </md-button>
+                                                                        <label ng-if="showMoreUserInfo">Less</label>
+                                                                        <label ng-if="!showMoreUserInfo">More</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <md-divider class="mt-10"></md-divider>
-                                                            <div layout="row" flex ng-if="showMoreUserInfo" class="p-10 light-gray">
+                                                            <div layout="row" flex ng-show="showMoreUserInfo" class="p-10 light-gray">
                                                                 <div layout="column" class="pos-rel" flex>
-                                                                    <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
+                                                                    <div class="preloader" ng-if="!vm.isLoaded">
+                                                                        <md-progress-circular></md-progress-circular>
+                                                                    </div>
                                                                     <div layout="row">
                                                                         <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                             <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                                <md-icon md-font-icon="icon-email"></md-icon> <span flex>Email</span>
+                                                                                <md-icon md-font-icon="icon-email"></md-icon>
+                                                                                <span flex>Email</span>
                                                                             </div>
                                                                             <div flex>{{customer_supplier.profile.email_addr}}</div>
                                                                         </div>
                                                                         <div flex="5"></div>
                                                                         <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                             <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                                <md-icon md-font-icon="icon-map"></md-icon> <span flex>User category</span>
+                                                                                <md-icon md-font-icon="icon-map"></md-icon>
+                                                                                <span flex>User category</span>
                                                                             </div>
                                                                             <div flex class="">{{customer_supplier.profile.category}}</div>
                                                                         </div>
@@ -454,57 +456,78 @@
                                                                     <div layout="row">
                                                                         <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                             <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                                <md-icon md-font-icon="icon-calendar-check"></md-icon> <span flex>Registered date</span>
+                                                                                <md-icon md-font-icon="icon-calendar-check"></md-icon>
+                                                                                <span flex>Registered date</span>
                                                                             </div>
-                                                                            <div flex class="">{{customer_supplier.profile.createddate.split(' ')[0]}}</div>
+                                                                            <div flex class="">{{customer_supplier.profile.createddate.split('
+                                                                                ')[0]}}</div>
                                                                         </div>
                                                                         <div flex="5"></div>
                                                                         <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                             <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                                <md-icon md-font-icon="icon-phone"></md-icon> <span flex>Contact</span>
+                                                                                <md-icon md-font-icon="icon-phone"></md-icon>
+                                                                                <span flex>Contact</span>
                                                                             </div>
-                                                                            <div flex class="">{{customer_supplier.profile.contact}}</div>
+                                                                            <div flex class="">{{customer_supplier.profile.contact != "" ? customer_supplier.profile.contact
+                                                                                : "-"}}</div>
                                                                         </div>
                                                                     </div>
                                                                     <div layout="row" class="mt-20">
                                                                         <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                             <div class="iconed-label" layout="row" layout-align="start center" flex="25">
-                                                                                <md-icon md-font-icon="icon-home"></md-icon> <span flex>Billing address</span>
+                                                                                <md-icon md-font-icon="icon-home"></md-icon>
+                                                                                <span flex>Billing address</span>
                                                                             </div>
-                                                                            <div flex class="">{{customer_supplier.profile.bill_addr}}</div>
+                                                                            <div flex class="">{{customer_supplier.profile.bill_addr != "" ?
+                                                                                customer_supplier.profile.bill_addr : "-"}}</div>
                                                                         </div>
                                                                         <div class="info-grid-row bordered" flex="5"></div>
                                                                     </div>
                                                                     <div layout="row">
                                                                         <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
                                                                             <div class="iconed-label" layout="row" layout-align="start center" flex="25">
-                                                                                <i class="material-icons">local_shipping</i> <span flex>Shipping address</span>
+                                                                                <i class="material-icons">local_shipping</i>
+                                                                                <span flex>Shipping address</span>
                                                                             </div>
-                                                                            <div flex class="">{{customer_supplier.profile.ship_addr}}</div>
+                                                                            <div flex class="">{{customer_supplier.profile.ship_addr != "" ?
+                                                                                customer_supplier.profile.ship_addr : "-"}}</div>
                                                                         </div>
                                                                         <div class="info-grid-row" flex="5"></div>
                                                                     </div>
                                                                     <div layout="row" class="mt-20">
                                                                         <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
-                                                                                <md-icon md-font-icon="icon-credit-card-multiple"></md-icon> <span flex>Cards</span>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex=25>
+                                                                                <md-icon md-font-icon="icon-credit-card-multiple"></md-icon>
+                                                                                <span flex>Cards</span>
                                                                             </div>
-                                                                            <div flex ng-if="customer_supplier.profile.stripeCustId != null"><md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> Available</div>
-                                                                            <div flex class="op-5" ng-if="customer_supplier.profile.stripeCustId == null"><i>Not available</i></div>
+                                                                            <div flex ng-if="customer_supplier.profile.stripeCustId != null" layout="row" layout-align="start center">
+                                                                                <div>
+                                                                                    <md-icon md-font-icon="icon-credit-card" class="font-accent"></md-icon> 
+                                                                                    <i flex>XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</i>
+                                                                                </div>
+                                                                                <div flex="5"></div>
+                                                                                <iframe id="addUpdateCardId" class="iframe-auto-height" style="border: none" flex></iframe>
+                                                                            </div>
+                                                                            <div flex ng-if="customer_supplier.profile.stripeCustId == null" layout="row" layout-align="start center">
+                                                                                <span flex>-</span>
+                                                                                <div flex="5"></div>
+                                                                                <iframe flex id="addUpdateCardId" class="iframe-auto-height" style="border: none"></iframe>
+                                                                            </div>
                                                                         </div>
-                                                                        <div flex="5"></div>
+                                                                    </div>
+                                                                    <div layout="row" class="mt-20">
                                                                         <div layout="row" layout-align="start center" class="info-grid-row" flex>
-                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex>
+                                                                            <div class="iconed-label" layout="row" layout-align="start center" flex="25">
                                                                                 <i class="material-icons">local_atm</i>
                                                                                 <span flex>Payment gateway</span>
                                                                             </div>
                                                                             <div flex>
                                                                                 <!--{{customer_supplier.profile.gatewayType}}-->
-                                                                                <div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -40px"></div>
+                                                                                <div class="online_{{customer_supplier.profile.gatewayType | lowercase}} scale-down-5" style="margin-left: -25px"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div layout="row" class="mt-20">
+                                                                    <!-- <div layout="row" class="mt-20">
                                                                       <div class="preloader" ng-if="vm.isAddUpdateCardLoading"><md-progress-circular></md-progress-circular></div>
                                                                       <div layout="row" layout-align="start center" class="info-grid-row" flex ng-if="customer_supplier.profile.stripeCustId">
                                                                         <div class="iconed-label" layout="row" layout-align="start center" flex>
@@ -516,44 +539,52 @@
                                                                         </div>
                                                                       </div>
                                                                       <div layout="row" layout-align="start center" class="info-grid-row" id="addUpdateCardId" flex>
-                                                                      </div>
-                                                                      <!--<div layout="row" class="prodCost" flex layout="row" layout-align="start center" ng-if="cardLastDigits">-->
-                                                                        <!--<span ng-class="cardLastDigits.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</span>-->
-                                                                        <!--<md-tooltip>XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</md-tooltip>-->
-                                                                      <!--</div>-->
-                                                                    </div>
+                                                                      </div> -->
+                                                                    <!--<div layout="row" class="prodCost" flex layout="row" layout-align="start center" ng-if="cardLastDigits">-->
+                                                                    <!--<span ng-class="cardLastDigits.brand"></span> <span class="text-truncate card-no">XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</span>-->
+                                                                    <!--<md-tooltip>XXXX-XXXX-XXXX-{{cardLastDigits.last4}}</md-tooltip>-->
+                                                                    <!--</div>-->
+                                                                    <!-- </div> -->
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!--Contact info portion - END-->
-                                                <div class="info-block mt-20" layout="row">
+                                                <div class="info-block" layout="row">
                                                     <div class="payment reg" flex>
                                                         <div>Total billed</div>
                                                         <div class="pos-rel">
-                                                            <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
+                                                            <div class="preloader" ng-if="!vm.isLoaded">
+                                                                <md-progress-circular></md-progress-circular>
+                                                            </div>
                                                             <span>{{ledgerlist.invbalance| isoCurrency:BaseCurrency:decimalPoint}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="payment reg" flex>
                                                         <div>Total paid</div>
                                                         <div class="pos-rel">
-                                                            <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
+                                                            <div class="preloader" ng-if="!vm.isLoaded">
+                                                                <md-progress-circular></md-progress-circular>
+                                                            </div>
                                                             <span>{{ledgerlist.recbalance| isoCurrency:BaseCurrency:decimalPoint}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="payment reg" flex>
                                                         <div>Adjustment</div>
                                                         <div class="pos-rel">
-                                                            <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
+                                                            <div class="preloader" ng-if="!vm.isLoaded">
+                                                                <md-progress-circular></md-progress-circular>
+                                                            </div>
                                                             <span>{{ledgerlist.adjustmentbalance| isoCurrency:BaseCurrency:decimalPoint}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="payment total" flex>
                                                         <div>Total due</div>
                                                         <div class="pos-rel">
-                                                            <div class="preloader" ng-if="!vm.isLoaded"><md-progress-circular></md-progress-circular></div>
+                                                            <div class="preloader" ng-if="!vm.isLoaded">
+                                                                <md-progress-circular></md-progress-circular>
+                                                            </div>
                                                             <span>{{ledgerlist.totalbal| isoCurrency:BaseCurrency:decimalPoint}}</span>
                                                         </div>
                                                     </div>
@@ -583,8 +614,10 @@
 
                                                         <div flex="5"></div>
 
-                                                        <div flex="30" ng-class="{'isTimelineDialogLoaded':isTimelineDialogLoaded == false, 'dead':item.transactionType.toLowerCase() == 'creditnote'}" class="info-portion" layout="row" layout-align="center center">
-                                                            <md-card md-theme="default" md-theme-watch="" ng-click="clickLedgerItem($event,item)" layout="row" layout-align="space-between center" flex>
+                                                        <div flex="30" ng-class="{'isTimelineDialogLoaded':isTimelineDialogLoaded == false, 'dead':item.transactionType.toLowerCase() == 'creditnote'}"
+                                                            class="info-portion" layout="row" layout-align="center center">
+                                                            <md-card md-theme="default" md-theme-watch="" ng-click="clickLedgerItem($event,item)" layout="row" layout-align="space-between center"
+                                                                flex>
                                                                 <div layout="column">
                                                                     <div layout="row">
                                                                         <span>{{item.transactionType}}</span>
@@ -620,7 +653,8 @@
                                                         <div flex></div>
                                                     </div>
                                                     <div class="msg-empty-list">
-                                                        <span><md-icon md-font-icon="icon-information-outline"></md-icon> No ledger records available for this customer</span>
+                                                        <span>
+                                                            <md-icon md-font-icon="icon-information-outline"></md-icon> No ledger records available for this customer</span>
                                                     </div>
                                                 </div>
                                                 <!-- / Customer Ledger-->
@@ -640,10 +674,14 @@
                                             <md-content flex fill-height ms-scroll class="md-padding">
                                                 <!--<img ng-if="attachment.split('.')[attachment.split('.').length-1]=='pdf'" layout="column" flex="10" src="assets/images/adobe-pdf-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
                                                 <!--<img ng-if="attachment.split('.')[attachment.split('.').length-1]!='pdf'" src="assets/images/Preview-icon.png" style="padding-top: 3px;height: 25px;width:22px"/>-->
-                                                <div layout="column" layout-align="center center" class="msg-empty-list" ng-if="vm.profileAttachmentList.result.length == 0" flex>
-                                                    <span><md-icon md-font-icon="icon-information-outline"></md-icon> No attachment is available</span>
+                                                <div layout="column" layout-align="center center" class="msg-empty-list" ng-if="vm.profileAttachmentList.result.length == 0"
+                                                    flex>
+                                                    <span>
+                                                        <md-icon md-font-icon="icon-information-outline"></md-icon> No attachment is available</span>
                                                 </div>
-                                                <md-button ng-repeat="attachment in vm.profileAttachmentList.result" ng-class="{'md-whiteframe-1dp':attachmentPreview == attachment}" layout="column" layout-align="start center" class="attachment text-center" ng-click="openItemUrl(attachment)" id="pdfChip" readonly="true">
+                                                <md-button ng-repeat="attachment in vm.profileAttachmentList.result" ng-class="{'md-whiteframe-1dp':attachmentPreview == attachment}"
+                                                    layout="column" layout-align="start center" class="attachment text-center"
+                                                    ng-click="openItemUrl(attachment)" id="pdfChip" readonly="true">
                                                     <md-icon class="md-accent" md-font-icon="icon-{{attachment.split('.').pop().toLowerCase()=='pdf' ? 'file-pdf-box' : attachment.split('.').pop().toLowerCase() == 'png' ? 'file-image-box' : 'file-document-box'}}"></md-icon>
                                                     <div flex>
                                                         <div ng-if="attachment.split('/').pop().split('.')[0].length < 10">{{attachment.split('/').pop().split('.')[0]}}.{{attachment.split('/').pop().split('.').pop()}}</div>
@@ -651,15 +689,12 @@
                                                     </div>
                                                 </md-button>
                                             </md-content>
-                                            <div flex="60" fill-height ng-if="isAttachmentPreviewOn" class="pos-rel md-padding" layout="column" layout-align="start center" style="background:#fafafa;border-left: solid 1px #eee">
+                                            <div flex="60" fill-height ng-if="isAttachmentPreviewOn" class="pos-rel md-padding" layout="column" layout-align="start center"
+                                                style="background:#fafafa;border-left: solid 1px #eee">
                                                 <!--<iframe src="{{attachmentPreview | trustUrl}}" frameborder="0"></iframe>-->
                                                 <!--<img src="{{attachmentPreview}}" alt="">-->
-                                                <pdf-viewer ng-if="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex
-                                                            delegate-handle="my-pdf-container"
-                                                            url="attachmentPreview"
-                                                            scale="1"
-                                                            show-toolbar="true"
-                                                            headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
+                                                <pdf-viewer ng-if="fileExtension == 'pdf' && refreshPreview" layout="column" layout-align="center center" flex delegate-handle="my-pdf-container"
+                                                    url="attachmentPreview" scale="1" show-toolbar="true" headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
 
                                                 <div class="preview-container" flex layout="column" layout-align="center center" ng-if="fileExtension == 'jpeg' || fileExtension == 'jpg' || fileExtension == 'png' || fileExtension == 'svg' || fileExtension == 'gif'">
                                                     <img md-whiteframe="2dp" src="{{attachmentPreview}}">
@@ -676,10 +711,15 @@
 
                                                 <div layout="row" layout-align="space-between center" class="mt-20 pl-15 pb-5 pt-10 bg-white" fill-width>
                                                     <div flex>
-                                                        <div class="mb-5" layout="row"><span class="w-60 fw-500">Name:</span> {{fileName}}</div>
-                                                        <div class="mb-5" layout="row"><span class="w-60 fw-500">Size:</span> {{fileSize}}</div>
+                                                        <div class="mb-5" layout="row">
+                                                            <span class="w-60 fw-500">Name:</span> {{fileName}}</div>
+                                                        <div class="mb-5" layout="row">
+                                                            <span class="w-60 fw-500">Size:</span> {{fileSize}}</div>
                                                     </div>
-                                                    <md-button ng-disabled="downloading" class="md-icon-button md-accent" ng-click="vm.downloadAttachment(attachmentPreview)"><md-icon md-font-icon="icon-download"></md-icon><md-tooltip>Download</md-tooltip></md-button>
+                                                    <md-button ng-disabled="downloading" class="md-icon-button md-accent" ng-click="vm.downloadAttachment(attachmentPreview)">
+                                                        <md-icon md-font-icon="icon-download"></md-icon>
+                                                        <md-tooltip>Download</md-tooltip>
+                                                    </md-button>
                                                     <md-button class="md-icon-button" ng-click="removeAttachment(customer_supplier.profile,attachmentPreview.split('/').pop())">
                                                         <md-icon md-font-icon="icon-delete"></md-icon>
                                                     </md-button>
@@ -725,13 +765,16 @@
                                                         <div class="sub-list">
                                                             <div layout="column" class="list-item" ng-click="" layout-align="center start" ng-repeat="item in commentsList">
                                                                 <span flex class="mb-10">{{item.comment}}</span>
-                                                                <span fill-width class="fs-12 text-right fw-500">{{item.createdDate | date:'dd-mm-yyyy'}} <span>{{item.createdDate | date:'shortTime'}}</span></span>
+                                                                <span fill-width class="fs-12 text-right fw-500">{{item.createdDate | date:'dd-mm-yyyy'}}
+                                                                    <span>{{item.createdDate | date:'shortTime'}}</span>
+                                                                </span>
                                                                 <!--<span flex class="fw-500">{{item.createdDate}}</span>-->
                                                                 <!--<span flex>{{item.comment}}</span>-->
                                                             </div>
                                                         </div>
                                                         <div layout="row" layout-align="center center" class="" ng-if="!moreProfileCommentsLoaded">
-                                                            <md-button ng-click="searchmoreProfileComments(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
+                                                            <md-button ng-click="searchmoreProfileComments(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400">
+                                                                <md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -758,7 +801,8 @@
                                                 <md-card-content class="p-0" flex>
                                                     <md-content class="list-content" ms-scroll>
                                                         <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="auditTrailList.length == 0">
-                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No history for audit trail is available</span>
+                                                            <span>
+                                                                <md-icon md-font-icon="icon-information-outline"></md-icon> No history for audit trail is available</span>
                                                         </div>
                                                         <div layout="row" flex class="list-item" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel">
                                                             <div flex="10">
@@ -775,7 +819,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
-                                                            <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
+                                                            <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400">
+                                                                <md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
                                                         </div>
                                                     </md-content>
                                                 </md-card-content>
@@ -844,9 +889,10 @@
                                                 <md-card-content class="p-0" flex>
                                                     <md-content class="list-content" ms-scroll>
                                                         <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="orderScheduledList.length == 0">
-                                                            <span><md-icon md-font-icon="icon-information-outline"></md-icon> No schedule is available</span>
+                                                            <span>
+                                                                <md-icon md-font-icon="icon-information-outline"></md-icon> No schedule is available</span>
                                                         </div>
-                                                        <div layout="row" flex class="list-item"  ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">
+                                                        <div layout="row" flex class="list-item" ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">
                                                             <div flex="10">
                                                                 {{$index + 1}}
                                                             </div>
@@ -868,13 +914,16 @@
                                                             <div flex>
                                                                 {{detail.logic | limitTo:10}}
                                                             </div>
-                                                            <div flex="10" layout="row" layout-align="end center" >
-                                                                <md-button class="stop-btn md-warn md-raised w-55 m-0" style="line-height: 20px;" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>
-                                                                <md-button class="stop-btn md-accent md-raised w-55 m-0" style="line-height: 20px;" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>
+                                                            <div flex="10" layout="row" layout-align="end center">
+                                                                <md-button class="stop-btn md-warn md-raised w-55 m-0" style="line-height: 20px;" ng-click="disconnectOrder(detail.guOrderId,detail)"
+                                                                    ng-show="detail.scheduleActive">STOP </md-button>
+                                                                <md-button class="stop-btn md-accent md-raised w-55 m-0" style="line-height: 20px;" ng-click="resumeOrder(detail.guOrderId,detail)"
+                                                                    ng-hide="detail.scheduleActive">START </md-button>
                                                             </div>
                                                         </div>
                                                         <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
-                                                            <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
+                                                            <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400">
+                                                                <md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
                                                         </div>
                                                     </md-content>
                                                 </md-card-content>
@@ -883,55 +932,55 @@
 
 
                                         <!--<md-card class="carded-list-wrap" md-whiteframe="2dp">-->
-                                            <!--<md-card-header>-->
-                                                <!--<md-card-header-text layout="row">-->
-                                                    <!--<span flex="5">ID</span>-->
-                                                    <!--<span flex>CREATE DATE</span>-->
-                                                    <!--<span flex>TYPE</span>-->
-                                                    <!--<span flex>FREQUENCY</span>-->
-                                                    <!--<span flex>PROCEEDS</span>-->
-                                                    <!--<span flex>REMAINING</span>-->
-                                                    <!--<span flex>NEXT DATE</span>-->
-                                                    <!--<span flex="10"></span>-->
-                                                <!--</md-card-header-text>-->
-                                            <!--</md-card-header>-->
-                                            <!--<md-divider></md-divider>-->
+                                        <!--<md-card-header>-->
+                                        <!--<md-card-header-text layout="row">-->
+                                        <!--<span flex="5">ID</span>-->
+                                        <!--<span flex>CREATE DATE</span>-->
+                                        <!--<span flex>TYPE</span>-->
+                                        <!--<span flex>FREQUENCY</span>-->
+                                        <!--<span flex>PROCEEDS</span>-->
+                                        <!--<span flex>REMAINING</span>-->
+                                        <!--<span flex>NEXT DATE</span>-->
+                                        <!--<span flex="10"></span>-->
+                                        <!--</md-card-header-text>-->
+                                        <!--</md-card-header>-->
+                                        <!--<md-divider></md-divider>-->
 
-                                            <!--<md-content ms-scroll>-->
-                                                <!--<div layout="row" class="carded-list-row" ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">-->
-                                                    <!--<div flex="5">-->
-                                                        <!--{{$index + 1}}-->
-                                                    <!--</div>-->
-                                                    <!--<div flex>-->
-                                                        <!--{{detail.createDate}}-->
-                                                    <!--</div>-->
-                                                    <!--<div flex>-->
-                                                        <!--{{detail.type}}-->
-                                                    <!--</div>-->
-                                                    <!--<div flex>-->
-                                                        <!--{{detail.frequency}}-->
-                                                    <!--</div>-->
-                                                    <!--<div flex>-->
-                                                        <!--{{detail.proceedinvoices}}-->
-                                                    <!--</div>-->
-                                                    <!--<div flex>-->
-                                                        <!--{{detail.occurences}}-->
-                                                    <!--</div>-->
-                                                    <!--<div flex>-->
-                                                        <!--{{detail.logic | limitTo:10}}-->
-                                                    <!--</div>-->
-                                                    <!--&lt;!&ndash;<div flex="5">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<md-button class="md-icon-button stop-btn"><md-icon md-font-icon="icon-close"></md-icon> </md-button>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                    <!--<div flex="10" layout="row" layout-align="end center" >-->
-                                                        <!--<md-button class="stop-btn md-warn md-raised" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>-->
-                                                        <!--<md-button class="stop-btn md-accent md-raised" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div ng-show="noOrderScheduleLabel" layout="column" layout-align="center center" style="height: 100%;">-->
-                                                    <!--<span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Scheduled Orders for this User!</span>-->
-                                                <!--</div>-->
-                                            <!--</md-content>-->
+                                        <!--<md-content ms-scroll>-->
+                                        <!--<div layout="row" class="carded-list-row" ng-repeat="detail in orderScheduledList|orderBy:'-createDate'" ng-hide="noOrderScheduleLabel">-->
+                                        <!--<div flex="5">-->
+                                        <!--{{$index + 1}}-->
+                                        <!--</div>-->
+                                        <!--<div flex>-->
+                                        <!--{{detail.createDate}}-->
+                                        <!--</div>-->
+                                        <!--<div flex>-->
+                                        <!--{{detail.type}}-->
+                                        <!--</div>-->
+                                        <!--<div flex>-->
+                                        <!--{{detail.frequency}}-->
+                                        <!--</div>-->
+                                        <!--<div flex>-->
+                                        <!--{{detail.proceedinvoices}}-->
+                                        <!--</div>-->
+                                        <!--<div flex>-->
+                                        <!--{{detail.occurences}}-->
+                                        <!--</div>-->
+                                        <!--<div flex>-->
+                                        <!--{{detail.logic | limitTo:10}}-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;<div flex="5">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<md-button class="md-icon-button stop-btn"><md-icon md-font-icon="icon-close"></md-icon> </md-button>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--<div flex="10" layout="row" layout-align="end center" >-->
+                                        <!--<md-button class="stop-btn md-warn md-raised" ng-click="disconnectOrder(detail.guOrderId,detail)" ng-show="detail.scheduleActive">STOP </md-button>-->
+                                        <!--<md-button class="stop-btn md-accent md-raised" ng-click="resumeOrder(detail.guOrderId,detail)" ng-hide="detail.scheduleActive">START </md-button>-->
+                                        <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div ng-show="noOrderScheduleLabel" layout="column" layout-align="center center" style="height: 100%;">-->
+                                        <!--<span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Scheduled Orders for this User!</span>-->
+                                        <!--</div>-->
+                                        <!--</md-content>-->
                                         <!--</md-card>-->
                                     </md-tab-body>
                                 </md-tab>
@@ -940,22 +989,26 @@
                         </div>
                         <!-- / Billing Info row-->
                     </div>
-                    <div layout="row" layout-align="start center" md-whiteframe="8dp" class="p-10 input-footer animate-fade-in-out" ng-if="threesixtyTabs == 2" flex>
+                    <div layout="row" layout-align="start center" md-whiteframe="8dp" class="p-10 input-footer animate-fade-in-out" ng-if="threesixtyTabs == 2"
+                        flex>
                         <md-input-container class="mb-0 mt-20" flex>
                             <label>Comment</label>
                             <textarea ng-required="true" ng-maxlength="300" name="comment" ng-model="profileComment.comment"></textarea>
                         </md-input-container>
                         <div flex="5"></div>
-                        <md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)" class="h-35 md-raised md-accent">Add</md-button>
+                        <md-button ng-disabled="vm.profileCommentSubmitted" type="submit" ng-click="submitProfileComment(customer_supplier.profile)"
+                            class="h-35 md-raised md-accent">Add</md-button>
                     </div>
                 </md-content>
-                <md-content ms-scroll layout="column" class="inpage-readpane-body p-0" ng-if="!inpageReadPaneEdit && editProfileInfoEnabled" flex>
+                <md-content ms-scroll layout="column" class="inpage-readpane-body p-0" ng-if="!inpageReadPaneEdit && editProfileInfoEnabled"
+                    flex>
                     <!--Profile edit-->
                     <form id="editProfileForm" name="vm.editProfileForm" ng-submit="submitProfilePre()" novalidate flex>
                         <md-card flex class="input-block-gen">
                             <md-card-title>
                                 <div layout="row" layout-align="start center">
-                                    <md-icon md-font-icon="icon-cog"></md-icon> <h3>General details</h3>
+                                    <md-icon md-font-icon="icon-cog"></md-icon>
+                                    <h3>General details</h3>
                                 </div>
                             </md-card-title>
                             <md-card-content md-whiteframe="1dp">
@@ -1006,14 +1059,16 @@
                         <md-card flex class="input-block-gen">
                             <md-card-title>
                                 <div layout="row" layout-align="start center">
-                                    <md-icon md-font-icon="icon-home"></md-icon> <h3>Billing & Shipping details</h3>
+                                    <md-icon md-font-icon="icon-home"></md-icon>
+                                    <h3>Billing & Shipping details</h3>
                                 </div>
                             </md-card-title>
                             <md-card-content md-whiteframe="1dp">
                                 <div layout="row">
                                     <md-input-container flex="30">
                                         <label>Billing Address</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete3" placeholder="" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="customer_supplier.profile.bill_addr">
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete3" placeholder="" onFocus="geolocate3()"
+                                            onchange="clearaddress()" name="bill_addr" ng-model="customer_supplier.profile.bill_addr">
                                         <div ng-messages="vm.editProfileForm.bill_addr.$error">
                                             <div ng-message="maxlength">Address must be between 1-200 characters</div>
                                         </div>
@@ -1030,7 +1085,8 @@
                                 <div layout="row">
                                     <md-input-container flex="30">
                                         <label>Shipping Address</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete4" placeholder="" onFocus="geolocate3()" onchange="clearaddress2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
+                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete4" placeholder="" onFocus="geolocate3()"
+                                            onchange="clearaddress2()" name="ship_addr" ng-model="customer_supplier.profile.ship_addr">
                                         <div ng-messages="vm.editProfileForm.ship_addr.$error">
                                             <div ng-message="maxlength">Address must be between 1-200 characters</div>
                                         </div>
@@ -1049,7 +1105,8 @@
                         <md-card flex class="input-block-gen">
                             <md-card-title>
                                 <div layout="row" layout-align="start center">
-                                    <md-icon md-font-icon="icon-attachment"></md-icon> <h3>Attachments</h3>
+                                    <md-icon md-font-icon="icon-attachment"></md-icon>
+                                    <h3>Attachments</h3>
                                 </div>
                             </md-card-title>
                             <md-card-content md-whiteframe="1dp">
@@ -1071,7 +1128,8 @@
                                 <!--</div>-->
                                 <!--</md-input-container>-->
                                 <!--<div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">Receipts,Documents,etc..</div>-->
-                                <lf-ng-md-file-input lf-files="customer_supplier.profile.attachment"  lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" drag preview flex></lf-ng-md-file-input>
+                                <lf-ng-md-file-input lf-files="customer_supplier.profile.attachment" lf-on-file-click="onFileClick" lf-remove-label="Delete"
+                                    lf-drag-and-drop-label="Drag and Drop here!" drag preview flex></lf-ng-md-file-input>
                                 <!--<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>-->
                                 <!--</file-up-loader>-->
                             </md-card-content>
@@ -1127,9 +1185,7 @@
 
             <!-- INVOICE VIEW PANE TOOLBAR -->
             <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 1">
-                <md-button class="md-icon-button"
-                           ng-click="vm.closeReadPane()"
-                >
+                <md-button class="md-icon-button" ng-click="vm.closeReadPane()">
                     <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
                 </md-button>
             </div>
@@ -1139,17 +1195,14 @@
             <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 0">
 
                 <div layout="row" layout-align="start center">
-                    <md-checkbox class="no-label"
-                                 ng-checked="vm.allChecked" ng-click="vm.checkAll()"></md-checkbox>
+                    <md-checkbox class="no-label" ng-checked="vm.allChecked" ng-click="vm.checkAll()"></md-checkbox>
                     <md-menu>
-                        <md-button class="md-icon-button"
-                                   ng-click="$mdOpenMenu($event)"
-                        >
+                        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
                             <md-icon md-font-icon="icon-menu-down"></md-icon>
                         </md-button>
                         <md-menu-content width="3">
                             <md-menu-item>
-                                <md-button >
+                                <md-button>
                                     All
                                 </md-button>
                             </md-menu-item>
@@ -1172,23 +1225,28 @@
 
                     <md-button class="md-icon-button" hide show-gt-sm>
                         <md-icon md-font-icon="icon-archive"></md-icon>
-                        <md-tooltip><span>Archive</span></md-tooltip>
+                        <md-tooltip>
+                            <span>Archive</span>
+                        </md-tooltip>
                     </md-button>
 
                     <md-button class="md-icon-button" hide show-gt-sm>
                         <md-icon md-font-icon="icon-alert-octagon"></md-icon>
-                        <md-tooltip><span>Clear</span></md-tooltip>
+                        <md-tooltip>
+                            <span>Clear</span>
+                        </md-tooltip>
                     </md-button>
 
                     <md-button class="md-icon-button" hide show-gt-sm>
                         <md-icon md-font-icon="icon-delete"></md-icon>
-                        <md-tooltip><span>Delete</span></md-tooltip>
+                        <md-tooltip>
+                            <span>Delete</span>
+                        </md-tooltip>
                     </md-button>
 
 
                     <md-menu hide-gt-sm>
-                        <md-button class="md-icon-button"
-                                   ng-click="$mdOpenMenu($event)">
+                        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
                             <md-icon md-font-icon="icon-dots-vertical"></md-icon>
                         </md-button>
                         <md-menu-content width="3">
@@ -1219,12 +1277,16 @@
 
                     <md-button class="md-icon-button arrow">
                         <md-icon md-font-icon="icon-chevron-left"></md-icon>
-                        <md-tooltip><span>Previous</span></md-tooltip>
+                        <md-tooltip>
+                            <span>Previous</span>
+                        </md-tooltip>
                     </md-button>
 
                     <md-button class="md-icon-button arrow">
                         <md-icon md-font-icon="icon-chevron-right"></md-icon>
-                        <md-tooltip><span>Next</span></md-tooltip>
+                        <md-tooltip>
+                            <span>Next</span>
+                        </md-tooltip>
                     </md-button>
                 </div>
             </div>
@@ -1240,19 +1302,10 @@
                                 <label>Customer</label>
                             </div>
                             <div layout-gt-sm="row">
-                                <md-autocomplete flex
-                                                 md-select-on-match
-                                                 ng-keypress="enter($event)"
-                                                 ng-disabled="vm.isDisabled"
-                                                 md-input-name="autocompleteField"
-                                                 md-no-cache="vm.noCache"
-                                                 md-selected-item="customer_supplier.customer"
-                                                 md-selected-item-change="loadInvoice(customer_supplier.customer)"
-                                                 md-search-text="vm.searchText"
-                                                 md-items="item in vm.querySearch(vm.searchText)"
-                                                 md-item-text="item.display"
-                                                 md-floating-label="Customer"
-                                                 md-min-length="0">
+                                <md-autocomplete flex md-select-on-match ng-keypress="enter($event)" ng-disabled="vm.isDisabled" md-input-name="autocompleteField"
+                                    md-no-cache="vm.noCache" md-selected-item="customer_supplier.customer" md-selected-item-change="loadInvoice(customer_supplier.customer)"
+                                    md-search-text="vm.searchText" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.display"
+                                    md-floating-label="Customer" md-min-length="0">
                                     <md-item-template>
                                         <span md-highlight-text="vm.searchText">{{item.display+" : "+item.value.othername}}</span>
                                     </md-item-template>
@@ -1263,7 +1316,8 @@
                             <div layout-gt-sm="row">
                                 <div class="md-block p-l-50" style="padding-top: 13px;" flex-gt-sm>
                                     <!--<label>Payment Date</label>-->
-                                    <md-datepicker ng-model="content.paymentDate" ng-init="content.paymentDate=today;" style="width: 300px;" placeholder="Payment Date" label="Payment Date">
+                                    <md-datepicker ng-model="content.paymentDate" ng-init="content.paymentDate=today;" style="width: 300px;" placeholder="Payment Date"
+                                        label="Payment Date">
                                     </md-datepicker>
                                 </div>
                                 <md-input-container class="md-block p-l-50" flex-gt-sm>
@@ -1278,7 +1332,8 @@
                                 </div>
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Currency Convert Rate</label>
-                                    <input ng-required="false" minlength="null" md-maxlength="null" type="" name="rate" min="" ng-pattern="" ng-disabled="true" ng-model="currencyRate">
+                                    <input ng-required="false" minlength="null" md-maxlength="null" type="" name="rate" min="" ng-pattern="" ng-disabled="true"
+                                        ng-model="currencyRate">
                                 </md-input-container>
                             </div>
 
@@ -1306,7 +1361,7 @@
                             </div>
                             <div>
                                 <md-list style="height:250px;overflow-y: scroll;">
-                                    <md-list-item  ng-repeat="item in invoicelist"  style="outline:none;">
+                                    <md-list-item ng-repeat="item in invoicelist" style="outline:none;">
                                         <md-card layout="row" class="md-card-wrap" layout-align="space-between center">
                                             <div flex="20" layout="column">
                                                 <label class="md-card-label-wrap">{{item.invoiceNo}}</label>
@@ -1331,7 +1386,7 @@
                                             </div>
 
                                         </md-card>
-                                    </md-list-item >
+                                    </md-list-item>
                                 </md-list>
                             </div>
                             <div layout-gt-sm="row" class="calc-detail-wrap">
@@ -1343,7 +1398,8 @@
                             <div layout-gt-sm="row">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Payment Amount</label>
-                                    <input ng-required="true" minlength="null" md-maxlength="null" type="number" name="amount" min="0" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" style="text-align:right;" ng-model="content.amount">
+                                    <input ng-required="true" minlength="null" md-maxlength="null" type="number" name="amount" min="0" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                        style="text-align:right;" ng-model="content.amount">
                                 </md-input-container>
                             </div>
 
@@ -1371,7 +1427,8 @@
                                 <div layout-gt-sm="row">
                                     <md-input-container class="md-block p-l-50" flex-gt-sm>
                                         <label>Bank Charges</label>
-                                        <input ng-required="false" minlength="null" md-maxlength="null" style="width: 180px;" type="number" name="bankCharges" min="0" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.bankCharges">
+                                        <input ng-required="false" minlength="null" md-maxlength="null" style="width: 180px;" type="number" name="bankCharges" min="0"
+                                            step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.bankCharges">
                                     </md-input-container>
                                     <md-input-container class="md-block" flex-gt-sm>
                                         <label>Notes</label>
@@ -1478,253 +1535,251 @@
 <!--<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>-->
 
 <script>
-	var placeSearch, autocomplete,autocomplete2;
-	var componentForm = {
-		country: 'long_name'
-	};
-	var componentForm2 = {
-		country: 'long_name'
-	};
+    var placeSearch, autocomplete, autocomplete2;
+    var componentForm = {
+        country: 'long_name'
+    };
+    var componentForm2 = {
+        country: 'long_name'
+    };
 
-	function initAutocomplete() {
-		// Create the autocomplete object, restricting the search to geographical
-		// location types.
-		autocomplete = new google.maps.places.Autocomplete(
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-			{types: ['geocode']});
+            { types: ['geocode'] });
 
-		// When the user selects an address from the dropdown, populate the address
-		// fields in the form.
-		autocomplete.addListener('place_changed', fillInAddress);
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
 
-		autocomplete2 = new google.maps.places.Autocomplete(
+        autocomplete2 = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
-			{types: ['geocode']});
+            { types: ['geocode'] });
 
-		// When the user selects an address from the dropdown, populate the address
-		// fields in the form.
-		autocomplete2.addListener('place_changed', fillInAddress2);
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete2.addListener('place_changed', fillInAddress2);
 
-		autocomplete3 = new google.maps.places.Autocomplete(
+        autocomplete3 = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete3')),
-			{types: ['geocode']});
+            { types: ['geocode'] });
 
-		// When the user selects an address from the dropdown, populate the address
-		// fields in the form.
-		autocomplete3.addListener('place_changed', fillInAddress2);
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete3.addListener('place_changed', fillInAddress2);
 
-		autocomplete4 = new google.maps.places.Autocomplete(
+        autocomplete4 = new google.maps.places.Autocomplete(
 			/** @type {!HTMLInputElement} */(document.getElementById('autocomplete4')),
-			{types: ['geocode']});
+            { types: ['geocode'] });
 
-		// When the user selects an address from the dropdown, populate the address
-		// fields in the form.
-		autocomplete4.addListener('place_changed', fillInAddress2);
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete4.addListener('place_changed', fillInAddress2);
 
-	}
+    }
 
-	function fillInAddress() {
-		// Get the place details from the autocomplete object.
-//    geolocate();
-		var place = autocomplete.getPlace();
-//		debugger;
-		for (var component in componentForm) {
-			document.getElementById(component).value = '';
-			//document.getElementById(component).disabled = false;
-		}
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        //    geolocate();
+        var place = autocomplete.getPlace();
+        //		debugger;
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            //document.getElementById(component).disabled = false;
+        }
 
-		// Get each component of the address from the place details
-		// and fill the corresponding field on the form.
-		for (var i = 0; i < place.address_components.length; i++) {
-			var addressType = place.address_components[i].types[0];
-			if (componentForm[addressType]) {
-				var val = place.address_components[i][componentForm[addressType]];
-				document.getElementById(addressType).value = val;
-				document.getElementById(addressType).focus();
-			}
-//			else if(addressType=='administrative_area_level_2')
-//			{
-//				var val = place.address_components[i]['long_name'];
-//				document.getElementById('locality').value = val;
-//				document.getElementById('locality').focus();
-//			}
-		}
-	}
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+                document.getElementById(addressType).focus();
+            }
+            //			else if(addressType=='administrative_area_level_2')
+            //			{
+            //				var val = place.address_components[i]['long_name'];
+            //				document.getElementById('locality').value = val;
+            //				document.getElementById('locality').focus();
+            //			}
+        }
+    }
 
-	function clearaddress(){
-		if(document.getElementById('autocomplete').value==''){
-			for (var component in componentForm) {
-				document.getElementById(component).value = '';
-				//document.getElementById(component).disabled = false;
-			}
-		}
-	}
+    function clearaddress() {
+        if (document.getElementById('autocomplete').value == '') {
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                //document.getElementById(component).disabled = false;
+            }
+        }
+    }
 
-	// Bias the autocomplete object to the user's geographical location,
-	// as supplied by the browser's 'navigator.geolocation' object.
-	function geolocate() {
-		initAutocomplete();
-		if (navigator.geolocation) {
-			document.getElementById('autocomplete').focus();
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
-				var circle = new google.maps.Circle({
-					center: geolocation,
-					radius: position.coords.accuracy
-				});
-				autocomplete.setBounds(circle.getBounds());
-			});
-		}
-	}
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        initAutocomplete();
+        if (navigator.geolocation) {
+            document.getElementById('autocomplete').focus();
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
 
-	function geolocate3() {
-		initAutocomplete();
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation3 = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
-				var circle3 = new google.maps.Circle({
-					center: geolocation3,
-					radius: position.coords.accuracy
-				});
-				autocomplete.setBounds(circle3.getBounds());
-			});
-		}
-	}
+    function geolocate3() {
+        initAutocomplete();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var geolocation3 = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle3 = new google.maps.Circle({
+                    center: geolocation3,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle3.getBounds());
+            });
+        }
+    }
 
-	function fillInAddress2() {
-		// Get the place details from the autocomplete object.
-		var place = autocomplete2.getPlace();
-		//debugger;
-		for (var component in componentForm2) {
-//			document.getElementById(component+"2").value = '';
-			//document.getElementById(component).disabled = false;
-		}
+    function fillInAddress2() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete2.getPlace();
+        //debugger;
+        for (var component in componentForm2) {
+            //			document.getElementById(component+"2").value = '';
+            //document.getElementById(component).disabled = false;
+        }
 
-		// Get each component of the address from the place details
-		// and fill the corresponding field on the form.
-		for (var i = 0; i < place.address_components.length; i++) {
-			var addressType = place.address_components[i].types[0];
-			if (componentForm2[addressType]) {
-				var val = place.address_components[i][componentForm2[addressType]];
-				document.getElementById(addressType+"2").value = val;
-				document.getElementById(addressType+"2").focus();
-			}
-//			else if(addressType=='administrative_area_level_2')
-//			{
-//				var val = place.address_components[i]['long_name'];
-//				document.getElementById('locality2').value = val;
-//				document.getElementById('locality2').focus();
-//			}
-		}
-	}
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm2[addressType]) {
+                var val = place.address_components[i][componentForm2[addressType]];
+                document.getElementById(addressType + "2").value = val;
+                document.getElementById(addressType + "2").focus();
+            }
+            //			else if(addressType=='administrative_area_level_2')
+            //			{
+            //				var val = place.address_components[i]['long_name'];
+            //				document.getElementById('locality2').value = val;
+            //				document.getElementById('locality2').focus();
+            //			}
+        }
+    }
 
-	function clearaddress2(){
-		if(document.getElementById('autocomplete2').value==''){
-			for (var component in componentForm2) {
-				document.getElementById(component+"2").value = '';
-				//document.getElementById(component).disabled = false;
-			}
-		}
-	}
+    function clearaddress2() {
+        if (document.getElementById('autocomplete2').value == '') {
+            for (var component in componentForm2) {
+                document.getElementById(component + "2").value = '';
+                //document.getElementById(component).disabled = false;
+            }
+        }
+    }
 
-	// Bias the autocomplete object to the user's geographical location,
-	// as supplied by the browser's 'navigator.geolocation' object.
-	function geolocate2() {
-		initAutocomplete();
-		if (navigator.geolocation) {
-			document.getElementById('autocomplete2').focus();
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation2 = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
-				var circle2 = new google.maps.Circle({
-					center: geolocation2,
-					radius: position.coords.accuracy
-				});
-				autocomplete2.setBounds(circle2.getBounds());
-			});
-		}
-	}
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate2() {
+        initAutocomplete();
+        if (navigator.geolocation) {
+            document.getElementById('autocomplete2').focus();
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var geolocation2 = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle2 = new google.maps.Circle({
+                    center: geolocation2,
+                    radius: position.coords.accuracy
+                });
+                autocomplete2.setBounds(circle2.getBounds());
+            });
+        }
+    }
 
-	function geolocate4() {
-		initAutocomplete();
-		if (navigator.geolocation) {
-			document.getElementById('autocomplete4').focus();
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var geolocation2 = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
-				var circle2 = new google.maps.Circle({
-					center: geolocation2,
-					radius: position.coords.accuracy
-				});
-				autocomplete4.setBounds(circle2.getBounds());
-			});
-		}
-	}
+    function geolocate4() {
+        initAutocomplete();
+        if (navigator.geolocation) {
+            document.getElementById('autocomplete4').focus();
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var geolocation2 = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle2 = new google.maps.Circle({
+                    center: geolocation2,
+                    radius: position.coords.accuracy
+                });
+                autocomplete4.setBounds(circle2.getBounds());
+            });
+        }
+    }
 
-	function fillInAddress4() {
-		// Get the place details from the autocomplete object.
-		var place = autocomplete4.getPlace();
-		//debugger;
-		for (var component in componentForm3) {
-			document.getElementById(component+"3").value = '';
-			//document.getElementById(component).disabled = false;
-		}
+    function fillInAddress4() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete4.getPlace();
+        //debugger;
+        for (var component in componentForm3) {
+            document.getElementById(component + "3").value = '';
+            //document.getElementById(component).disabled = false;
+        }
 
-		// Get each component of the address from the place details
-		// and fill the corresponding field on the form.
-		for (var i = 0; i < place.address_components.length; i++) {
-			var addressType = place.address_components[i].types[0];
-			if (componentForm3[addressType]) {
-				var val = place.address_components[i][componentForm3[addressType]];
-				document.getElementById(addressType+"3").value = val;
-				document.getElementById(addressType+"3").focus();
-			}
-			else if(addressType=='administrative_area_level_2')
-			{
-				var val = place.address_components[i]['long_name'];
-				document.getElementById('locality3').value = val;
-				document.getElementById('locality3').focus();
-			}
-		}
-	}
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm3[addressType]) {
+                var val = place.address_components[i][componentForm3[addressType]];
+                document.getElementById(addressType + "3").value = val;
+                document.getElementById(addressType + "3").focus();
+            }
+            else if (addressType == 'administrative_area_level_2') {
+                var val = place.address_components[i]['long_name'];
+                document.getElementById('locality3').value = val;
+                document.getElementById('locality3').focus();
+            }
+        }
+    }
 
 
-	function fillInAddress3() {
-		// Get the place details from the autocomplete object.
-		var place = autocomplete3.getPlace();
-		//debugger;
-		for (var component in componentForm3) {
-			document.getElementById(component+"3").value = '';
-			//document.getElementById(component).disabled = false;
-		}
+    function fillInAddress3() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete3.getPlace();
+        //debugger;
+        for (var component in componentForm3) {
+            document.getElementById(component + "3").value = '';
+            //document.getElementById(component).disabled = false;
+        }
 
-		// Get each component of the address from the place details
-		// and fill the corresponding field on the form.
-		for (var i = 0; i < place.address_components.length; i++) {
-			var addressType = place.address_components[i].types[0];
-			if (componentForm3[addressType]) {
-				var val = place.address_components[i][componentForm3[addressType]];
-				document.getElementById(addressType+"3").value = val;
-				document.getElementById(addressType+"3").focus();
-			}
-			else if(addressType=='administrative_area_level_2')
-			{
-				var val = place.address_components[i]['long_name'];
-				document.getElementById('locality3').value = val;
-				document.getElementById('locality3').focus();
-			}
-		}
-	}
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm3[addressType]) {
+                var val = place.address_components[i][componentForm3[addressType]];
+                document.getElementById(addressType + "3").value = val;
+                document.getElementById(addressType + "3").focus();
+            }
+            else if (addressType == 'administrative_area_level_2') {
+                var val = place.address_components[i]['long_name'];
+                document.getElementById('locality3').value = val;
+                document.getElementById('locality3').focus();
+            }
+        }
+    }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>
