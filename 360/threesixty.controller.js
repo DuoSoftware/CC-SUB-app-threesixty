@@ -979,19 +979,19 @@
 			var cusId = customer.profileId;
 			$scope.noAuditTrailLabel = false;
 			vm.isAuditTrailLoaded = true;
-			$charge.audit().getByAccountId(cusId, skipAuditTrails, takeAuditTrails, 'desc').success(function (data) {
+			$charge.orderhistory().getAuditHistoryByAccID(cusId, skipAuditTrails, takeAuditTrails, 'desc').success(function (data) {
 				//console.log(data);
 				skipAuditTrails += takeAuditTrails;
 				//$scope.auditTrailList=data;
-				for (var i = 0; i < data.length; i++) {
-					var objAuditTrail = data[i];
+				for (var i = 0; i < data.result.length; i++) {
+					var objAuditTrail = data.result[i];
 					//objAuditTrail.id=i+1;
 					//objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
 					$scope.auditTrailList.push(objAuditTrail);
 
 				}
 
-				if (data.length < takeAuditTrails) {
+				if (data.result.length < takeAuditTrails) {
 					vm.isAuditTrailLoaded = false;
 				}
 				$scope.moreAuditTrailLoaded = true;
