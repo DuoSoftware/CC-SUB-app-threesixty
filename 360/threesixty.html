@@ -1067,7 +1067,7 @@
                                 <div layout="row">
                                     <md-input-container flex="30">
                                         <label>Billing Address</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="200" id="autocomplete3" placeholder="" onFocus="geolocate3()"
+                                        <input type="text" ng-required="true" min="1" ng-maxlength="200" id="autocomplete3" placeholder="" onFocus="geolocate3()"
                                             onchange="clearaddress()" name="bill_addr" ng-model="customer_supplier.profile.bill_addr">
                                         <div ng-messages="vm.editProfileForm.bill_addr.$error">
                                             <div ng-message="maxlength">Address must be between 1-200 characters</div>
