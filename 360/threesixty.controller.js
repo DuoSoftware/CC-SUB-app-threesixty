@@ -2003,6 +2003,10 @@
 				})
 			}
 		}
+		
+		$scope.addressChanged = function () {
+		  $scope.createProfile.country = document.getElementById('country').value;
+		}
 
 		$scope.showInpageReadpane = false;
 		$scope.switchInfoPane = function (state, profile) {
