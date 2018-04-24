@@ -1076,7 +1076,7 @@
                                     <div flex="5"></div>
                                     <md-input-container flex="30">
                                         <label>Bill Country</label>
-                                        <input type="text" ng-required="false" min="1" ng-maxlength="35" id="country3" name="bill_country" ng-model="customer_supplier.profile.bill_country">
+                                        <input type="text" ng-required="true" min="1" ng-maxlength="35" id="country3" name="bill_country" ng-model="customer_supplier.profile.bill_country">
                                         <div ng-messages="vm.editProfileForm.bill_country.$error">
                                             <div ng-message="maxlength">Country must be between 1-35 characters</div>
                                         </div>
