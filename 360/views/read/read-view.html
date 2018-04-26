@@ -57,7 +57,7 @@
             </div>
         </md-card-title>
         <md-card-content md-whiteframe="1dp">
-            <div layout="row">
+            <div layout="row" ng-if="!vm.usingAvalaraTax">
                 <md-input-container flex="30">
                     <label>Billing Address</label>
                     <input type="text" ng-required="true" min="1" ng-maxlength="200" id="autocomplete" placeholder="" onFocus="geolocate3()" onchange="clearaddress()" name="bill_addr" ng-model="createProfile.billAddress">
@@ -73,6 +73,62 @@
                         <div ng-message="maxlength">Country must be between 1-35 characters</div>
                     </div>
                 </md-input-container>
+            </div>
+            <div ng-if="vm.usingAvalaraTax">
+              <div class="title" layout="row">
+                <md-input-container class="md-block mb-0" flex>
+                  <label>Line 1 </label>
+                  <input name="line1" ng-required="true" type="text" ng-model="createProfile.line1" ng-maxlength="30">
+                </md-input-container>
+              </div>
+              <div class="address" layout="row">
+                <md-input-container class="md-block mb-0" flex>
+                  <label>Line 2 </label>
+                  <input name="line2" ng-required="false" type="text" ng-model="createProfile.line2" ng-maxlength="100">
+                </md-input-container>
+              </div>
+              <div class="title" layout="row">
+                <md-input-container class="md-block mb-0" flex>
+                  <label>Line 3</label>
+                  <input name="line3" ng-required="false" type="text" ng-model="createProfile.line3" ng-maxlength="15">
+                </md-input-container>
+              </div>
+              <div class="title" layout="row">
+                <md-input-container class="md-block mb-0" flex>
+                  <label>City</label>
+                  <input name="city" ng-required="true" type="text" ng-model="createProfile.city"  ng-maxlength="30">
+                  <div ng-messages="vm.addProfileForm.city.$error">
+                    <div ng-message="maxlength">City has to be less than 30 characters long</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="title" layout="row">
+                <md-input-container class="md-block mb-0" flex>
+                  <label>Region</label>
+                  <input name="region" ng-required="true" type="text" ng-model="createProfile.region" ng-maxlength="30">
+                  <div ng-messages="vm.addProfileForm.region.$error">
+                    <div ng-message="maxlength">Region has to be less than 30 characters long</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="title" layout="row">
+                <md-input-container class="md-block mb-0" flex>
+                  <label>Country</label>
+                  <input name="country" ng-required="true" type="text" ng-model="createProfile.country" ng-maxlength="30">
+                  <div ng-messages="vm.addProfileForm.country.$error">
+                    <div ng-message="maxlength">Country has to be less than 30 characters long</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <!--<div class="title" layout="row">-->
+                <!--<md-input-container class="md-block mb-0" flex>-->
+                  <!--<label>Postal Code</label>-->
+                  <!--<input name="postalCode" ng-required="false" type="text" ng-model="createProfile.postalCode" ng-maxlength="15">-->
+                  <!--<div ng-messages="vm.addProfileForm.postalCode.$error">-->
+                    <!--<div ng-message="maxlength">Postal Code has to be less than 15 characters long</div>-->
+                  <!--</div>-->
+                <!--</md-input-container>-->
+              <!--</div>-->
             </div>
             <div layout="row">
                 <md-input-container flex="30">

@@ -32,10 +32,6 @@
 		vm.scrollPos = 0;
 		vm.scrollEl = angular.element('#content');
 
-		//vm.invoices = Invoice.data;
-		//console.log(vm.invoices);
-		//invoice data getter !
-		//$scope.selectedInvoice = vm.invoices[0];
 		vm.selectedMailShowDetails = false;
 
 		// Methods
@@ -114,12 +110,12 @@
 
 		function getDomainName() {
 			var _st = gst("domain");
-			return (_st != null) ? _st : ""; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+			return (_st != null) ? _st : "";
 		}
 
 		function getDomainExtension() {
 			var _st = gst("extension_mode");
-			return (_st != null) ? _st : "test"; //"248570d655d8419b91f6c3e0da331707 51de1ea9effedd696741d5911f77a64f";
+			return (_st != null) ? _st : "test";
 		}
 
 		/**
@@ -128,6 +124,7 @@
 		 * @param product
 		 */
 		vm.selectedProfileOriginal = "";
+    vm.usingAvalaraTax = false;
 
 		function selectThreeSixty(threesixty) {
 			vm.isLoaded = false;
@@ -136,25 +133,10 @@
 
 			$scope.customer_supplier.profile = threesixty;
 
-			//if($scope.customer_supplier.profile.profile_type=='Business')
-			//{
-			//	$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.business_name;
-			//	$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.business_contact_name;
-			//	$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.business_contact_no;
-			//	$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.business_reg_no;
-			//}
-			//else if($scope.customer_supplier.profile.profile_type=='Individual') {
-			//	$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
-			//	$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
-			//	$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
-			//	$scope.customer_supplier.profile.ssn_regno = $scope.customer_supplier.profile.nic_ssn;
-			//}
-
 			$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
 			$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
 			$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
-
-			vm.selectedProfileOriginal = angular.copy(threesixty);
+      vm.selectedProfileOriginal = angular.copy(threesixty);
 
 			$charge.profile().getByIDWithStripeKey(threesixty.profileId).success(function (data) {
 				//console.log(data);
@@ -163,6 +145,18 @@
 				$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
 				$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
 				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+
+        if(vm.usingAvalaraTax)
+        {
+          var addressParts = $scope.customer_supplier.profile.bill_addr.split('|');
+
+          $scope.customer_supplier.profile.line1 = addressParts[0];
+          $scope.customer_supplier.profile.line2 = addressParts[1];
+          $scope.customer_supplier.profile.line3 = addressParts[2];
+          $scope.customer_supplier.profile.city = addressParts[3];
+          $scope.customer_supplier.profile.region = addressParts[4];
+          $scope.customer_supplier.profile.country = $scope.customer_supplier.profile.bill_country;
+        }
 
 				vm.selectedProfileOriginal = angular.copy(threesixty);
 
@@ -280,25 +274,6 @@
 		}
 
 		/**
-		 * Open compose dialog
-		 *
-		 * @param ev
-		 */
-		function addThreeSixtyDialog(ev) {
-			$mdDialog.show({
-				controller: 'AddThreeSixtyController',
-				controllerAs: 'vm',
-				locals: {
-					selectedMail: undefined
-				},
-				templateUrl: 'app/main/360/dialogs/compose/compose-dialog.html',
-				parent: angular.element($document.body),
-				targetEvent: ev,
-				clickOutsideToClose: true
-			});
-		}
-
-		/**
 		 * Toggle sidenav
 		 *
 		 * @param sidenavId
@@ -326,6 +301,7 @@
 			$scope.showInpageReadpane = false;
 			if (vm.activeInvoicePaneIndex == 0) {
 				vm.activeInvoicePaneIndex = 1;
+        //$scope.checkAvalaraTax();
 			} else {
 				vm.activeInvoicePaneIndex = 0;
 			}
@@ -398,115 +374,7 @@
 		}
 
 		$scope.more = function () {
-			//
-			//$charge.profile().all(skipUserProfile,takeUserProfile,'desc').success(function(data)
-			//{
-			//	console.log(data);
-			//	if(vm.loading)
-			//	{
-			//		skipUserProfile += takeUserProfile;
-			//		//
-			//
-			//		for (var i = 0; i < data.length; i++) {
-			//			//
-			//			if(data[i].status==0)
-			//			{
-			//				data[i].status=false;
-			//			}
-			//			else
-			//			{
-			//				data[i].status=true;
-			//			}
-			//			data[i].createddate = new Date(data[i].createddate);
-			//			vm.items.push(data[i]);
-			//
-			//		}
-			//
-			//		vm.profiles = vm.items;
-			//		$scope.searchMoreInit = false;
-			//		vm.isListLoaded = true;
-			//		//selectProfile(data[0]);
-			//		vm.loading = false;
-			//		vm.isLoading = false;
-			//		vm.isdataavailable=true;
-			//		if(data.length<takeUserProfile){
-			//			vm.isdataavailable=false;
-			//			$scope.searchMoreInit = false;
-			//			$scope.hideSearchMore=true;
-			//		}
-			//	}
-			//
-			//}).error(function(data)
-			//{
-			//	console.log(data);
-			//	vm.isSpinnerShown=false;
-			//	vm.isdataavailable=false;
-			//	vm.isLoading = false;
-			//	vm.isListLoaded = true;
-			//	$scope.hideSearchMore=true;
-			//})
 
-			//var dbNamePart1="";
-			//var dbNamePart2="";
-			//var dbName="";
-			//var filter="";
-			//dbNamePart1=getDomainName().split('.')[0];
-			//dbNamePart2=getDomainExtension();
-			//dbName=dbNamePart1+"_"+dbNamePart2;
-			////filter="api-version=2016-09-01&?search=*&$orderby=createdDate desc&$skip="+skip+"&$top="+take+"&$filter=(domain eq '"+dbName+"')";
-			//var data={
-			//	"search": "*",
-			//	"filter": "(domain eq '"+dbName+"')",
-			//	"orderby" : "createddate desc",
-			//	"top":takeUserProfile,
-			//	"skip":skipUserProfile
-			//}
-			//
-			//$charge.azuresearch().getAllProfilesPost(data).success(function(data)
-			//{
-			//	//console.log(data);
-			//	if(vm.loading)
-			//	{
-			//		skipUserProfile += takeUserProfile;
-			//		//
-			//
-			//		for (var i = 0; i < data.value.length; i++) {
-			//			//
-			//			if(data.value[i].status==0)
-			//			{
-			//				data.value[i].status=false;
-			//			}
-			//			else
-			//			{
-			//				data.value[i].status=true;
-			//			}
-			//			data.value[i].createddate = new Date(data.value[i].createddate);
-			//			vm.items.push(data.value[i]);
-			//
-			//		}
-			//
-			//		vm.profiles = vm.items;
-			//		$scope.searchMoreInit = false;
-			//		vm.isListLoaded = true;
-			//		//selectProfile(data[0]);
-			//		vm.loading = false;
-			//		vm.isLoading = false;
-			//		vm.isdataavailable=true;
-			//		if(data.value.length<takeUserProfile){
-			//			vm.isdataavailable=false;
-			//			$scope.searchMoreInit = false;
-			//			$scope.hideSearchMore=true;
-			//		}
-			//	}
-			//}).error(function(data)
-			//{
-			//	//console.log(data);
-			//	vm.isSpinnerShown=false;
-			//	vm.isdataavailable=false;
-			//	vm.isLoading = false;
-			//	vm.isListLoaded = true;
-			//	$scope.hideSearchMore=true;
-			//})
 
 			$azureSearchHandle.getClient().SearchRequest("profile", skipUserProfile, takeUserProfile, 'desc', "").onComplete(function (Response) {
 				if (vm.loading) {
@@ -788,13 +656,6 @@
 						logHelper.error($scope.infoJson);
 					})
 
-					//totbalance=invbalance+recbalance;
-					//recbalance=-recbalance;
-					//
-					//$scope.ledgerlist = [];
-					//$scope.isdataavailable=true;
-					//$scope.loadLedger(customer);
-
 				}).error(function (data) {
 					//console.log(data);
 					vm.isLoaded = true;
@@ -805,34 +666,10 @@
 				vm.isLoaded = true;
 			})
 
-			$charge.order().getByAccountID(cusId, 0, 5000).success(function (data) {
-				//console.log(data);
+      //-- function removed --
+			//$charge.order().getByAccountID(cusId, 0, 5000).success(function (data)
+      //$rootScope.orderlist
 
-				for (var i = 0; i < data.OrderDetails.length; i++) {
-					var orderid = data.OrderDetails[i].guOrderId;
-					var ordertype = "";
-
-					//
-					var datalength = 1;
-					for (var j = 0; j < datalength; j++) {
-						datalength++;
-						if (data[j].guOrderId == orderid) {
-							ordertype = data[j].type;
-							break;
-						}
-					}
-					data.OrderDetails[i].ordertype = ordertype;
-
-				}
-				$rootScope.orderlist = data.OrderDetails;
-
-			}).error(function (data) {
-				//console.log(data);
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
-			})
 		}
 
 		$scope.loadLedger = function (customer) {
@@ -940,17 +777,6 @@
 					$scope.checkOrderStatus(objOrderSchedule.guOrderId, objOrderSchedule);
 
 					//$charge.invoice().getInvoiceCount(objOrderSchedule.guOrderId).success(function(dataInvoice)
-					//{
-					//
-					//  objOrderSchedule.proceedinvoices=dataInvoice[0].invoiceCount;
-					//  $scope.orderScheduledList.push(objOrderSchedule);
-					//}).error(function(dataErrorInvoice)
-					//{
-					//  console.log(dataErrorInvoice);
-					//
-					//  objOrderSchedule.proceedinvoices="0";
-					//  $scope.orderScheduledList.push(objOrderSchedule);
-					//})
 				}
 
 			}).error(function (data) {
@@ -1272,9 +1098,9 @@
 			// iframe.append($scope.cardloadform);
 			iframe = iframe.contentWindow || ( iframe.contentDocument.document || iframe.contentDocument);
 			var elem = iframe.document.children[0].children[1].children[1].getAttribute('style');
-	
+
 			$('#addUpdateCardId').css({
-				'height': 56 + 'px', 
+				'height': 56 + 'px',
 				'overflow-y': 'hidden!important'
 			});
 
@@ -1282,7 +1108,7 @@
 				$('#addUpdateCardId').css('height', 550 + 'px');
 			}else{
 				$('#addUpdateCardId').css({
-					'height': 56 + 'px', 
+					'height': 56 + 'px',
 					'overflow-y': 'hidden!important'
 				});
 			}
@@ -1684,26 +1510,6 @@
 						logHelper.error($scope.infoJson);
 					})
 
-
-					//$scope.customerAddress = $scope.customerPhone =  $scope.customerEmail = '';
-
-					//$charge.profile().getByID(adjustment.customerId).success(function(data) {
-					//
-					//
-					//  console.log(data);
-					//  for(var i=0;i<data.length;i++)
-					//  {
-					//    $scope.customerAddress = data[i].bill_addr;
-					//    $scope.customerPhone = data[i].phone;
-					//    $scope.customerEmail = data[i].email_addr;
-					//
-					//  }
-					//
-					//  // $scope.isLoading = false;
-					//}).error(function(data) {
-					//  console.log(data);
-					//})
-
 				}
 				else {
 					$scope.showAdvancedAdjustment(ev, $scope.selectedInvoice, $scope.SelectedInvoiceForAdjustment);
@@ -1762,20 +1568,7 @@
 		$scope.submitProfilePre = function () {
 			if ($scope.customer_supplier.profile.attachment.length > 0) {
 				angular.forEach($scope.customer_supplier.profile.attachment, function (obj) {
-					//$uploader.uploadMedia("CCProfile_"+$scope.customer_supplier.profile.profileId, obj.lfFile, obj.lfFileName);
-					//
-					//$uploader.onSuccess(function (e, data) {
-					//  //debugger;
-					//  var path = $storage.getMediaUrl("CCProfile_"+$scope.customer_supplier.profile.profileId, obj.lfFileName);
-					//
-					//  $scope.customer_supplier.profile.attachment = path;
-					//  $scope.submitProfile();
-					//});
-					//$uploader.onError(function (e, data) {
-					//  //debugger;
-					//  $scope.customer_supplier.profile.attachment = "";
-					//  $scope.submitProfile();
-					//});
+
 					var filename = obj.lfFileName.substr(0, obj.lfFileName.length - (obj.lfFileName.split('.')[obj.lfFileName.split('.').length - 1].length + 1));
 					var format = obj.lfFileName.split('.')[obj.lfFileName.split('.').length - 1];
 					var app = "profileAttachments/CCProfile_" + $scope.customer_supplier.profile.profileId;
@@ -1837,10 +1630,18 @@
 				$scope.customer_supplier.profile.lastName = $scope.customer_supplier.profile.othername;
 				$scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
 				$scope.customer_supplier.profile.email = $scope.customer_supplier.profile.email_addr;
-				$scope.customer_supplier.profile.billAddress = document.getElementById('autocomplete3').value;
-				$scope.customer_supplier.profile.bill_addr = document.getElementById('autocomplete3').value;
-				$scope.customer_supplier.profile.country = document.getElementById('country3').value;
-				$scope.customer_supplier.profile.bill_country = document.getElementById('country3').value;
+
+        if(!vm.usingAvalaraTax)
+        {
+          $scope.customer_supplier.profile.billAddress = document.getElementById('autocomplete3').value;
+          $scope.customer_supplier.profile.bill_addr = document.getElementById('autocomplete3').value;
+          $scope.customer_supplier.profile.country = document.getElementById('country3').value;
+          $scope.customer_supplier.profile.bill_country = document.getElementById('country3').value;
+        }
+        else
+        {
+          $scope.customer_supplier.profile.billAddress = $scope.customer_supplier.profile.line1+"|"+$scope.customer_supplier.profile.line2+"|"+$scope.customer_supplier.profile.line3+"|"+$scope.customer_supplier.profile.city+"|"+$scope.customer_supplier.profile.region+"|"+$scope.customer_supplier.profile.country;
+        }
 				$scope.customer_supplier.profile.shipAddress = document.getElementById('autocomplete4').value;
 				$scope.customer_supplier.profile.ship_addr = document.getElementById('autocomplete4').value;
 				$scope.customer_supplier.profile.shipCountry = document.getElementById('country4').value;
@@ -1875,6 +1676,13 @@
 				}).error(function (data) {
 					//console.log(data);
 					notifications.toast("Updating Profile Failed", "error");
+
+          var errorMsg = "Updating Profile Failed";
+          for (key in data.error) {
+            errorMsg = data.error[key][0];
+            break;
+          }
+          notifications.toast(errorMsg, "error");
 					vm.profileDetailSubmitted = false;
 
 					$scope.infoJson = {};
@@ -1918,7 +1726,7 @@
 				vm.profileDetailSubmitted = false;
 
 				$scope.infoJson = {};
-				$scope.infoJson.message = $scope.customer_supplier.profile.email + ' REmove Profile Failed';
+				$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
 				$scope.infoJson.app = '360';
 				logHelper.error($scope.infoJson);
 			})
@@ -1936,6 +1744,26 @@
 			$scope.createProfile = {};
 		}
 
+    vm.usingAvalaraTax = false;
+
+    $scope.checkAvalaraTax= function () {
+      $charge.ccapi().getAvalaraTax().success(function(data) {
+        //
+        if(data!=undefined && data!=null && data!="") {
+          vm.usingAvalaraTax = true;
+
+        }
+        else{
+          vm.usingAvalaraTax = false;
+        }
+      }).error(function(data) {
+        //console.log(data);
+        vm.usingAvalaraTax = false;
+
+      })
+    }
+    $scope.checkAvalaraTax();
+
 		$scope.submitNewProfile = function () {
 
 			if (vm.addProfileForm.$valid == true) {
@@ -1946,14 +1774,17 @@
 				//$scope.createProfile.lastName = $scope.createProfile.othername;
 				//$scope.createProfile.phone = $scope.createProfile.contact;
 				//$scope.createProfile.email = $scope.createProfile.email_addr;
-				$scope.createProfile.billAddress = document.getElementById('autocomplete').value;
-				//$scope.createProfile.bill_addr=document.getElementById('autocomplete').value;
-				$scope.createProfile.country = document.getElementById('country').value;
-				//$scope.createProfile.bill_country=document.getElementById('country').value;
-				$scope.createProfile.shipAddress = document.getElementById('autocomplete2').value;
-				//$scope.createProfile.ship_addr=document.getElementById('autocomplete2').value;
-				$scope.createProfile.shipCountry = document.getElementById('country2').value;
-				//$scope.createProfile.ship_country=document.getElementById('country2').value;
+        if(!vm.usingAvalaraTax)
+        {
+          $scope.createProfile.billAddress = document.getElementById('autocomplete').value;
+          //$scope.createProfile.bill_addr=document.getElementById('autocomplete').value;
+          $scope.createProfile.country = document.getElementById('country').value;
+          //$scope.createProfile.bill_country=document.getElementById('country').value;
+        }
+        $scope.createProfile.shipAddress = document.getElementById('autocomplete2').value;
+        //$scope.createProfile.ship_addr=document.getElementById('autocomplete2').value;
+        $scope.createProfile.shipCountry = document.getElementById('country2').value;
+        //$scope.createProfile.ship_country=document.getElementById('country2').value;
 
 				$charge.profile().store($scope.createProfile).success(function (data) {
 					//console.log(data);
@@ -1988,7 +1819,7 @@
 					var errorMsg = "Profile creation failed";
 					for (key in data.error) {
 						errorMsg = data.error[key][0];
-						if (errorMsg == "The user or account could not be authenticated.") {
+						if (errorMsg == "The user or account could not be authenticated."||errorMsg.indexOf('Cannot insert The duplicate key value') >= 0) {
 							errorMsg = "Profile creation failed - Duplicate Email address";
 						}
 						break;
@@ -2003,7 +1834,7 @@
 				})
 			}
 		}
-		
+
 		$scope.addressChanged = function () {
 		  $scope.createProfile.country = document.getElementById('country').value;
 		}
