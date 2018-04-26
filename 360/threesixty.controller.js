@@ -124,6 +124,7 @@
 		 * @param product
 		 */
 		vm.selectedProfileOriginal = "";
+    vm.usingAvalaraTax = false;
 
 		function selectThreeSixty(threesixty) {
 			vm.isLoaded = false;
@@ -135,8 +136,7 @@
 			$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
 			$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
 			$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
-
-			vm.selectedProfileOriginal = angular.copy(threesixty);
+      vm.selectedProfileOriginal = angular.copy(threesixty);
 
 			$charge.profile().getByIDWithStripeKey(threesixty.profileId).success(function (data) {
 				//console.log(data);
@@ -145,6 +145,18 @@
 				$scope.customer_supplier.profile.profilename = $scope.customer_supplier.profile.first_name;
 				$scope.customer_supplier.profile.othername = $scope.customer_supplier.profile.last_name;
 				$scope.customer_supplier.profile.contact = $scope.customer_supplier.profile.phone;
+
+        if(vm.usingAvalaraTax)
+        {
+          var addressParts = $scope.customer_supplier.profile.bill_addr.split('|');
+
+          $scope.customer_supplier.profile.line1 = addressParts[0];
+          $scope.customer_supplier.profile.line2 = addressParts[1];
+          $scope.customer_supplier.profile.line3 = addressParts[2];
+          $scope.customer_supplier.profile.city = addressParts[3];
+          $scope.customer_supplier.profile.region = addressParts[4];
+          $scope.customer_supplier.profile.country = $scope.customer_supplier.profile.bill_country;
+        }
 
 				vm.selectedProfileOriginal = angular.copy(threesixty);
 
@@ -289,6 +301,7 @@
 			$scope.showInpageReadpane = false;
 			if (vm.activeInvoicePaneIndex == 0) {
 				vm.activeInvoicePaneIndex = 1;
+        //$scope.checkAvalaraTax();
 			} else {
 				vm.activeInvoicePaneIndex = 0;
 			}
@@ -1617,10 +1630,18 @@
 				$scope.customer_supplier.profile.lastName = $scope.customer_supplier.profile.othername;
 				$scope.customer_supplier.profile.phone = $scope.customer_supplier.profile.contact;
 				$scope.customer_supplier.profile.email = $scope.customer_supplier.profile.email_addr;
-				$scope.customer_supplier.profile.billAddress = document.getElementById('autocomplete3').value;
-				$scope.customer_supplier.profile.bill_addr = document.getElementById('autocomplete3').value;
-				$scope.customer_supplier.profile.country = document.getElementById('country3').value;
-				$scope.customer_supplier.profile.bill_country = document.getElementById('country3').value;
+
+        if(!vm.usingAvalaraTax)
+        {
+          $scope.customer_supplier.profile.billAddress = document.getElementById('autocomplete3').value;
+          $scope.customer_supplier.profile.bill_addr = document.getElementById('autocomplete3').value;
+          $scope.customer_supplier.profile.country = document.getElementById('country3').value;
+          $scope.customer_supplier.profile.bill_country = document.getElementById('country3').value;
+        }
+        else
+        {
+          $scope.customer_supplier.profile.billAddress = $scope.customer_supplier.profile.line1+"|"+$scope.customer_supplier.profile.line2+"|"+$scope.customer_supplier.profile.line3+"|"+$scope.customer_supplier.profile.city+"|"+$scope.customer_supplier.profile.region+"|"+$scope.customer_supplier.profile.country;
+        }
 				$scope.customer_supplier.profile.shipAddress = document.getElementById('autocomplete4').value;
 				$scope.customer_supplier.profile.ship_addr = document.getElementById('autocomplete4').value;
 				$scope.customer_supplier.profile.shipCountry = document.getElementById('country4').value;
@@ -1655,6 +1676,13 @@
 				}).error(function (data) {
 					//console.log(data);
 					notifications.toast("Updating Profile Failed", "error");
+
+          var errorMsg = "Updating Profile Failed";
+          for (key in data.error) {
+            errorMsg = data.error[key][0];
+            break;
+          }
+          notifications.toast(errorMsg, "error");
 					vm.profileDetailSubmitted = false;
 
 					$scope.infoJson = {};
@@ -1716,6 +1744,26 @@
 			$scope.createProfile = {};
 		}
 
+    vm.usingAvalaraTax = false;
+
+    $scope.checkAvalaraTax= function () {
+      $charge.ccapi().getAvalaraTax().success(function(data) {
+        //
+        if(data!=undefined && data!=null && data!="") {
+          vm.usingAvalaraTax = true;
+
+        }
+        else{
+          vm.usingAvalaraTax = false;
+        }
+      }).error(function(data) {
+        //console.log(data);
+        vm.usingAvalaraTax = false;
+
+      })
+    }
+    $scope.checkAvalaraTax();
+
 		$scope.submitNewProfile = function () {
 
 			if (vm.addProfileForm.$valid == true) {
@@ -1726,14 +1774,17 @@
 				//$scope.createProfile.lastName = $scope.createProfile.othername;
 				//$scope.createProfile.phone = $scope.createProfile.contact;
 				//$scope.createProfile.email = $scope.createProfile.email_addr;
-				$scope.createProfile.billAddress = document.getElementById('autocomplete').value;
-				//$scope.createProfile.bill_addr=document.getElementById('autocomplete').value;
-				$scope.createProfile.country = document.getElementById('country').value;
-				//$scope.createProfile.bill_country=document.getElementById('country').value;
-				$scope.createProfile.shipAddress = document.getElementById('autocomplete2').value;
-				//$scope.createProfile.ship_addr=document.getElementById('autocomplete2').value;
-				$scope.createProfile.shipCountry = document.getElementById('country2').value;
-				//$scope.createProfile.ship_country=document.getElementById('country2').value;
+        if(!vm.usingAvalaraTax)
+        {
+          $scope.createProfile.billAddress = document.getElementById('autocomplete').value;
+          //$scope.createProfile.bill_addr=document.getElementById('autocomplete').value;
+          $scope.createProfile.country = document.getElementById('country').value;
+          //$scope.createProfile.bill_country=document.getElementById('country').value;
+        }
+        $scope.createProfile.shipAddress = document.getElementById('autocomplete2').value;
+        //$scope.createProfile.ship_addr=document.getElementById('autocomplete2').value;
+        $scope.createProfile.shipCountry = document.getElementById('country2').value;
+        //$scope.createProfile.ship_country=document.getElementById('country2').value;
 
 				$charge.profile().store($scope.createProfile).success(function (data) {
 					//console.log(data);
@@ -1783,7 +1834,7 @@
 				})
 			}
 		}
-		
+
 		$scope.addressChanged = function () {
 		  $scope.createProfile.country = document.getElementById('country').value;
 		}
