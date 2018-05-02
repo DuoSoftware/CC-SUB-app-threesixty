@@ -138,7 +138,7 @@
 
                             <md-menu-content width="3">
                                 <md-menu-item>
-                                    <md-button ng-click="removeUser(customer_supplier.profile)" ng-disabled="vm.selectedPlan.status == 'Inactive'">
+                                    <md-button ng-click="removeUser(customer_supplier.profile,$event)" ng-disabled="vm.selectedProfile.status == false">
                                         <md-icon md-font-icon="icon-close-circle"></md-icon>
                                         <span>Deactivate</span>
                                     </md-button>
@@ -795,6 +795,7 @@
                                                 <div class="list-header" layout="row" flex md-whiteframe="1dp">
                                                     <div flex="10">ID</div>
                                                     <div flex="20">Created date</div>
+                                                    <div flex="20">User</div>
                                                     <div flex="25">Module</div>
                                                     <div flex>Remarks</div>
                                                 </div>
@@ -810,6 +811,9 @@
                                                             </div>
                                                             <div flex="20">
                                                                 <span>{{detail.createdDate | limitTo:10}}</span>
+                                                            </div>
+                                                            <div flex="20">
+                                                              <span>{{detail.createdUser}}</span>
                                                             </div>
                                                             <div flex="25">
                                                                 <span>{{detail.module}}</span>
