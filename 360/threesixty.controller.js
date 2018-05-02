@@ -1693,43 +1693,57 @@
 			}
 		}
 
-		$scope.removeUser = function (user) {
-			$charge.profile().deactivateProfile(user.email_addr).success(function (data) {
-				//console.log(data);
+		$scope.removeUser = function (user,ev) {
 
-				if (data.response == "succeeded") {
-					notifications.toast("Successfully Deactivated the Profile", "success");
-					//$scope.editProfileInfo();
-					//vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
-					//vm.profileDetailSubmitted = false;
-					//$scope.getProfileAttachments($scope.customer_supplier.profile);
-					$rootScope.refreshpage();
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to deactivate this user?')
+        .textContent('You can revert this account once you deativate it!')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('No');
 
-					$scope.infoJson = {};
-					$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Deactivated the Profile';
-					$scope.infoJson.app = '360';
-					logHelper.info($scope.infoJson);
-				}
-				else {
-					notifications.toast("Remove Profile Failed", "error");
-					vm.profileDetailSubmitted = false;
+      $mdDialog.show(confirm).then(function () {
+        $charge.profile().deactivateProfile(user.email_addr).success(function (data) {
+          //console.log(data);
 
-					$scope.infoJson = {};
-					$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
-					$scope.infoJson.app = '360';
-					logHelper.error($scope.infoJson);
-				}
+          if (data.response == "succeeded") {
+            notifications.toast("Successfully Deactivated the Profile", "success");
+            //$scope.editProfileInfo();
+            //vm.selectedProfileOriginal=angular.copy($scope.customer_supplier.profile);
+            //vm.profileDetailSubmitted = false;
+            //$scope.getProfileAttachments($scope.customer_supplier.profile);
+            $rootScope.refreshpage();
 
-			}).error(function (data) {
-				//console.log(data);
-				notifications.toast("Remove Profile Failed", "error");
-				vm.profileDetailSubmitted = false;
+            $scope.infoJson = {};
+            $scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Deactivated the Profile';
+            $scope.infoJson.app = '360';
+            logHelper.info($scope.infoJson);
+          }
+          else {
+            notifications.toast("Remove Profile Failed", "error");
+            vm.profileDetailSubmitted = false;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
-			})
+            $scope.infoJson = {};
+            $scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
+            $scope.infoJson.app = '360';
+            logHelper.error($scope.infoJson);
+          }
+
+        }).error(function (data) {
+          //console.log(data);
+          notifications.toast("Remove Profile Failed", "error");
+          vm.profileDetailSubmitted = false;
+
+          $scope.infoJson = {};
+          $scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
+          $scope.infoJson.app = '360';
+          logHelper.error($scope.infoJson);
+        })
+      }, function () {
+
+      });
+
 		}
 
 		$scope.createProfile = {};
