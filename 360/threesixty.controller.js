@@ -650,10 +650,10 @@
 						//console.log(data);
 						vm.isLoaded = true;
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = JSON.stringify(data);
-						$scope.infoJson.app = '360';
-						logHelper.error($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = JSON.stringify(data);
+						//$scope.infoJson.app = '360';
+						//logHelper.error($scope.infoJson);
 					})
 
 				}).error(function (data) {
@@ -744,10 +744,10 @@
 				vm.isLoaded = true;
 				vm.isLedgerLoaded = false;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		}
 
@@ -786,10 +786,10 @@
 				}
 				$scope.orderScheduledList = [];
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		}
 
@@ -931,10 +931,10 @@
 			}).error(function (data) {
 				//console.log(data);
 				// vm.profileAttachmentList={};
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		}
 
@@ -969,10 +969,10 @@
 				$scope.moreProfileCommentsLoaded = true;
 				vm.isProfileCommentsLoaded = false;
 				//$scope.auditTrailList=[];
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		}
 
@@ -1125,10 +1125,10 @@
 				$scope.orderScheduledList[index].proceedinvoices = 0;
 				//$scope.orderScheduledList.push(objOrderSchedule);
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(dataErrorInvoice);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(dataErrorInvoice);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		}
 
