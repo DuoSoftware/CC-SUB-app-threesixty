@@ -409,10 +409,10 @@
 				vm.isListLoaded = true;
 				$scope.hideSearchMore = true;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			});
 
 		};
@@ -484,10 +484,10 @@
 					}).error(function (data) {
 						vm.profiles = [];
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = JSON.stringify(data);
-						$scope.infoJson.app = '360';
-						logHelper.error($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = JSON.stringify(data);
+						//$scope.infoJson.app = '360';
+						//logHelper.error($scope.infoJson);
 					});
 				}
 				else if (keyword.length == 0 || keyword == null) {
@@ -881,19 +881,19 @@
 				notifications.toast("Attachment Removed!", "success");
 				$scope.getProfileAttachments(customer);
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = file + ' Attachment Removed';
-				$scope.infoJson.app = '360';
-				logHelper.info($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = file + ' Attachment Removed';
+				//$scope.infoJson.app = '360';
+				//logHelper.info($scope.infoJson);
 
 			}).error(function (data) {
 				//console.log(data);
 				notifications.toast("Attachment Removing failed!", "error");
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = file + ' Attachment Removing failed';
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = file + ' Attachment Removing failed';
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		};
 
@@ -1001,10 +1001,10 @@
 						$scope.profileComment.comment = "";
 						$scope.getProfileCommentsInit(customer);
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = customer.profileId + ' Comment Added to the Profile';
-						$scope.infoJson.app = '360';
-						logHelper.info($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = customer.profileId + ' Comment Added to the Profile';
+						//$scope.infoJson.app = '360';
+						//logHelper.info($scope.infoJson);
 					}
 					vm.profileCommentSubmitted = false;
 
@@ -1013,10 +1013,10 @@
 					notifications.toast("Comment adding failed!", "error");
 					vm.profileCommentSubmitted = false;
 					//$scope.auditTrailList=[];
-					$scope.infoJson = {};
-					$scope.infoJson.message = customer.profileId + ' Comment Added Failed to the Profile';
-					$scope.infoJson.app = '360';
-					logHelper.error($scope.infoJson);
+					//$scope.infoJson = {};
+					//$scope.infoJson.message = customer.profileId + ' Comment Added Failed to the Profile';
+					//$scope.infoJson.app = '360';
+					//logHelper.error($scope.infoJson);
 				})
 			}
 			else {
@@ -1086,10 +1086,10 @@
 				//$scope.orderScheduledList.push(objOrderSchedule);
 				vm.isAddUpdateCardLoading = false;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 			})
 		}
 
@@ -1347,10 +1347,10 @@
 				//console.log(data);
 				$scope.spinnerInvoice = false;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 
 			});
 		}
@@ -1437,10 +1437,10 @@
 				//console.log(data);
 				$scope.selectedPayment = false;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 
 			});
 		}
@@ -1504,10 +1504,10 @@
 						//console.log(data);
 						$scope.showAdvancedAdjustment(ev, $scope.selectedInvoice, $scope.SelectedInvoiceForAdjustment);
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = JSON.stringify(data);
-						$scope.infoJson.app = '360';
-						logHelper.error($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = JSON.stringify(data);
+						//$scope.infoJson.app = '360';
+						//logHelper.error($scope.infoJson);
 					})
 
 				}
@@ -1519,10 +1519,10 @@
 				//console.log(data);
 				$scope.spinnerInvoice = false;
 
-				$scope.infoJson = {};
-				$scope.infoJson.message = JSON.stringify(data);
-				$scope.infoJson.app = '360';
-				logHelper.error($scope.infoJson);
+				//$scope.infoJson = {};
+				//$scope.infoJson.message = JSON.stringify(data);
+				//$scope.infoJson.app = '360';
+				//logHelper.error($scope.infoJson);
 
 			});
 
@@ -1595,10 +1595,10 @@
 							$scope.customer_supplier.profile.attachment = data.fileUrl;
 							$scope.submitProfile();
 
-							$scope.infoJson = {};
-							$scope.infoJson.message = obj.lfFileName + ' Attachment Uploaded';
-							$scope.infoJson.app = '360';
-							logHelper.info($scope.infoJson);
+							//$scope.infoJson = {};
+							//$scope.infoJson.message = obj.lfFileName + ' Attachment Uploaded';
+							//$scope.infoJson.app = '360';
+							//logHelper.info($scope.infoJson);
 
 						}).error(function (data) {
 							//console.log(data);
@@ -1606,10 +1606,10 @@
 							$scope.customer_supplier.profile.attachment = "";
 							$scope.submitProfile();
 
-							$scope.infoJson = {};
-							$scope.infoJson.message = obj.lfFileName + ' Uploading attachment Failed';
-							$scope.infoJson.app = '360';
-							logHelper.error($scope.infoJson);
+							//$scope.infoJson = {};
+							//$scope.infoJson.message = obj.lfFileName + ' Uploading attachment Failed';
+							//$scope.infoJson.app = '360';
+							//logHelper.error($scope.infoJson);
 						})
 
 					});
@@ -1658,19 +1658,19 @@
 						$scope.getProfileAttachments($scope.customer_supplier.profile);
 						$rootScope.refreshpage();
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Updated the Profile';
-						$scope.infoJson.app = '360';
-						logHelper.info($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Updated the Profile';
+						//$scope.infoJson.app = '360';
+						//logHelper.info($scope.infoJson);
 					}
 					else {
 						notifications.toast("Updating Profile Failed", "error");
 						vm.profileDetailSubmitted = false;
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Updating Profile Failed';
-						$scope.infoJson.app = '360';
-						logHelper.error($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Updating Profile Failed';
+						//$scope.infoJson.app = '360';
+						//logHelper.error($scope.infoJson);
 					}
 
 				}).error(function (data) {
@@ -1685,10 +1685,10 @@
           notifications.toast(errorMsg, "error");
 					vm.profileDetailSubmitted = false;
 
-					$scope.infoJson = {};
-					$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Updating Profile Failed';
-					$scope.infoJson.app = '360';
-					logHelper.error($scope.infoJson);
+					//$scope.infoJson = {};
+					//$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Updating Profile Failed';
+					//$scope.infoJson.app = '360';
+					//logHelper.error($scope.infoJson);
 				})
 			}
 		}
@@ -1715,19 +1715,19 @@
             //$scope.getProfileAttachments($scope.customer_supplier.profile);
             $rootScope.refreshpage();
 
-            $scope.infoJson = {};
-            $scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Deactivated the Profile';
-            $scope.infoJson.app = '360';
-            logHelper.info($scope.infoJson);
+            //$scope.infoJson = {};
+            //$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Deactivated the Profile';
+            //$scope.infoJson.app = '360';
+            //logHelper.info($scope.infoJson);
           }
           else {
             notifications.toast("Remove Profile Failed", "error");
             vm.profileDetailSubmitted = false;
 
-            $scope.infoJson = {};
-            $scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
-            $scope.infoJson.app = '360';
-            logHelper.error($scope.infoJson);
+            //$scope.infoJson = {};
+            //$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
+            //$scope.infoJson.app = '360';
+            //logHelper.error($scope.infoJson);
           }
 
         }).error(function (data) {
@@ -1735,10 +1735,10 @@
           notifications.toast("Remove Profile Failed", "error");
           vm.profileDetailSubmitted = false;
 
-          $scope.infoJson = {};
-          $scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
-          $scope.infoJson.app = '360';
-          logHelper.error($scope.infoJson);
+          //$scope.infoJson = {};
+          //$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Remove Profile Failed';
+          //$scope.infoJson.app = '360';
+          //logHelper.error($scope.infoJson);
         })
       }, function () {
 
@@ -1813,19 +1813,19 @@
 
 						$rootScope.refreshpage();
 						$scope.createProfile = {};
-						$scope.infoJson = {};
-						$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Updated the Profile';
-						$scope.infoJson.app = '360';
-						logHelper.info($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Updated the Profile';
+						//$scope.infoJson.app = '360';
+						//logHelper.info($scope.infoJson);
 					}
 					else {
 						notifications.toast("Creating Profile Failed", "error");
 						vm.profileDetailSubmitted = false;
 
-						$scope.infoJson = {};
-						$scope.infoJson.message = $scope.createProfile.email + ' Creating Profile Failed';
-						$scope.infoJson.app = '360';
-						logHelper.error($scope.infoJson);
+						//$scope.infoJson = {};
+						//$scope.infoJson.message = $scope.createProfile.email + ' Creating Profile Failed';
+						//$scope.infoJson.app = '360';
+						//logHelper.error($scope.infoJson);
 					}
 
 				}).error(function (data) {
@@ -1841,10 +1841,10 @@
 					notifications.toast(errorMsg, "error");
 					vm.profileDetailSubmitted = false;
 
-					$scope.infoJson = {};
-					$scope.infoJson.message = $scope.createProfile.email + ' Creating Profile Failed';
-					$scope.infoJson.app = '360';
-					logHelper.error($scope.infoJson);
+					//$scope.infoJson = {};
+					//$scope.infoJson.message = $scope.createProfile.email + ' Creating Profile Failed';
+					//$scope.infoJson.app = '360';
+					//logHelper.error($scope.infoJson);
 				})
 			}
 		}
