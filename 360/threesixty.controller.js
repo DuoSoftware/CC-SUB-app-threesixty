@@ -14,7 +14,7 @@
 		.controller('ThreeSixtyController', ThreeSixtyController);
 
 	/** @ngInject */
-	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $window, $location, $mdMedia, $mdSidenav, $charge, $filter, $azureSearchHandle, logHelper) {
+	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $window, $location, $mdMedia, $mdSidenav, $charge, $filter, $azureSearchHandle) {
 		var vm = this;
 
 		vm.appInnerState = "default";
