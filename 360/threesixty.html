@@ -1016,12 +1016,15 @@
                                 </div>
                             </md-card-title>
                             <md-card-content md-whiteframe="1dp">
-                                <div layout="row" ng-if="isInvoiceTenant">
+                                <div layout="row">
                                     <md-input-container flex="30">
                                         <label>Category</label>
-                                        <md-select name="category" required ng-model="customer_supplier.profile.category">
+                                        <md-select name="category" ng-required="true" ng-model="customer_supplier.profile.category">
                                             <md-option value="{{cat}}" ng-repeat="cat in categories">{{cat}}</md-option>
                                         </md-select>
+                                    </md-input-container>
+                                    <md-input-container>
+                                      <md-button ng-click="addCategory($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>
                                     </md-input-container>
                                 </div>
                                 <div layout="row">

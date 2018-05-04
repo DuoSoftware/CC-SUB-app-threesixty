@@ -14,7 +14,7 @@
 		.controller('ThreeSixtyController', ThreeSixtyController);
 
 	/** @ngInject */
-	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $window, $location, $mdMedia, $mdSidenav, $charge, $filter, $azureSearchHandle) {
+	function ThreeSixtyController($scope, $rootScope, $document, $timeout, notifications, $mdDialog, $mdToast, $window, $location, $mdMedia, $mdSidenav, $charge, $filter, $azureSearchHandle, logHelper) {
 		var vm = this;
 
 		vm.appInnerState = "default";
@@ -71,7 +71,7 @@
 		}
 
 
-		$scope.categories = ['Dealer', 'Supplier', 'Customer'];
+		$scope.categories = [];
 		$scope.isInvoiceTenant = false;
 		$scope.TenantType = gst("category");
 		if ($scope.TenantType == "invoice") $scope.isInvoiceTenant = true;
@@ -308,7 +308,7 @@
 		}
 
 
-		$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes", "BaseCurrency").success(function (data) {
+		$charge.settingsapp().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes", "BaseCurrency").success(function (data) {
 			$scope.BaseCurrency = data[0].RecordFieldData;
 			//console.log($scope.BaseCurrency);
 
@@ -316,6 +316,16 @@
 			//console.log(data);
 			$scope.BaseCurrency = "USD";
 		});
+    $charge.settingsapp().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_ProfileAttributes", "ProfileCategory").success(function (data) {
+      for(var i=0;i<data.length;i++){
+        $scope.categories.push(data[i].RecordFieldData);
+      }
+      //console.log($scope.BaseCurrency);
+
+    }).error(function (data) {
+      //console.log(data);
+      $scope.categories = ['Dealer', 'Supplier', 'Customer'];
+    });
 		$charge.settingsapp().getDuobaseValuesByTableName("CTS_CompanyAttributes").success(function (data) {
 			$scope.CompanyProfile = data;
 			$scope.companyName = data[0].RecordFieldData;
@@ -345,7 +355,7 @@
 			$scope.isFooterDet = false;
 		})
 
-		$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes", "DecimalPointLength").success(function (data) {
+		$charge.settingsapp().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes", "DecimalPointLength").success(function (data) {
 			$scope.decimalPoint = parseInt(data[0].RecordFieldData);
 			//
 			//
@@ -1745,6 +1755,87 @@
       });
 
 		}
+
+    $scope.addCategory = function(ev)
+    {
+      //$scope.content.category = "";
+      //$scope.content.newCatVal = "";
+      //$scope.newCat=true;
+      //$scope.requireCat=true;
+
+      $mdDialog.show({
+        controller:ThreeSixtyController,
+        templateUrl: 'app/main/360/dialogs/prompt-dialog-cat.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false
+      })
+        .then(function(result) {
+          if(result != undefined){
+            $scope.categories.push(result);
+            $scope.createProfile.category = result;
+            $scope.customer_supplier.profile.category = result;
+          }
+        }, function() {
+        });
+    }
+
+    vm.isAddStoreClicked = false;
+    $scope.saveCategory = function(form,cateval) {
+      if(form.$valid){
+        if(cateval !=undefined) {
+          vm.isAddStoreClicked = true;
+          vm.isDuplicateCat = false;
+
+          for (var i = 0; i < $scope.categories.length; i++) {
+            if ($scope.categories[i] == cateval) {
+              vm.isDuplicateCat = true;
+              notifications.toast("Category already exist.", "error");
+              break;
+            }
+          }
+          if (!vm.isDuplicateCat) {
+
+            var req = {
+              "RecordName": "CTS_ProfileAttributes",
+              "FieldName": "ProfileCategory",
+              "RecordFieldData": cateval
+            }
+
+            $charge.settingsapp().insertDuoBaseValuesAddition(req).success(function (data) {
+
+              if (data.error == "00000") {
+                //$scope.newCat = false;
+                vm.isAddStoreClicked = false;
+                notifications.toast("Category added.", "success");
+                $mdDialog.hide(cateval);
+                //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+              }
+            }).error(function (data) {
+              //console.log(data);
+              //$scope.newCat = false;
+              vm.isAddStoreClicked = false;
+            })
+          }
+          else{
+            vm.isAddStoreClicked = false;
+          }
+        }
+        else
+        {
+          //notifications.toast("Category cannot be empty.", "error");
+        }
+      }else{
+        angular.element(document.querySelector('#promptForm')).find('.ng-invalid:visible:first').focus();
+      }
+    }
+
+    $scope.closeDialog = function () {
+      //$scope.newCat=false;
+      $mdDialog.hide();
+    }
+
+
 
 		$scope.createProfile = {};
 
