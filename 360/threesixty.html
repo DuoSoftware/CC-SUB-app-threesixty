@@ -596,7 +596,7 @@
                                                     <md-progress-circular></md-progress-circular>
                                                 </div>
                                                 <!--Customer Ledger-->
-                                                <div class="cust-ledg-container">
+                                                <div class="cust-ledg-container"ng-if="customer_supplier.profile.category.toLowerCase() != 'supplier'">
                                                     <div layout="row" class="cust-ledg-item" ng-repeat="item in ledgerlist| orderBy:'-createdDate'">
                                                         <div flex="10"></div>
                                                         <div flex="40" class="date-portion">
@@ -646,7 +646,7 @@
                                                     </div>
 
                                                 </div>
-                                                <div layout="column" ng-if="ledgerlist.length == 0">
+                                                <div layout="column" ng-if="ledgerlist.length == 0 && customer_supplier.profile.category.toLowerCase() != 'supplier'">
                                                     <div layout="row" class="h-50">
                                                         <div flex></div>
                                                         <md-divider></md-divider>

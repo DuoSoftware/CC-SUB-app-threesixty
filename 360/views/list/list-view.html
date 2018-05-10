@@ -33,6 +33,12 @@
         <!--</div>-->
 
         <div flex ng-if="!showInpageReadpane">
+            <span>{{profile.category}}</span>
+            <!--<span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>-->
+            <!--<span ng-if="profile.profile_type=='Business'">{{profile.business_contact_no}}</span>-->
+        </div>
+        
+        <div flex ng-if="!showInpageReadpane">
             <span>{{profile.phone}}</span>
             <!--<span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>-->
             <!--<span ng-if="profile.profile_type=='Business'">{{profile.business_contact_no}}</span>-->
