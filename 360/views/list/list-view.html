@@ -5,7 +5,7 @@
 
 <div class="main-empty-list" ng-if="vm.profiles.length == 0 && vm.isListLoaded">
     <div>
-        <div class="empty-list-img miscimg"></div>
+        <img src="assets/images/empty-list.gif" alt="Nothing to show">
         <h2>Nothing to Show</h2>
         <p>Sorry, We could'nt find any record for the current inquiry</p>
     </div>
@@ -32,6 +32,12 @@
         <!--{{profile.category}}-->
         <!--</div>-->
 
+        <div flex ng-if="!showInpageReadpane">
+            <span>{{profile.category}}</span>
+            <!--<span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>-->
+            <!--<span ng-if="profile.profile_type=='Business'">{{profile.business_contact_no}}</span>-->
+        </div>
+        
         <div flex ng-if="!showInpageReadpane">
             <span>{{profile.phone}}</span>
             <!--<span ng-if="profile.profile_type=='Individual'">{{profile.phone}}</span>-->
