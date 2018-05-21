@@ -378,13 +378,34 @@
       vm.loading = true;
       $scope.searchMoreInit = true;
       $scope.hideSearchMore = false;
-      $scope.more();
+      $scope.more("category eq 'Customer'");
+    }
+	
+	vm.filterStatus="category eq 'Customer'";
+    $scope.applyFilters = function (filter) {
+      vm.profiles = [];
+      vm.items = [];
+      skipUserProfile = 0;
+      vm.loading = true;
+      $scope.searchMoreInit = true;
+      $scope.hideSearchMore = false;
+      vm.filterStatus="";
+      if(filter=="Customer"){
+        vm.filterStatus="category eq 'Customer'";
+      }
+      else if(filter=="Supplier"){
+        vm.filterStatus="category eq 'Supplier'";
+      }
+      else if(filter=="Dealer"){
+        vm.filterStatus="category eq 'Dealer'";
+      }
+      $scope.more(vm.filterStatus);
     }
 
-    $scope.more = function () {
+    $scope.more = function (filter) {
 
 
-      $azureSearchHandle.getClient().SearchRequest("profile", skipUserProfile, takeUserProfile, 'desc', "").onComplete(function (Response) {
+      $azureSearchHandle.getClient().SearchRequest("profile", skipUserProfile, takeUserProfile, 'desc', filter).onComplete(function (Response) {
         if (vm.loading) {
           skipUserProfile += takeUserProfile;
           //
@@ -425,11 +446,11 @@
 
     };
     // we call the function twice to populate the list
-    $scope.more();
+    $scope.more("category eq 'Customer'");
 
     $scope.searchMoreProfileClick = function () {
       vm.loading = true;
-      $scope.more();
+      $scope.more(vm.filterStatus);
     }
 
     $scope.searchKeyPress = function (event, keyword, length) {
@@ -502,7 +523,7 @@
 
         if (searchLength == 0 || searchLength == undefined) {
           vm.loading = true;
-          $scope.more();
+          $scope.more(vm.filterStatus);
         }
       }
     }

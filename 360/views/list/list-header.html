@@ -91,5 +91,40 @@
                 <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
             </md-button>
         </div>
+		
+		<div flex></div>
+        <md-menu>
+          <md-button class="md-icon-button h-30 w-30 pv-5 ph-0 m-0 op-5" ng-click="$mdOpenMenu($event)">
+            <i class="material-icons fs-20">sort</i>
+            <md-tooltip>Filters</md-tooltip>
+          </md-button>
+
+          <md-menu-content width="3" class="list-filter-menu">
+            <md-menu-item>
+              <md-button layout="row" layout-align="start center" ng-click="applyFilters('Customer')">
+                <md-icon md-font-icon="icon-label" class="filter-label s16"></md-icon>
+                <span>Customer</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button layout="row" layout-align="start center" ng-click="applyFilters('Supplier')">
+                <md-icon md-font-icon="icon-label" class="filter-label-partial s16"></md-icon>
+                <span>Supplier</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button layout="row" layout-align="start center" ng-click="applyFilters('Dealer')">
+                <md-icon md-font-icon="icon-label" class="filter-label-partial s16"></md-icon>
+                <span>Dealer</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button layout="row" layout-align="start center" ng-click="applyFilters('All')">
+                <md-icon md-font-icon="icon-label" class="filter-label-positive s16"></md-icon>
+                <span>All</span>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
     </div>
 </div>
