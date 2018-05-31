@@ -1,4 +1,3 @@
-<script src="../../../../../../../../../../SmoothFlow/Website/smoothflow-website/js/app.js"></script>
 <meta name="updatedBy" content="GihanHerath">
 <meta name="modifiedDate" content="24-10-2016">
 <meta name="version" content="6.0.0.4">
@@ -18,15 +17,19 @@
     <div ng-switch-when="default" class="center" layout="column" flex>
         <div layout="column" layout-align="start start">
             <div class="v-header" layout="column" flex fill-width>
-                <div class="title" layout="column" layout-align="center start">
+				<div class="title" layout="column" layout-align="center start" ng-if="!themeDuoworld">
                     <div class="logo" layout="row" layout-align="start center">
-                        <span class="logo-icon">
-                            <img src="app/core/app_icons/360_app_icon_black.png" alt="" />
-                        </span>
+						<span class="logo-icon logo-icon-threesixty"></span>
                         <span class="logo-text">360°</span>
                     </div>
                 </div>
                 <div layout="row">
+					<div class="title" layout="column" layout-align="center start" ng-if="themeDuoworld">
++                    <div class="logo" layout="row" layout-align="start center">
++                      <span class="logo-icon logo-icon-threesixty"></span>
++                      <span class="logo-text">360°</span>
++                    </div>
++                  </div>
                     <div class="search-wrapper md-whiteframe-4dp animate-fade-in-out" layout="row" layout-align="start center" flex>
                         <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md>
                             <md-icon class="icon" md-font-icon="icon-menu"></md-icon>
@@ -705,7 +708,7 @@
                                                                   fileExtension != 'svg' &&
                                                                   fileExtension != 'gif' &&
                                                                   fileExtension != 'png'">
-                                                    <img class="w-100 op-5" src="assets/icons/no-preview.svg" alt="No preview available">
+													<!--<img class="w-100 op-5" src="assets/icons/no-preview.svg" alt="No preview available">-->
                                                     <div class="mt-10">No preview is available for this attachment</div>
                                                 </div>
 
