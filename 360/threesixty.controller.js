@@ -380,7 +380,7 @@
       $scope.hideSearchMore = false;
       $scope.more("category eq 'Customer'");
     }
-	
+
 	vm.filterStatus="category eq 'Customer'";
     $scope.applyFilters = function (filter) {
       vm.profiles = [];
@@ -1128,7 +1128,7 @@
 				'height': 56 + 'px',
 				'overflow-y': 'hidden!important'
 			  });
-			  
+
 			if (elem.indexOf('display: block') !== -1) {
 				$('#addUpdateCardId').css('height', 550 + 'px');
 			} else {
@@ -1854,6 +1854,19 @@
       $scope.createProfile = {};
     }
 
+    $scope.creditLimit = -1;
+    $scope.getCreditLimit = function (){
+      $charge.settingsapp().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_InvoiceAttributes", "CreditLimit").success(function (data) {
+        $scope.creditLimit = parseFloat(data[0].RecordFieldData);
+        //
+        //
+      }).error(function (data) {
+        //console.log(data);
+        $scope.creditLimit = -1;
+      });
+    }
+    $scope.getCreditLimit();
+
     vm.usingAvalaraTax = false;
 
     $scope.checkAvalaraTax = function () {
@@ -1893,6 +1906,8 @@
         //$scope.createProfile.ship_addr=document.getElementById('autocomplete2').value;
         $scope.createProfile.shipCountry = document.getElementById('country2').value;
         //$scope.createProfile.ship_country=document.getElementById('country2').value;
+
+        $scope.createProfile.creditLimit = $scope.creditLimit;
 
         $charge.profile().store($scope.createProfile).success(function (data) {
           //console.log(data);
