@@ -1928,7 +1928,7 @@
             vm.activeInvoicePaneIndex = 0;
 
             $rootScope.refreshpage();
-            $scope.createProfile = {};
+            $scope.clearNewProfilePage();
             //$scope.infoJson = {};
             //$scope.infoJson.message = $scope.customer_supplier.profile.email + ' Successfully Updated the Profile';
             //$scope.infoJson.app = '360';
