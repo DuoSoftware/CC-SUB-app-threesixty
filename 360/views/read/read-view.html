@@ -38,7 +38,7 @@
             <div layout="row">
                 <md-input-container flex="30">
                     <label>Email</label>
-                    <input type="text" min="1" ng-maxlength="50" name="email_addr" ng-model="createProfile.email">
+                    <input type="text" ng-required="true" min="1" ng-maxlength="50" name="email_addr" ng-model="createProfile.email">
                     <div ng-messages="vm.addProfileForm.email_addr.$error">
                         <div ng-message="maxlength">Email must be between 1-50 characters</div>
                     </div>
