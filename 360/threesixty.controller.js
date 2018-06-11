@@ -1886,6 +1886,13 @@
     }
     $scope.checkAvalaraTax();
 
+    $scope.clearNewProfilePage = function () {
+      $scope.createProfile = {};
+      document.getElementById('country2').value='';
+      vm.addProfileForm.$setPristine();
+      vm.addProfileForm.$setUntouched();
+    }
+
     $scope.submitNewProfile = function () {
 
       if (vm.addProfileForm.$valid == true) {
